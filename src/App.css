@@ -1,12 +1,19 @@
-.storefront {
-  overflow-x: hidden;
+.app-shell {
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  background: var(--black);
 }
 
-.footer {
-  text-align: center;
-  padding: 2.5rem 1rem 3rem;
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  color: var(--ink);
-  opacity: 0.55;
+.menu-shell {
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+
+.panel-stage {
+  flex: 1;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
 }

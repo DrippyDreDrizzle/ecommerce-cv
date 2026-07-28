@@ -1,0 +1,173 @@
+.lede {
+  font-size: 1.25rem;
+  color: var(--white);
+  max-width: 640px;
+  margin: 0 0 2rem;
+}
+
+.stat-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.stat-box {
+  background: var(--panel);
+  border-left: 3px solid var(--red);
+  padding: 1rem 1.5rem;
+  min-width: 140px;
+}
+
+.stat-number {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--white);
+}
+
+.stat-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gray-text);
+  margin-top: 0.25rem;
+}
+
+.panel-note {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--gray-text);
+}
+
+/* ---- Skills ---- */
+.skill-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.25rem;
+}
+
+.skill-card {
+  background: var(--panel);
+  padding: 1.5rem;
+  position: relative;
+  clip-path: polygon(0 0, 100% 0, 100% 92%, 94% 100%, 0 100%);
+}
+
+.skill-card h3 {
+  font-size: 1.1rem;
+  color: var(--red);
+  margin-bottom: 0.75rem;
+}
+
+.skill-card ul {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-size: 1.05rem;
+  color: var(--white);
+}
+
+.skill-card li {
+  margin-bottom: 0.35rem;
+}
+
+/* ---- Record (case studies) ---- */
+.record-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.record-entry {
+  background: var(--panel);
+  border-left: 3px solid var(--blue);
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.record-entry h3 {
+  font-size: 1.2rem;
+  color: var(--white);
+  margin-bottom: 0.4rem;
+}
+
+.record-entry p {
+  font-size: 0.95rem;
+  color: var(--gray-text);
+  margin: 0;
+  max-width: 480px;
+}
+
+.record-metric {
+  font-family: var(--font-mono);
+  font-size: 1.6rem;
+  color: var(--red);
+  white-space: nowrap;
+}
+
+/* ---- Equipment (tools) ---- */
+.equip-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+}
+
+.equip-card {
+  background: var(--panel);
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--panel-light);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.equip-name {
+  font-size: 1rem;
+  color: var(--white);
+}
+
+.equip-tier {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--red);
+  text-transform: uppercase;
+}
+
+/* ---- Contact ---- */
+.contact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.contact-btn {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  letter-spacing: 0.03em;
+  color: var(--black);
+  background: var(--red);
+  padding: 0.9rem 1.6rem;
+  clip-path: polygon(6% 0, 100% 0, 94% 100%, 0 100%);
+  text-decoration: none;
+  display: inline-block;
+  transition: filter 0.15s ease;
+}
+
+.contact-btn:hover {
+  filter: brightness(1.15);
+}
+
+.contact-link {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--gray-text);
+  text-decoration: underline;
+  align-self: center;
+}

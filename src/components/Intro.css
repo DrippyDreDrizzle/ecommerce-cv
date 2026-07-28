@@ -1,0 +1,58 @@
+.intro {
+  height: 100%;
+  width: 100%;
+  background: var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+}
+
+.intro-stripe {
+  position: absolute;
+  inset: -20% -10%;
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    transparent 42%,
+    var(--red) 42%,
+    var(--red) 46%,
+    transparent 46%,
+    transparent 54%,
+    var(--panel-light) 54%,
+    var(--panel-light) 57%,
+    transparent 57%
+  );
+  opacity: 0.9;
+}
+
+.intro-content {
+  position: relative;
+  text-align: center;
+  color: var(--white);
+}
+
+.intro h1 {
+  font-size: clamp(2.5rem, 9vw, 5.5rem);
+  letter-spacing: 0.02em;
+}
+
+.intro-role {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.85rem;
+  color: var(--gray-text);
+  margin-top: 0.75rem;
+}
+
+.intro-cta {
+  margin-top: 3rem;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.8rem;
+  color: var(--red);
+}

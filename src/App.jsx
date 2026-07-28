@@ -1,21 +1,43 @@
-import Hero from './components/Hero'
-import Aisles from './components/Aisles'
-import Receipt from './components/Receipt'
-import PriceTags from './components/PriceTags'
-import Register from './components/Register'
+import { useState } from 'react'
+import { AnimatePresence } from 'framer-motion'
+import Intro from './components/Intro'
+import SideNav from './components/SideNav'
+import Profile from './components/panels/Profile'
+import Skills from './components/panels/Skills'
+import Record from './components/panels/Record'
+import Equipment from './components/panels/Equipment'
+import Contact from './components/panels/Contact'
 import './App.css'
 
+const TABS = [
+  { id: 'profile', number: '01', label: 'Profile', Component: Profile },
+  { id: 'skills', number: '02', label: 'Skills', Component: Skills },
+  { id: 'record', number: '03', label: 'Record', Component: Record },
+  { id: 'equipment', number: '04', label: 'Equipment', Component: Equipment },
+  { id: 'contact', number: '05', label: 'Contact', Component: Contact },
+]
+
 export default function App() {
+  const [entered, setEntered] = useState(false)
+  const [activeId, setActiveId] = useState('profile')
+
+  const active = TABS.find((t) => t.id === activeId)
+  const ActivePanel = active.Component
+
   return (
-    <div className="storefront">
-      <Hero />
-      <Aisles />
-      <Receipt />
-      <PriceTags />
-      <Register />
-      <footer className="footer">
-        <p>Built by hand, not by template. Edit me in src/components.</p>
-      </footer>
+    <div className="app-shell">
+      {!entered ? (
+        <Intro onEnter={() => setEntered(true)} />
+      ) : (
+        <div className="menu-shell">
+          <SideNav tabs={TABS} activeId={activeId} onSelect={setActiveId} />
+          <div className="panel-stage">
+            <AnimatePresence mode="wait">
+              <ActivePanel key={activeId} />
+            </AnimatePresence>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
