@@ -1,5 +1,0 @@
-User-agent: *
-Allow: /
-
-# Replace YOUR-USERNAME with your GitHub username before deploying
-Sitemap: https://YOUR-USERNAME.github.io/ecommerce-cv/sitemap.xml
