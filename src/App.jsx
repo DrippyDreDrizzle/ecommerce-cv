@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import Intro from './components/Intro'
-import SideNav from './components/SideNav'
+import MainMenu from './components/MainMenu'
+import TopBar from './components/TopBar'
 import Profile from './components/panels/Profile'
 import Skills from './components/panels/Skills'
 import Record from './components/panels/Record'
@@ -18,19 +19,35 @@ const TABS = [
 ]
 
 export default function App() {
-  const [entered, setEntered] = useState(false)
-  const [activeId, setActiveId] = useState('profile')
+  // view: 'intro' | 'menu' | 'panel'
+  const [view, setView] = useState('intro')
+  const [activeId, setActiveId] = useState(null)
 
   const active = TABS.find((t) => t.id === activeId)
-  const ActivePanel = active.Component
+  const ActivePanel = active?.Component
 
   return (
     <div className="app-shell">
-      {!entered ? (
-        <Intro onEnter={() => setEntered(true)} />
-      ) : (
-        <div className="menu-shell">
-          <SideNav tabs={TABS} activeId={activeId} onSelect={setActiveId} />
+      {view === 'intro' && <Intro onEnter={() => setView('menu')} />}
+
+      {view === 'menu' && (
+        <MainMenu
+          tabs={TABS}
+          onSelect={(id) => {
+            setActiveId(id)
+            setView('panel')
+          }}
+        />
+      )}
+
+      {view === 'panel' && ActivePanel && (
+        <div className="panel-shell">
+          <TopBar
+            tabs={TABS}
+            activeId={activeId}
+            onSelect={setActiveId}
+            onBack={() => setView('menu')}
+          />
           <div className="panel-stage">
             <AnimatePresence mode="wait">
               <ActivePanel key={activeId} />
