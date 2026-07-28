@@ -1,12 +1,5 @@
-.storefront {
-  overflow-x: hidden;
-}
+User-agent: *
+Allow: /
 
-.footer {
-  text-align: center;
-  padding: 2.5rem 1rem 3rem;
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  color: var(--ink);
-  opacity: 0.55;
-}
+# Replace YOUR-USERNAME with your GitHub username before deploying
+Sitemap: https://YOUR-USERNAME.github.io/ecommerce-cv/sitemap.xml
