@@ -25,7 +25,7 @@ function makeBoltPath(x1, y1, x2, y2, segments = 6, jag = 10) {
 }
 
 function generateBolts() {
-  const count = 3 + Math.floor(Math.random() * 2) // 3-4 bolts
+  const count = 2 + Math.floor(Math.random() * 2) // 2-3 bolts at a time
   const bolts = []
   for (let i = 0; i < count; i++) {
     const y1 = 15 + Math.random() * 20
@@ -33,7 +33,7 @@ function generateBolts() {
     const x1 = 5 + Math.random() * 90
     const x2 = x1 + (Math.random() - 0.5) * 40
     bolts.push({
-      id: `${Date.now()}-${i}`,
+      id: `${Date.now()}-${i}-${Math.random()}`,
       d: makeBoltPath(x1, y1, x2, y2, 5 + Math.floor(Math.random() * 3), 14),
     })
   }
@@ -41,25 +41,35 @@ function generateBolts() {
 }
 
 export default function ElectricTitle({ text }) {
-  const [flicker, setFlicker] = useState(false)
-  const [bolts, setBolts] = useState([])
-  const timeoutRef = useRef(null)
+  const [flash, setFlash] = useState(false)
+  const [bolts, setBolts] = useState(generateBolts())
 
+  // Continuous bolts: swap in a fresh random set every ~450ms so the
+  // lightning is always live and never stops running through the name.
   useEffect(() => {
-    const cycle = () => {
+    const boltInterval = setInterval(() => {
       setBolts(generateBolts())
-      setFlicker(true)
-      timeoutRef.current = setTimeout(() => {
-        setFlicker(false)
-        timeoutRef.current = setTimeout(cycle, 3600 + Math.random() * 900)
-      }, 200 + Math.random() * 120)
+    }, 350 + Math.random() * 250)
+    return () => clearInterval(boltInterval)
+  }, [])
+
+  // Separate, slower highlight flash: the whole name brightens every
+  // ~4 seconds, independent of the constant bolt flow.
+  useEffect(() => {
+    let timeout
+    const cycle = () => {
+      setFlash(true)
+      timeout = setTimeout(() => {
+        setFlash(false)
+        timeout = setTimeout(cycle, 3600 + Math.random() * 900)
+      }, 250 + Math.random() * 120)
     }
-    timeoutRef.current = setTimeout(cycle, 1200)
-    return () => clearTimeout(timeoutRef.current)
+    timeout = setTimeout(cycle, 1500)
+    return () => clearTimeout(timeout)
   }, [])
 
   return (
-    <div className={`electric-title ${flicker ? 'is-flickering' : ''}`}>
+    <div className={`electric-title ${flash ? 'is-flashing' : ''}`}>
       <span className="electric-text">{text}</span>
       <svg
         className="electric-bolts"
@@ -68,7 +78,7 @@ export default function ElectricTitle({ text }) {
         aria-hidden="true"
       >
         {bolts.map((bolt) => (
-          <g key={bolt.id}>
+          <g key={bolt.id} className="bolt-group">
             <path className="bolt-glow" d={bolt.d} fill="none" />
             <path className="bolt-core" d={bolt.d} fill="none" />
           </g>
