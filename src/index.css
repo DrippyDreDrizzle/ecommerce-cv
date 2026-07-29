@@ -1,13 +1,13 @@
 /* ---------- Design tokens ---------- */
 :root {
-  --black: #0a0a0a;
-  --panel: #161616;
-  --panel-light: #232323;
-  --red: #e0202b;
-  --red-dark: #9c1015;
-  --blue: #1c4fd6;
-  --white: #f2f0eb;
-  --gray-text: #9c9a95;
+  --black: #0a0d14;
+  --panel: #131a24;
+  --panel-light: #202a38;
+  --primary: #2f6fed;
+  --primary-dark: #1c4fc4;
+  --secondary: #9d5cff;
+  --white: #f2f1f6;
+  --gray-text: #9aa0ac;
 
   --font-display: 'Anton', system-ui, sans-serif;
   --font-body: 'Barlow Condensed', system-ui, sans-serif;
@@ -57,11 +57,11 @@ button {
 
 button:focus-visible,
 a:focus-visible {
-  outline: 2px solid var(--blue);
+  outline: 2px solid var(--secondary);
   outline-offset: 2px;
 }
 
 ::selection {
-  background: var(--red);
+  background: var(--primary);
   color: var(--white);
 }

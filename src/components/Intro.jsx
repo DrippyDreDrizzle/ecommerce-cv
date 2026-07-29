@@ -20,7 +20,7 @@ export default function Intro({ onEnter }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.5 }}
         >
-          <ElectricTitle text="André Marjolin" />
+          <ElectricTitle text="Jordan Rivers" />
         </motion.div>
         <motion.p
           className="intro-role"

@@ -13,7 +13,7 @@
   text-transform: uppercase;
   letter-spacing: 0.2em;
   font-size: 0.75rem;
-  color: var(--red);
+  color: var(--primary);
   margin: 0 0 0.5rem;
 }
 
@@ -40,12 +40,12 @@
 }
 
 .glitch-title::before {
-  color: var(--red);
+  color: var(--primary);
   animation: glitch-ghost-1 0.5s steps(2, end) 1;
 }
 
 .glitch-title::after {
-  color: var(--blue);
+  color: var(--secondary);
   animation: glitch-ghost-2 0.5s steps(2, end) 1;
 }
 

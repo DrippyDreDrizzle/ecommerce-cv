@@ -55,7 +55,7 @@
 .menu-slash {
   position: absolute;
   inset: 0;
-  background: linear-gradient(100deg, var(--red) 0%, var(--red) 55%, var(--blue) 55%, var(--blue) 100%);
+  background: linear-gradient(100deg, var(--primary) 0%, var(--primary) 55%, var(--secondary) 55%, var(--secondary) 100%);
   clip-path: polygon(4% 0, 100% 0, 96% 100%, 0% 100%);
   z-index: 0;
 }

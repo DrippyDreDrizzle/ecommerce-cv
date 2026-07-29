@@ -17,8 +17,8 @@
     115deg,
     transparent 0%,
     transparent 42%,
-    var(--red) 42%,
-    var(--red) 46%,
+    var(--primary) 42%,
+    var(--primary) 46%,
     transparent 46%,
     transparent 54%,
     var(--panel-light) 54%,
@@ -32,11 +32,6 @@
   position: relative;
   text-align: center;
   color: var(--white);
-}
-
-.intro h1 {
-  font-size: clamp(2.5rem, 9vw, 5.5rem);
-  letter-spacing: 0.02em;
 }
 
 .intro-role {
@@ -54,5 +49,5 @@
   text-transform: uppercase;
   letter-spacing: 0.2em;
   font-size: 0.8rem;
-  color: var(--red);
+  color: var(--primary);
 }
