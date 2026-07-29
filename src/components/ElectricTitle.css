@@ -1,10 +1,4 @@
 .electric-title {
-  position: relative;
-  display: inline-block;
-  padding: 0.5rem 1rem;
-}
-
-.electric-title {
   --purple: #b026ff;
   --purple-bright: #e6c9ff;
 
@@ -29,15 +23,17 @@
   transition: text-shadow 0.06s ease;
 }
 
-/* Big burst: the whole name flashes purple during a crackle */
-.electric-title.is-flickering .electric-text {
+/* Big highlight flash: the whole name brightens on its own ~4s timer,
+   independent of the constant bolt flow below */
+.electric-title.is-flashing .electric-text {
   text-shadow:
     0 0 4px var(--purple-bright),
     0 0 16px var(--purple),
     0 0 40px rgba(176, 38, 255, 0.8);
 }
 
-/* Jagged bolt paths, only visible during a crackle */
+/* Jagged bolt paths: always on, continuously swapped for a running
+   "current" look rather than a periodic flash */
 .electric-bolts {
   position: absolute;
   inset: 0;
@@ -45,12 +41,15 @@
   height: 100%;
   z-index: 3;
   pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.05s ease;
 }
 
-.electric-title.is-flickering .electric-bolts {
-  opacity: 1;
+.bolt-group {
+  animation: bolt-fade-in 0.12s ease-out;
+}
+
+@keyframes bolt-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .bolt-glow {
@@ -76,7 +75,7 @@
   .electric-bolts {
     display: none;
   }
-  .electric-title.is-flickering .electric-text {
+  .electric-title.is-flashing .electric-text {
     text-shadow: 0 0 6px var(--purple), 0 0 16px rgba(176, 38, 255, 0.5);
   }
 }
