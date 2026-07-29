@@ -4,13 +4,6 @@
   padding: 0.5rem 1rem;
 }
 
-.glass-shard {
-  position: absolute;
-  inset: 0;
-  will-change: transform, opacity;
-  filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.5));
-}
-
 .glass-text {
   display: inline-block;
   font-family: 'Big Shoulders Stencil', var(--font-display);
@@ -30,4 +23,65 @@
    otherwise leave the parent with nothing to size itself against */
 .glass-text-ghost {
   visibility: hidden;
+}
+
+/* A quick bright burst at the moment of impact */
+.impact-flash {
+  position: absolute;
+  inset: -30%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.95) 0%,
+    var(--secondary) 25%,
+    var(--primary) 45%,
+    transparent 70%
+  );
+  z-index: 4;
+  pointer-events: none;
+}
+
+/* Small particles that fling outward from the impact point */
+.glass-sparkle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 2px;
+  transform: rotate(45deg);
+  z-index: 5;
+  pointer-events: none;
+  box-shadow: 0 0 6px currentColor, 0 0 12px currentColor;
+}
+
+.glass-shard {
+  position: absolute;
+  inset: 0;
+  will-change: transform, opacity;
+  filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.5))
+    drop-shadow(0 0 10px rgba(157, 92, 255, 0.55))
+    drop-shadow(0 0 3px rgba(255, 255, 255, 0.6));
+}
+
+/* A diagonal glassy highlight streak layered over each shard, so it
+   reads as a faceted piece of glass catching light rather than a
+   flat cut-out */
+.glass-facet {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.55) 46%,
+    rgba(255, 255, 255, 0.15) 52%,
+    transparent 62%
+  );
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .impact-flash,
+  .glass-sparkle {
+    display: none;
+  }
 }

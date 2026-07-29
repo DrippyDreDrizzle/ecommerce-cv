@@ -23,7 +23,6 @@ function buildShards(rows = 3, cols = 5) {
   const rowB = cumulative(rowFracs)
   const colB = cumulative(colFracs)
 
-  // Build a shared, jittered vertex grid so adjacent shards fit exactly.
   const points = []
   for (let r = 0; r <= rows; r++) {
     const row = []
@@ -47,29 +46,53 @@ function buildShards(rows = 3, cols = 5) {
 
       const centerX = (p00.x + p10.x + p11.x + p01.x) / 4
       const centerY = (p00.y + p10.y + p11.y + p01.y) / 4
-      const distFromMid = Math.hypot(centerX - 0.5, centerY - 0.5)
+      const dx = centerX - 0.5
+      const dy = centerY - 0.5
+      const distFromMid = Math.hypot(dx, dy) || 0.001
+      // Outward burst direction, away from the impact point at center
+      const dirX = dx / distFromMid
+      const dirY = dy / distFromMid
 
       shards.push({
         id: `${r}-${c}`,
         clipPath,
-        delay: distFromMid * 0.35 + Math.random() * 0.08,
-        fallY: 260 + Math.random() * 320,
-        driftX: (Math.random() - 0.5) * 110,
-        rotate: (Math.random() - 0.5) * 130,
+        delay: distFromMid * 0.3 + Math.random() * 0.06,
+        burstX: dirX * (30 + Math.random() * 40),
+        burstY: dirY * (20 + Math.random() * 30),
+        fallX: dirX * (40 + Math.random() * 60) + (Math.random() - 0.5) * 40,
+        fallY: 240 + Math.random() * 320,
+        rotate: (Math.random() - 0.5) * 150,
       })
     }
   }
   return shards
 }
 
+function buildSparkles(count = 14) {
+  return Array.from({ length: count }, (_, i) => {
+    const angle = Math.random() * Math.PI * 2
+    const dist = 60 + Math.random() * 120
+    return {
+      id: i,
+      x: Math.cos(angle) * dist,
+      y: Math.sin(angle) * dist,
+      size: 4 + Math.random() * 8,
+      delay: Math.random() * 0.15,
+      hue: Math.random() > 0.5 ? 'var(--primary)' : 'var(--secondary)',
+    }
+  })
+}
+
 export default function GlassName({ text, trigger, onFallComplete }) {
   const [shards, setShards] = useState(null)
+  const [sparkles, setSparkles] = useState(null)
 
   useEffect(() => {
     if (trigger && !shards) {
       const built = buildShards()
       setShards(built)
-      const maxDuration = Math.max(...built.map((s) => s.delay)) + 0.9
+      setSparkles(buildSparkles())
+      const maxDuration = Math.max(...built.map((s) => s.delay)) + 0.95
       const timeout = setTimeout(() => onFallComplete?.(), maxDuration * 1000)
       return () => clearTimeout(timeout)
     }
@@ -82,16 +105,46 @@ export default function GlassName({ text, trigger, onFallComplete }) {
   return (
     <div className="glass-name" aria-hidden="true">
       <span className="glass-text glass-text-ghost">{text}</span>
+
+      <motion.div
+        className="impact-flash"
+        initial={{ scale: 0.3, opacity: 1 }}
+        animate={{ scale: 2.6, opacity: 0 }}
+        transition={{ duration: 0.45, ease: 'easeOut' }}
+      />
+
+      {sparkles.map((sp) => (
+        <motion.span
+          key={sp.id}
+          className="glass-sparkle"
+          style={{ width: sp.size, height: sp.size, background: sp.hue }}
+          initial={{ x: 0, y: 0, opacity: 1, scale: 1 }}
+          animate={{ x: sp.x, y: sp.y, opacity: 0, scale: 0.2 }}
+          transition={{ duration: 0.6 + Math.random() * 0.3, delay: sp.delay, ease: 'easeOut' }}
+        />
+      ))}
+
       {shards.map((s) => (
         <motion.div
           key={s.id}
           className="glass-shard"
           style={{ clipPath: s.clipPath }}
-          initial={{ y: 0, x: 0, rotate: 0, opacity: 1 }}
-          animate={{ y: s.fallY, x: s.driftX, rotate: s.rotate, opacity: 0 }}
-          transition={{ duration: 0.6 + Math.random() * 0.25, delay: s.delay, ease: [0.4, 0, 0.7, 1] }}
+          initial={{ x: 0, y: 0, rotate: 0, opacity: 1 }}
+          animate={{
+            x: [0, s.burstX, s.fallX],
+            y: [0, s.burstY, s.fallY],
+            rotate: [0, s.rotate * 0.4, s.rotate],
+            opacity: [1, 1, 0],
+          }}
+          transition={{
+            duration: 0.75 + Math.random() * 0.25,
+            delay: s.delay,
+            times: [0, 0.22, 1],
+            ease: [0.3, 0, 0.6, 1],
+          }}
         >
           <span className="glass-text">{text}</span>
+          <span className="glass-facet" />
         </motion.div>
       ))}
     </div>
