@@ -7,7 +7,7 @@ export default function MainMenu({ tabs, onSelect }) {
 
   return (
     <div className="main-menu">
-      <div className="main-menu-mark">Jordan Rivers</div>
+      <div className="main-menu-mark">André Marjolin</div>
       <ul className="main-menu-list">
         {tabs.map((tab) => {
           const isHovered = hoveredId === tab.id

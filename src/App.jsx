@@ -28,7 +28,16 @@ export default function App() {
 
   return (
     <div className="app-shell">
-      {view === 'intro' && <Intro onEnter={() => setView('menu')} />}
+      {view === 'intro' && (
+        <Intro
+          tabs={TABS}
+          onSelectTab={(id) => {
+            setActiveId(id)
+            setView('panel')
+          }}
+          onEnter={() => setView('menu')}
+        />
+      )}
 
       {view === 'menu' && (
         <MainMenu

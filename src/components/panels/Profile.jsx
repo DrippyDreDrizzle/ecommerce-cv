@@ -3,7 +3,7 @@ import './panels.css'
 
 export default function Profile() {
   return (
-    <Panel eyebrow="01 — Profile" title="Jordan Rivers">
+    <Panel eyebrow="01 — Profile" title="André Marjolin">
       <p className="lede">
         I turn browsers into buyers. Ecommerce growth strategist and
         Shopify developer — checkout flows, conversion testing, and
