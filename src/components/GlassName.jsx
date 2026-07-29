@@ -81,6 +81,7 @@ export default function GlassName({ text, trigger, onFallComplete }) {
 
   return (
     <div className="glass-name" aria-hidden="true">
+      <span className="glass-text glass-text-ghost">{text}</span>
       {shards.map((s) => (
         <motion.div
           key={s.id}

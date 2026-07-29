@@ -11,10 +11,10 @@ export default function Intro({ tabs, onSelectTab, onEnter }) {
   const handleEnter = () => {
     if (entering) return
     setEntering(true)
-    // Let the glass name start shattering, then begin panning the
-    // whole screen down shortly after so the shards are already
-    // tumbling as the camera pulls away.
-    setTimeout(() => setPanned(true), 320)
+    // Let the glass name fully shatter and settle before the screen
+    // starts panning down — gives time to see the impact and the
+    // shards fall, rather than cutting away immediately.
+    setTimeout(() => setPanned(true), 2100)
   }
 
   return (
