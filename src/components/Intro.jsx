@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import ElectricTitle from './ElectricTitle'
 import './Intro.css'
 
 export default function Intro({ onEnter }) {
@@ -14,13 +15,13 @@ export default function Intro({ onEnter }) {
     >
       <div className="intro-stripe" />
       <div className="intro-content">
-        <motion.h1
+        <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.5 }}
         >
-          Jordan Rivers
-        </motion.h1>
+          <ElectricTitle text="Jordan Rivers" />
+        </motion.div>
         <motion.p
           className="intro-role"
           initial={{ opacity: 0 }}
