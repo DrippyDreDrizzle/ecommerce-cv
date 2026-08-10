@@ -1,10 +1,13 @@
+import { useLanguage } from '../context/LanguageContext'
+import LanguageToggle from './LanguageToggle'
 import './TopBar.css'
 
 export default function TopBar({ tabs, activeId, onSelect, onBack }) {
+  const { t } = useLanguage()
   return (
     <div className="top-bar">
       <button className="top-bar-back" onClick={onBack}>
-        ← Menu
+        {t.backToMenu}
       </button>
       <div className="top-bar-tabs">
         {tabs.map((tab) => (
@@ -14,9 +17,12 @@ export default function TopBar({ tabs, activeId, onSelect, onBack }) {
             onClick={() => onSelect(tab.id)}
           >
             <span className="top-bar-number">{tab.number}</span>
-            {tab.label}
+            {t.tabs[tab.labelKey] || tab.label}
           </button>
         ))}
+      </div>
+      <div className="top-bar-lang">
+        <LanguageToggle />
       </div>
     </div>
   )

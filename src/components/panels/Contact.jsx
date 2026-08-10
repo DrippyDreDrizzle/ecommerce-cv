@@ -1,9 +1,11 @@
 import Panel from '../Panel'
+import { useLanguage } from '../../context/LanguageContext'
 import './panels.css'
 
 export default function Contact() {
+  const { t } = useLanguage()
   return (
-    <Panel eyebrow="05 — Contact" title="Get In Touch">
+    <Panel eyebrow="09 — Contact" title={t.contactTitle}>
       <p className="lede">
         If your store needs more carts closed and fewer carts
         abandoned, let&apos;s talk.

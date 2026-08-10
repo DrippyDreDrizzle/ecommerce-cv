@@ -1,4 +1,5 @@
 import Panel from '../Panel'
+import { useLanguage } from '../../context/LanguageContext'
 import './panels.css'
 
 const entries = [
@@ -20,8 +21,9 @@ const entries = [
 ]
 
 export default function Record() {
+  const { t } = useLanguage()
   return (
-    <Panel eyebrow="03 — Record" title="Track Record">
+    <Panel eyebrow="03 — Record" title={t.recordTitle}>
       <div className="record-list">
         {entries.map((e) => (
           <div className="record-entry" key={e.title}>

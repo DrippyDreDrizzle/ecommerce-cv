@@ -56,7 +56,7 @@ function buildShards(rows = 3, cols = 5) {
       shards.push({
         id: `${r}-${c}`,
         clipPath,
-        delay: distFromMid * 0.3 + Math.random() * 0.06,
+        delay: 0.55 + distFromMid * 0.3 + Math.random() * 0.06,
         burstX: dirX * (30 + Math.random() * 40),
         burstY: dirY * (20 + Math.random() * 30),
         fallX: dirX * (40 + Math.random() * 60) + (Math.random() - 0.5) * 40,

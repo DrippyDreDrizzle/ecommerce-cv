@@ -14,7 +14,7 @@ export default function Intro({ tabs, onSelectTab, onEnter }) {
     // Let the glass name fully shatter and settle before the screen
     // starts panning down — gives time to see the impact and the
     // shards fall, rather than cutting away immediately.
-    setTimeout(() => setPanned(true), 2100)
+    setTimeout(() => setPanned(true), 2600)
   }
 
   return (

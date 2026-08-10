@@ -1,9 +1,11 @@
 import Panel from '../Panel'
+import { useLanguage } from '../../context/LanguageContext'
 import './panels.css'
 
 export default function Profile() {
+  const { t } = useLanguage()
   return (
-    <Panel eyebrow="01 — Profile" title="André Marjolin">
+    <Panel eyebrow="01 — Profile" title={t.profileTitle}>
       <p className="lede">
         I turn browsers into buyers. Ecommerce growth strategist and
         Shopify developer — checkout flows, conversion testing, and

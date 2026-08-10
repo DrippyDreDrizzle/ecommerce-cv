@@ -1,4 +1,5 @@
 import Panel from '../Panel'
+import { useLanguage } from '../../context/LanguageContext'
 import './panels.css'
 
 const tools = [
@@ -11,8 +12,9 @@ const tools = [
 ]
 
 export default function Equipment() {
+  const { t } = useLanguage()
   return (
-    <Panel eyebrow="04 — Equipment" title="Loadout">
+    <Panel eyebrow="04 — Equipment" title={t.equipmentTitle}>
       <div className="equip-grid">
         {tools.map((tool) => (
           <div className="equip-card" key={tool.name}>

@@ -1,4 +1,5 @@
 import Panel from '../Panel'
+import { useLanguage } from '../../context/LanguageContext'
 import './panels.css'
 
 const skills = [
@@ -21,8 +22,9 @@ const skills = [
 ]
 
 export default function Skills() {
+  const { t } = useLanguage()
   return (
-    <Panel eyebrow="02 — Skills" title="Skill Set">
+    <Panel eyebrow="02 — Skills" title={t.skillsTitle}>
       <div className="skill-grid">
         {skills.map((s) => (
           <div className="skill-card" key={s.label}>

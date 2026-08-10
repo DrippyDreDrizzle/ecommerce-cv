@@ -1,0 +1,22 @@
+.lang-toggle {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  color: var(--gray-text);
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid var(--panel-light);
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.lang-toggle-sep {
+  opacity: 0.4;
+}
+
+.lang-toggle span.is-active {
+  color: var(--primary);
+  font-weight: 700;
+}

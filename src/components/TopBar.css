@@ -28,6 +28,11 @@
   gap: 0.5rem;
 }
 
+.top-bar-lang {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
 .top-bar-tab {
   font-family: var(--font-body);
   text-transform: uppercase;

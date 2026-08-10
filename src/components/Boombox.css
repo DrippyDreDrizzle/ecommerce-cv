@@ -1,0 +1,96 @@
+.boombox-wrap {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.boombox-notes {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.boombox-note {
+  position: absolute;
+  font-size: 1.4rem;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.boombox {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--panel);
+  border: 3px solid var(--primary);
+  border-radius: 10px;
+  padding: 1rem 1.5rem;
+  transition: transform 0.1s ease;
+}
+
+.boombox:active {
+  transform: scale(0.97);
+}
+
+.boombox-speaker {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, var(--panel-light), var(--black));
+  border: 2px solid var(--secondary);
+  flex-shrink: 0;
+}
+
+.boombox-display {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--white);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.boombox-collection-toggle {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--gray-text);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.boombox-collection-toggle:hover {
+  color: var(--white);
+}
+
+.boombox-collection {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  width: 100%;
+  max-width: 280px;
+}
+
+.boombox-collection button {
+  width: 100%;
+  text-align: left;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--gray-text);
+  background: var(--panel);
+  padding: 0.5rem 0.9rem;
+  border-left: 2px solid var(--secondary);
+}
+
+.boombox-collection button:hover {
+  color: var(--white);
+  border-left-color: var(--primary);
+}

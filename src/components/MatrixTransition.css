@@ -1,0 +1,13 @@
+.matrix-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: var(--black);
+  pointer-events: none;
+}
+
+.matrix-transition canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
