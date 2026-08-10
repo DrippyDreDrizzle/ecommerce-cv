@@ -1,0 +1,17 @@
+.sports-list {
+  list-style: none;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  max-width: 400px;
+}
+
+.sports-item {
+  background: var(--panel);
+  border-left: 3px solid var(--secondary);
+  padding: 0.8rem 1.2rem;
+  font-size: 1.05rem;
+  color: var(--white);
+}

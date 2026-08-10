@@ -53,34 +53,13 @@
   background: var(--secondary);
 }
 
-.globe-pin.is-active {
-  box-shadow: 0 0 0 5px rgba(157, 92, 255, 0.4);
-}
-
-.globe-home-pin {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  transform: translate(-50%, -50%);
-}
-
-.globe-home-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
+.globe-pin.home {
   background: var(--white);
   box-shadow: 0 0 8px var(--white);
 }
 
-.globe-home-label {
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
-  color: var(--white);
-  white-space: nowrap;
-  background: rgba(10, 13, 20, 0.7);
-  padding: 0.1rem 0.35rem;
-  border-radius: 3px;
+.globe-pin.is-active {
+  box-shadow: 0 0 0 5px rgba(157, 92, 255, 0.4);
 }
 
 .destination-list {
@@ -91,8 +70,21 @@
 
 .polaroid-row {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 1rem;
+}
+
+.destination-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.destination-blurb {
+  font-size: 0.85rem;
+  color: var(--gray-text);
+  margin: 0;
+  max-width: 360px;
 }
 
 .polaroid {
@@ -148,6 +140,57 @@
 .status-tag.want {
   color: var(--secondary);
   border: 1px solid var(--secondary);
+}
+
+.status-tag.home {
+  color: var(--white);
+  border: 1px solid var(--white);
+}
+
+.photo-modal-image-wrap {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.photo-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: var(--white);
+  font-size: 1.5rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.photo-nav.prev {
+  left: 8px;
+}
+
+.photo-nav.next {
+  right: 8px;
+}
+
+.photo-modal-blurb {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: #444;
+  max-width: 260px;
+  margin: 0.3rem auto 0;
+  text-align: center;
+}
+
+.photo-modal-hint {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: #888;
+  text-align: center;
+  margin-top: 0.4rem;
 }
 
 .photo-modal-backdrop {

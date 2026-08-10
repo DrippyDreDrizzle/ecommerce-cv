@@ -1,18 +1,12 @@
-// UI-level translations (nav labels, panel titles/eyebrows, common
-// buttons). Deep content (case study paragraphs, etc.) stays in
-// English for now — extend this dictionary the same way to add more.
+// Translations for both UI chrome (nav labels, titles) and panel
+// content. Extend the arrays/objects here the same way to add more —
+// each panel component reads from t.content.<panel> instead of
+// hardcoding English strings.
 export const translations = {
   en: {
     tabs: {
-      profile: 'Profile',
-      skills: 'Skills',
-      record: 'Record',
-      equipment: 'Equipment',
-      travel: 'Travel',
-      hobbies: 'Hobbies',
-      awards: 'Awards',
-      education: 'Education',
-      contact: 'Contact',
+      profile: 'Profile', skills: 'Skills', record: 'Record', equipment: 'Equipment',
+      travel: 'Travel', hobbies: 'Hobbies', awards: 'Awards', education: 'Education', contact: 'Contact',
     },
     menuHint: 'Select a section',
     backToMenu: '← Menu',
@@ -26,22 +20,79 @@ export const translations = {
     educationTitle: 'Education',
     contactTitle: 'Get In Touch',
     homeBase: 'Home Base',
+    home: 'Home',
     visited: 'Visited',
     wantToVisit: 'Want to Visit',
     playRandom: 'Play a Track',
     collection: 'Collection',
+    back: '← Back',
+    locked: 'Locked',
+    flipCard: 'Tap to flip',
+    content: {
+      profile: {
+        lede: 'I turn browsers into buyers. Ecommerce growth strategist and Shopify developer — checkout flows, conversion testing, and the platform work that makes both of those actually ship.',
+        stats: [
+          { number: '6', label: 'Years in ecommerce' },
+          { number: '30+', label: 'Stores shipped' },
+          { number: 'A/B', label: 'Tested, not guessed' },
+        ],
+        note: 'Use the menu to see how this actually plays out.',
+      },
+      skills: [
+        { label: 'Conversion & Growth', items: ['A/B & multivariate testing', 'Funnel diagnostics', 'Checkout optimization', 'Landing page teardown'] },
+        { label: 'Shopify Development', items: ['Custom themes (Liquid)', 'App integrations', 'Headless / Hydrogen', 'Performance tuning'] },
+        { label: 'Analytics & Data', items: ['GA4 & server-side tracking', 'Dashboarding', 'Attribution modelling', 'Experiment design'] },
+        { label: 'Merchandising', items: ['Product page strategy', 'Search & filtering UX', 'Email/lifecycle flows', 'Pricing experiments'] },
+      ],
+      record: [
+        { title: 'Cart Abandonment Fix', desc: 'Redesigned checkout flow, 4 steps down to 1 page. Client: DTC home goods brand.', metric: '22% ↓' },
+        { title: 'PDP Conversion Lift', desc: 'A/B tested social proof + sticky add-to-cart. Client: Skincare subscription box.', metric: '38% ↑' },
+        { title: 'Shopify Replatform', desc: 'Migrated legacy store to a custom Liquid theme. Client: Multi-brand fashion retailer.', metric: '2.1s' },
+      ],
+      equipment: [
+        { name: 'Shopify / Liquid', tier: 'Primary' },
+        { name: 'GA4', tier: 'Primary' },
+        { name: 'Figma', tier: 'Secondary' },
+        { name: 'Klaviyo', tier: 'Secondary' },
+        { name: 'VS Code', tier: 'Daily' },
+        { name: 'Hotjar', tier: 'Secondary' },
+      ],
+      awards: [
+        { title: 'Ecommerce Growth Award', org: 'Regional Retail Awards', year: '2024' },
+        { title: 'Best Shopify Build', org: 'Platform Dev Awards', year: '2023' },
+        { title: 'Top CRO Case Study', org: 'Industry Conference', year: '2022' },
+      ],
+      education: [
+        { title: 'BA Marketing & Business', org: 'University College London', year: '2016 – 2019' },
+        { title: 'Shopify Partner Certification', org: 'Shopify Academy', year: '2020' },
+        { title: 'Growth Marketing Certificate', org: 'CXL Institute', year: '2021' },
+      ],
+      travel: {
+        london: { name: 'London', blurb: 'Home base. Where the work happens between trips.' },
+        japan: { name: 'Japan', blurb: 'Tokyo and Osaka for a mix of client visits and far too much conbini food.' },
+        usa: { name: 'United States', blurb: 'New York and Austin — conferences, client meetings, and a lot of coffee.' },
+        france: { name: 'France', blurb: 'Paris for a long weekend that turned into a study of French retail design.' },
+        brazil: { name: 'Brazil', blurb: 'On the list — Rio and São Paulo, mostly for the food and the energy.' },
+        australia: { name: 'Australia', blurb: "Sydney's ecommerce scene keeps coming up in conversation — time to see it firsthand." },
+        'south-africa': { name: 'South Africa', blurb: 'Cape Town — long overdue, keeps getting pushed to next year.' },
+      },
+      hobbies: {
+        intro: ['Vinyl & DJ gear', 'Streetwear design', 'Weekend photography', 'Amateur cooking'],
+        categories: { anime: 'Anime', manga: 'Manga', sports: 'Sports' },
+        anime: { intro: 'Pick a tape.' },
+        manga: { intro: 'The collection so far — and a few still waiting to be unlocked.' },
+        sports: { intro: 'Teams and sports I follow.', items: ['Arsenal FC', 'Formula 1', 'NBA — Lakers'] },
+      },
+      contact: {
+        lede: "If your store needs more carts closed and fewer carts abandoned, let's talk.",
+        emailBtn: 'Email Me',
+      },
+    },
   },
   ja: {
     tabs: {
-      profile: 'プロフィール',
-      skills: 'スキル',
-      record: '実績',
-      equipment: '装備',
-      travel: '旅行',
-      hobbies: '趣味',
-      awards: '受賞歴',
-      education: '学歴',
-      contact: '連絡先',
+      profile: 'プロフィール', skills: 'スキル', record: '実績', equipment: '装備',
+      travel: '旅行', hobbies: '趣味', awards: '受賞歴', education: '学歴', contact: '連絡先',
     },
     menuHint: 'セクションを選択',
     backToMenu: '← メニュー',
@@ -55,9 +106,73 @@ export const translations = {
     educationTitle: '学歴',
     contactTitle: 'お問い合わせ',
     homeBase: '拠点',
+    home: '拠点',
     visited: '訪問済み',
     wantToVisit: '行きたい場所',
     playRandom: '曲を再生',
     collection: 'コレクション',
+    back: '← 戻る',
+    locked: 'ロック中',
+    flipCard: 'タップして裏返す',
+    content: {
+      profile: {
+        lede: '閲覧者を購入者に変える仕事をしています。Eコマース成長戦略とShopify開発 — チェックアウト改善、コンバージョンテスト、そして実際に形にするプラットフォーム構築まで。',
+        stats: [
+          { number: '6', label: 'Eコマース経験年数' },
+          { number: '30+', label: '構築した店舗数' },
+          { number: 'A/B', label: '推測ではなく検証' },
+        ],
+        note: 'メニューから詳しい実績をご覧ください。',
+      },
+      skills: [
+        { label: 'コンバージョン・成長', items: ['A/Bテスト・多変量テスト', 'ファネル分析', 'チェックアウト最適化', 'ランディングページ改善'] },
+        { label: 'Shopify開発', items: ['カスタムテーマ（Liquid）', 'アプリ連携', 'ヘッドレス / Hydrogen', 'パフォーマンス改善'] },
+        { label: '分析・データ', items: ['GA4・サーバーサイド計測', 'ダッシュボード構築', 'アトリビューション分析', '実験設計'] },
+        { label: 'マーチャンダイジング', items: ['商品ページ戦略', '検索・絞り込みUX', 'メール施策', '価格実験'] },
+      ],
+      record: [
+        { title: 'カート離脱の改善', desc: 'チェックアウトを4ステップから1ページに再設計。クライアント：DTCホームグッズブランド。', metric: '22% ↓' },
+        { title: '商品ページのCVR改善', desc: 'ソーシャルプルーフと固定カートボタンをA/Bテスト。クライアント：スキンケア定期便。', metric: '38% ↑' },
+        { title: 'Shopify移行', desc: '旧システムからカスタムLiquidテーマへ移行。クライアント：複数ブランドのファッション小売店。', metric: '2.1s' },
+      ],
+      equipment: [
+        { name: 'Shopify / Liquid', tier: '主要' },
+        { name: 'GA4', tier: '主要' },
+        { name: 'Figma', tier: '補助' },
+        { name: 'Klaviyo', tier: '補助' },
+        { name: 'VS Code', tier: '日常' },
+        { name: 'Hotjar', tier: '補助' },
+      ],
+      awards: [
+        { title: 'Eコマース成長賞', org: 'リージョナル・リテール・アワード', year: '2024' },
+        { title: 'ベストShopify構築賞', org: 'プラットフォーム開発アワード', year: '2023' },
+        { title: 'ベストCRO事例賞', org: '業界カンファレンス', year: '2022' },
+      ],
+      education: [
+        { title: 'マーケティング・経営学 学士', org: 'ユニバーシティ・カレッジ・ロンドン', year: '2016 – 2019' },
+        { title: 'Shopifyパートナー認定', org: 'Shopifyアカデミー', year: '2020' },
+        { title: 'グロースマーケティング認定', org: 'CXLインスティテュート', year: '2021' },
+      ],
+      travel: {
+        london: { name: 'ロンドン', blurb: '拠点。旅の合間はここで仕事をしています。' },
+        japan: { name: '日本', blurb: '東京と大阪。クライアント訪問とコンビニ食を楽しみすぎました。' },
+        usa: { name: 'アメリカ', blurb: 'ニューヨークとオースティン — カンファレンスと商談、そしてたくさんのコーヒー。' },
+        france: { name: 'フランス', blurb: 'パリでの週末旅行のはずが、フランスの小売デザイン研究になりました。' },
+        brazil: { name: 'ブラジル', blurb: '行きたい場所リスト入り — リオとサンパウロ、料理と活気が目当て。' },
+        australia: { name: 'オーストラリア', blurb: 'シドニーのEコマース事情がよく話題に出るので、実際に見てみたい。' },
+        'south-africa': { name: '南アフリカ', blurb: 'ケープタウン — ずっと先延ばしにしている旅先。' },
+      },
+      hobbies: {
+        intro: ['レコード・DJ機材', 'ストリートウェアデザイン', '週末の写真撮影', '料理'],
+        categories: { anime: 'アニメ', manga: 'マンガ', sports: 'スポーツ' },
+        anime: { intro: 'テープを選んでください。' },
+        manga: { intro: 'これまでのコレクション — そしてまだ解放されていないものも。' },
+        sports: { intro: '応援しているチーム・スポーツ。', items: ['アーセナルFC', 'F1', 'NBA — レイカーズ'] },
+      },
+      contact: {
+        lede: 'カート放棄を減らし、成約を増やしたいなら、お気軽にご連絡ください。',
+        emailBtn: 'メールを送る',
+      },
+    },
   },
 }

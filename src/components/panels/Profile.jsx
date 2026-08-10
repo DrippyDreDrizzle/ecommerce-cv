@@ -4,33 +4,21 @@ import './panels.css'
 
 export default function Profile() {
   const { t } = useLanguage()
+  const c = t.content.profile
   return (
     <Panel eyebrow="01 — Profile" title={t.profileTitle}>
-      <p className="lede">
-        I turn browsers into buyers. Ecommerce growth strategist and
-        Shopify developer — checkout flows, conversion testing, and
-        the platform work that makes both of those actually ship.
-      </p>
+      <p className="lede">{c.lede}</p>
 
       <div className="stat-row">
-        <div className="stat-box">
-          <span className="stat-number">6</span>
-          <span className="stat-label">Years in ecommerce</span>
-        </div>
-        <div className="stat-box">
-          <span className="stat-number">30+</span>
-          <span className="stat-label">Stores shipped</span>
-        </div>
-        <div className="stat-box">
-          <span className="stat-number">A/B</span>
-          <span className="stat-label">Tested, not guessed</span>
-        </div>
+        {c.stats.map((s) => (
+          <div className="stat-box" key={s.label}>
+            <span className="stat-number">{s.number}</span>
+            <span className="stat-label">{s.label}</span>
+          </div>
+        ))}
       </div>
 
-      <p className="panel-note">
-        Use the menu on the left — Skills, Record, Equipment, Contact —
-        to see how this actually plays out.
-      </p>
+      <p className="panel-note">{c.note}</p>
     </Panel>
   )
 }
