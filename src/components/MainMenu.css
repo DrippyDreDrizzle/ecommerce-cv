@@ -5,9 +5,11 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 3rem;
+  gap: clamp(1rem, 3vh, 3rem);
   position: relative;
   background: radial-gradient(circle at 50% 30%, var(--panel) 0%, var(--black) 70%);
+  overflow-y: auto;
+  padding: 4.5rem 1rem 2rem;
 }
 
 .main-menu-mark {
@@ -28,7 +30,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.1rem;
+  flex-shrink: 0;
 }
 
 .main-menu-item {
@@ -36,10 +39,12 @@
   display: flex;
   align-items: baseline;
   gap: 1rem;
-  padding: 0.4rem 2.5rem;
+  padding: 0.2rem 2.5rem;
   font-family: var(--font-display);
   text-transform: uppercase;
-  font-size: clamp(1.8rem, 5vw, 3.2rem);
+  /* Sized against BOTH viewport width and height, so a short laptop
+     screen shrinks the list instead of it overflowing off-screen */
+  font-size: clamp(1.3rem, min(4.2vw, 4.2vh), 2.6rem);
   color: var(--gray-text);
   transform: skewX(-8deg);
   transition: color 0.2s ease, transform 0.2s ease;
@@ -68,7 +73,7 @@
 
 .menu-number {
   font-family: var(--font-mono);
-  font-size: 0.9rem;
+  font-size: 0.7rem;
   opacity: 0.7;
 }
 
@@ -79,17 +84,21 @@
   text-transform: uppercase;
   color: var(--gray-text);
   opacity: 0.7;
-}
-
-@media (max-width: 640px) {
-  .main-menu-item {
-    font-size: clamp(1.4rem, 8vw, 2.2rem);
-    padding: 0.3rem 1.5rem;
-  }
+  flex-shrink: 0;
 }
 
 .main-menu-lang {
   position: absolute;
   top: clamp(1.5rem, 4vw, 3rem);
   right: clamp(1.5rem, 4vw, 3rem);
+}
+
+@media (max-width: 640px) {
+  .main-menu-item {
+    font-size: clamp(1.1rem, min(6vw, 3.4vh), 1.8rem);
+    padding: 0.15rem 1.5rem;
+  }
+  .main-menu-mark {
+    display: none;
+  }
 }
