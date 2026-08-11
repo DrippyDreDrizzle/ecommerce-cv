@@ -22,21 +22,13 @@ export default function Hobbies() {
         </button>
         {view === 'anime' && <AnimeShelf intro={h.anime.intro} />}
         {view === 'manga' && <MangaShelf intro={h.manga.intro} />}
-        {view === 'sports' && <SportsSection intro={h.sports.intro} items={h.sports.items} />}
+        {view === 'sports' && <SportsSection intro={h.sports.intro} />}
       </Panel>
     )
   }
 
   return (
     <Panel eyebrow="06 — Hobbies" title={t.hobbiesTitle}>
-      <div className="equip-grid">
-        {h.intro.map((item) => (
-          <div className="equip-card" key={item}>
-            <span className="equip-name">{item}</span>
-          </div>
-        ))}
-      </div>
-
       <div className="hobby-category-grid">
         {Object.keys(h.categories).map((key) => (
           <button key={key} className="hobby-category-card" onClick={() => setView(key)}>

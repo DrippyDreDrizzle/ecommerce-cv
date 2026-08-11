@@ -77,11 +77,10 @@ export const translations = {
         'south-africa': { name: 'South Africa', blurb: 'Cape Town — long overdue, keeps getting pushed to next year.' },
       },
       hobbies: {
-        intro: ['Vinyl & DJ gear', 'Streetwear design', 'Weekend photography', 'Amateur cooking'],
         categories: { anime: 'Anime', manga: 'Manga', sports: 'Sports' },
         anime: { intro: 'Pick a tape.' },
-        manga: { intro: 'The collection so far — and a few still waiting to be unlocked.' },
-        sports: { intro: 'Teams and sports I follow.', items: ['Arsenal FC', 'Formula 1', 'NBA — Lakers'] },
+        manga: { intro: 'The collection so far — click a book to open it.' },
+        sports: { intro: 'Sports I follow.' },
       },
       contact: {
         lede: "If your store needs more carts closed and fewer carts abandoned, let's talk.",
@@ -163,11 +162,10 @@ export const translations = {
         'south-africa': { name: '南アフリカ', blurb: 'ケープタウン — ずっと先延ばしにしている旅先。' },
       },
       hobbies: {
-        intro: ['レコード・DJ機材', 'ストリートウェアデザイン', '週末の写真撮影', '料理'],
         categories: { anime: 'アニメ', manga: 'マンガ', sports: 'スポーツ' },
         anime: { intro: 'テープを選んでください。' },
-        manga: { intro: 'これまでのコレクション — そしてまだ解放されていないものも。' },
-        sports: { intro: '応援しているチーム・スポーツ。', items: ['アーセナルFC', 'F1', 'NBA — レイカーズ'] },
+        manga: { intro: 'これまでのコレクション — 本をクリックして開いてください。' },
+        sports: { intro: '応援しているスポーツ。' },
       },
       contact: {
         lede: 'カート放棄を減らし、成約を増やしたいなら、お気軽にご連絡ください。',
