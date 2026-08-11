@@ -1,15 +1,16 @@
 import { useState } from 'react'
 import './AnimeShelf.css'
 
-// Add your own favorites here — `image` is a URL to your own cover
-// art/screenshot. Leave it blank and a placeholder shows instead.
+// Add your own favorites: `image` for a cover, `video` for an mp4
+// URL that plays when the tape is loaded. If both are set, video
+// takes priority once the tape is selected.
 const TAPES = [
-  { id: 1, title: 'Tape 01', image: '' },
-  { id: 2, title: 'Tape 02', image: '' },
-  { id: 3, title: 'Tape 03', image: '' },
-  { id: 4, title: 'Tape 04', image: '' },
-  { id: 5, title: 'Tape 05', image: '' },
-  { id: 6, title: 'Tape 06', image: '' },
+  { id: 1, title: 'Tape 01', image: '', video: '' },
+  { id: 2, title: 'Tape 02', image: '', video: '' },
+  { id: 3, title: 'Tape 03', image: '', video: '' },
+  { id: 4, title: 'Tape 04', image: '', video: '' },
+  { id: 5, title: 'Tape 05', image: '', video: '' },
+  { id: 6, title: 'Tape 06', image: '', video: '' },
 ]
 
 export default function AnimeShelf({ intro }) {
@@ -20,11 +21,13 @@ export default function AnimeShelf({ intro }) {
       <p className="panel-note">{intro}</p>
 
       <div className="tv-unit">
-        <div className="tv-screen">
-          {loaded?.image ? (
+        <div className={`tv-screen ${!loaded ? 'no-signal' : ''}`}>
+          {loaded?.video ? (
+            <video key={loaded.id} src={loaded.video} controls autoPlay playsInline />
+          ) : loaded?.image ? (
             <img src={loaded.image} alt={loaded.title} />
           ) : (
-            <span className="tv-static">{loaded ? loaded.title : 'NO SIGNAL'}</span>
+            <span className="tv-static-label">NO SIGNAL</span>
           )}
         </div>
         <div className="tv-vcr">
