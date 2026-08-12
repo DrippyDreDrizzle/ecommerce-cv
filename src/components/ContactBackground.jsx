@@ -22,14 +22,30 @@ function useStars(count = 60) {
 function useShootingStars(count = 5) {
   return useMemo(
     () =>
-      Array.from({ length: count }, (_, i) => ({
-        id: i,
-        top: 5 + Math.random() * 35,
-        left: Math.random() * 60,
-        delay: i * 2.2 + Math.random() * 2,
-        duration: 1.1 + Math.random() * 0.6,
-        color: METEOR_COLORS[i % METEOR_COLORS.length],
-      })),
+      Array.from({ length: count }, (_, i) => {
+        // Angle of travel — the trail's bright head is rendered at the
+        // "far" end of the element, and the element is rotated to this
+        // angle, so the head always leads in the direction of motion.
+        const angle = 18 + Math.random() * 24
+        const rad = (angle * Math.PI) / 180
+        const distance = 160 + Math.random() * 220
+        const length = 40 + Math.random() * 130 // varies a lot — some much bigger than others
+        const thickness = 1.5 + (length / 170) * 2.5
+
+        return {
+          id: i,
+          top: 4 + Math.random() * 38,
+          left: Math.random() * 55,
+          angle,
+          dx: Math.cos(rad) * distance,
+          dy: Math.sin(rad) * distance,
+          length,
+          thickness,
+          delay: i * 2.1 + Math.random() * 2,
+          duration: 0.9 + Math.random() * 0.7,
+          color: METEOR_COLORS[i % METEOR_COLORS.length],
+        }
+      }),
     [count]
   )
 }
@@ -55,21 +71,25 @@ export default function ContactBackground() {
       {shootingStars.map((s) => (
         <motion.span
           key={s.id}
-          className="contact-bg-shooting-star"
+          className="contact-bg-meteor"
           style={{
             top: `${s.top}%`,
             left: `${s.left}%`,
-            background: `linear-gradient(90deg, ${s.color}, transparent)`,
-            boxShadow: `0 0 8px ${s.color}`,
+            width: s.length,
+            height: s.thickness,
+            transform: `rotate(${s.angle}deg)`,
+            background: `linear-gradient(90deg, transparent 0%, ${s.color}55 35%, ${s.color} 75%, #fff 100%)`,
+            boxShadow: `0 0 ${4 + s.thickness * 2}px ${s.color}`,
           }}
           initial={{ opacity: 0, x: 0, y: 0 }}
-          animate={{ opacity: [0, 1, 0], x: 160, y: 90 }}
+          animate={{ opacity: [0, 1, 1, 0], x: s.dx, y: s.dy }}
           transition={{
             duration: s.duration,
             delay: s.delay,
             repeat: Infinity,
             repeatDelay: 5 + Math.random() * 4,
             ease: 'easeIn',
+            opacity: { times: [0, 0.15, 0.7, 1] },
           }}
         />
       ))}

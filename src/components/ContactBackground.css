@@ -18,12 +18,10 @@
   background: var(--white);
 }
 
-.contact-bg-shooting-star {
+.contact-bg-meteor {
   position: absolute;
-  width: 70px;
-  height: 2px;
-  transform: rotate(28deg);
-  border-radius: 2px;
+  border-radius: 3px;
+  transform-origin: left center;
 }
 
 .contact-bg-mountains-far,
