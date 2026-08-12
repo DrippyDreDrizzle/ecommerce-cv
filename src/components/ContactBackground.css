@@ -1,0 +1,57 @@
+.contact-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  z-index: 0;
+}
+
+.contact-bg-sky {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #0a0d14 0%, #171129 45%, #241539 75%, #2c1a3f 100%);
+}
+
+.contact-bg-star {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--white);
+}
+
+.contact-bg-shooting-star {
+  position: absolute;
+  width: 70px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--white), transparent);
+  transform: rotate(28deg);
+  border-radius: 2px;
+}
+
+.contact-bg-bird {
+  position: absolute;
+  width: 32px;
+  height: 16px;
+}
+
+.contact-bg-mountains-far,
+.contact-bg-mountains-near {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 45%;
+}
+
+.contact-bg-mountains-far polygon {
+  fill: #241a38;
+  opacity: 0.9;
+}
+
+.contact-bg-mountains-near {
+  height: 35%;
+}
+
+.contact-bg-mountains-near polygon {
+  fill: #140f22;
+}

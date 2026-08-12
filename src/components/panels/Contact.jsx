@@ -1,7 +1,9 @@
 import Panel from '../Panel'
 import ContactCard from '../ContactCard'
+import ContactBackground from '../ContactBackground'
 import { useLanguage } from '../../context/LanguageContext'
 import './panels.css'
+import './Contact.css'
 
 export default function Contact() {
   const { t } = useLanguage()
@@ -10,19 +12,22 @@ export default function Contact() {
     <Panel eyebrow="09 — Contact" title={t.contactTitle}>
       <p className="lede">{c.lede}</p>
 
-      <ContactCard>
-        <div className="contact-actions" style={{ marginTop: 0, flexDirection: 'column', alignItems: 'center' }}>
-          <a className="contact-btn" href="mailto:hello@example.com">
-            {c.emailBtn}
-          </a>
-          <a className="contact-link" href="https://linkedin.com" target="_blank" rel="noreferrer">
-            LinkedIn ↗
-          </a>
-          <a className="contact-link" href="https://github.com" target="_blank" rel="noreferrer">
-            GitHub ↗
-          </a>
-        </div>
-      </ContactCard>
+      <div className="contact-scene">
+        <ContactBackground />
+        <ContactCard>
+          <div className="contact-actions" style={{ marginTop: 0, flexDirection: 'column', alignItems: 'center' }}>
+            <a className="contact-btn" href="mailto:hello@example.com">
+              {c.emailBtn}
+            </a>
+            <a className="contact-link" href="https://linkedin.com" target="_blank" rel="noreferrer">
+              LinkedIn ↗
+            </a>
+            <a className="contact-link" href="https://github.com" target="_blank" rel="noreferrer">
+              GitHub ↗
+            </a>
+          </div>
+        </ContactCard>
+      </div>
 
       <p className="panel-note" style={{ textAlign: 'center' }}>{t.flipCard}</p>
     </Panel>
