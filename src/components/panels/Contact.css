@@ -1,16 +1,9 @@
 .contact-scene {
-  position: relative;
-  min-height: 340px;
-  border-radius: 14px;
+  position: fixed;
+  inset: 0;
+  z-index: -1;
   overflow: hidden;
-  margin: 1.5rem 0;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-@media (max-width: 480px) {
-  .contact-scene {
-    min-height: 280px;
-  }
 }
