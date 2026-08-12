@@ -2,6 +2,8 @@ import { useMemo } from 'react'
 import { motion } from 'framer-motion'
 import './ContactBackground.css'
 
+const METEOR_COLORS = ['#e0202b', '#9d5cff', '#3ecf6e', '#5cc9ff', '#e8b93a']
+
 function useStars(count = 60) {
   return useMemo(
     () =>
@@ -17,29 +19,16 @@ function useStars(count = 60) {
   )
 }
 
-function useShootingStars(count = 4) {
+function useShootingStars(count = 5) {
   return useMemo(
     () =>
       Array.from({ length: count }, (_, i) => ({
         id: i,
         top: 5 + Math.random() * 35,
         left: Math.random() * 60,
-        delay: i * 2.6 + Math.random() * 2,
+        delay: i * 2.2 + Math.random() * 2,
         duration: 1.1 + Math.random() * 0.6,
-      })),
-    [count]
-  )
-}
-
-function useBirds(count = 3) {
-  return useMemo(
-    () =>
-      Array.from({ length: count }, (_, i) => ({
-        id: i,
-        top: 15 + Math.random() * 20,
-        delay: i * 4 + Math.random() * 3,
-        duration: 14 + Math.random() * 6,
-        scale: 0.6 + Math.random() * 0.5,
+        color: METEOR_COLORS[i % METEOR_COLORS.length],
       })),
     [count]
   )
@@ -48,7 +37,6 @@ function useBirds(count = 3) {
 export default function ContactBackground() {
   const stars = useStars()
   const shootingStars = useShootingStars()
-  const birds = useBirds()
 
   return (
     <div className="contact-bg" aria-hidden="true">
@@ -68,7 +56,12 @@ export default function ContactBackground() {
         <motion.span
           key={s.id}
           className="contact-bg-shooting-star"
-          style={{ top: `${s.top}%`, left: `${s.left}%` }}
+          style={{
+            top: `${s.top}%`,
+            left: `${s.left}%`,
+            background: `linear-gradient(90deg, ${s.color}, transparent)`,
+            boxShadow: `0 0 8px ${s.color}`,
+          }}
           initial={{ opacity: 0, x: 0, y: 0 }}
           animate={{ opacity: [0, 1, 0], x: 160, y: 90 }}
           transition={{
@@ -79,26 +72,6 @@ export default function ContactBackground() {
             ease: 'easeIn',
           }}
         />
-      ))}
-
-      {birds.map((b) => (
-        <motion.svg
-          key={b.id}
-          viewBox="0 0 40 20"
-          className="contact-bg-bird"
-          style={{ top: `${b.top}%`, transform: `scale(${b.scale})` }}
-          initial={{ x: '-10vw' }}
-          animate={{ x: '110vw' }}
-          transition={{ duration: b.duration, delay: b.delay, repeat: Infinity, ease: 'linear' }}
-        >
-          <path
-            d="M0 10 Q 10 -4 20 10 Q 30 -4 40 10"
-            fill="none"
-            stroke="rgba(242,241,246,0.5)"
-            strokeWidth="2"
-            strokeLinecap="round"
-          />
-        </motion.svg>
       ))}
 
       <svg className="contact-bg-mountains-far" viewBox="0 0 400 100" preserveAspectRatio="none">

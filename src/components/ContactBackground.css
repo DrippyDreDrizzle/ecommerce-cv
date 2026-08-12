@@ -22,15 +22,8 @@
   position: absolute;
   width: 70px;
   height: 2px;
-  background: linear-gradient(90deg, var(--white), transparent);
   transform: rotate(28deg);
   border-radius: 2px;
-}
-
-.contact-bg-bird {
-  position: absolute;
-  width: 32px;
-  height: 16px;
 }
 
 .contact-bg-mountains-far,
