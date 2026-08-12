@@ -29,16 +29,16 @@ function useMeteors(count = 5) {
     () =>
       Array.from({ length: count }, (_, i) => {
         const angle = 18 + Math.random() * 24
-        const distance = 160 + Math.random() * 220
+        const distanceVh = 55 + Math.random() * 40 // travels a % of screen height, not a fixed px amount
         const length = 40 + Math.random() * 130 // some much bigger than others
         const thickness = 1.5 + (length / 170) * 2.5
 
         return {
           id: i,
-          top: 4 + Math.random() * 38,
+          top: 2 + Math.random() * 20, // start higher up so the longer travel still fits on screen
           left: Math.random() * 55,
           angle,
-          distance,
+          distanceVh,
           length,
           thickness,
           cycleDuration: 6 + Math.random() * 6,
@@ -80,7 +80,7 @@ export default function ContactBackground() {
             background: `linear-gradient(90deg, transparent 0%, ${m.color}55 35%, ${m.color} 75%, #fff 100%)`,
             boxShadow: `0 0 ${4 + m.thickness * 2}px ${m.color}`,
             '--angle': `${m.angle}deg`,
-            '--distance': `${m.distance}px`,
+            '--distance': `${m.distanceVh}vh`,
             animationDuration: `${m.cycleDuration}s`,
             animationDelay: `${m.delay}s`,
           }}
