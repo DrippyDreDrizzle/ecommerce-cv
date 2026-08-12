@@ -19,13 +19,18 @@ function useStars(count = 60) {
   )
 }
 
+// Plain CSS-driven meteors (no framer-motion) — a single shared
+// @keyframes rule handles rotate+translate+opacity together in one
+// transform string, so there's nothing for two animation systems to
+// fight over. Each meteor only varies via CSS custom properties and
+// its own animation-duration/delay.
 function useMeteors(count = 5) {
   return useMemo(
     () =>
       Array.from({ length: count }, (_, i) => {
         const angle = 18 + Math.random() * 24
         const distance = 160 + Math.random() * 220
-        const length = 40 + Math.random() * 130 // varies a lot — some much bigger than others
+        const length = 40 + Math.random() * 130 // some much bigger than others
         const thickness = 1.5 + (length / 170) * 2.5
 
         return {
@@ -36,8 +41,8 @@ function useMeteors(count = 5) {
           distance,
           length,
           thickness,
-          delay: i * 2.1 + Math.random() * 2,
-          duration: 0.9 + Math.random() * 0.7,
+          cycleDuration: 6 + Math.random() * 6,
+          delay: i * 1.3 + Math.random() * 2,
           color: METEOR_COLORS[i % METEOR_COLORS.length],
         }
       }),
@@ -64,37 +69,22 @@ export default function ContactBackground() {
       ))}
 
       {meteors.map((m) => (
-        // Outer span: fixed, static rotation only (never touched by
-        // framer-motion). Inner motion.span: travels purely along its
-        // own local x-axis, which — because the outer span is already
-        // rotated — reads as diagonal motion on screen. Keeping
-        // rotation and motion on separate elements avoids framer-motion
-        // overwriting a manual `transform` when it animates x/y.
         <span
           key={m.id}
-          className="meteor-rotator"
-          style={{ top: `${m.top}%`, left: `${m.left}%`, transform: `rotate(${m.angle}deg)` }}
-        >
-          <motion.span
-            className="contact-bg-meteor"
-            style={{
-              width: m.length,
-              height: m.thickness,
-              background: `linear-gradient(90deg, transparent 0%, ${m.color}55 35%, ${m.color} 75%, #fff 100%)`,
-              boxShadow: `0 0 ${4 + m.thickness * 2}px ${m.color}`,
-            }}
-            initial={{ opacity: 0, x: 0 }}
-            animate={{ opacity: [0, 1, 1, 0], x: m.distance }}
-            transition={{
-              duration: m.duration,
-              delay: m.delay,
-              repeat: Infinity,
-              repeatDelay: 5 + Math.random() * 4,
-              ease: 'easeIn',
-              opacity: { times: [0, 0.15, 0.7, 1] },
-            }}
-          />
-        </span>
+          className="contact-bg-meteor"
+          style={{
+            top: `${m.top}%`,
+            left: `${m.left}%`,
+            width: m.length,
+            height: m.thickness,
+            background: `linear-gradient(90deg, transparent 0%, ${m.color}55 35%, ${m.color} 75%, #fff 100%)`,
+            boxShadow: `0 0 ${4 + m.thickness * 2}px ${m.color}`,
+            '--angle': `${m.angle}deg`,
+            '--distance': `${m.distance}px`,
+            animationDuration: `${m.cycleDuration}s`,
+            animationDelay: `${m.delay}s`,
+          }}
+        />
       ))}
 
       <svg className="contact-bg-mountains-far" viewBox="0 0 400 100" preserveAspectRatio="none">

@@ -17,14 +17,36 @@
   background: var(--white);
 }
 
-.meteor-rotator {
-  position: absolute;
-  transform-origin: left center;
-}
-
 .contact-bg-meteor {
+  position: absolute;
   display: block;
   border-radius: 3px;
+  transform-origin: left center;
+  opacity: 0;
+  animation-name: meteor-fly;
+  animation-timing-function: ease-in;
+  animation-iteration-count: infinite;
+}
+
+/* Flight happens in the first ~32% of the cycle; the rest is idle
+   time before the next pass. Rotation + travel distance come in via
+   the --angle / --distance custom properties set per meteor in JS. */
+@keyframes meteor-fly {
+  0%, 100% {
+    opacity: 0;
+    transform: rotate(var(--angle)) translateX(0);
+  }
+  8% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 1;
+    transform: rotate(var(--angle)) translateX(var(--distance));
+  }
+  32% {
+    opacity: 0;
+    transform: rotate(var(--angle)) translateX(var(--distance));
+  }
 }
 
 .contact-bg-mountains-far,

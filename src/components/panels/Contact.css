@@ -1,14 +1,14 @@
+/* Full-screen fixed overlay so the card centers in the whole
+   viewport (matching the fixed background), not just the text
+   column. pointer-events:none here lets clicks pass through to
+   other page content in the empty areas; the card itself re-enables
+   pointer-events so it stays fully clickable. */
 .contact-card-wrap {
-  position: relative;
+  position: fixed;
+  inset: 0;
   z-index: 1;
-  min-height: 300px;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-@media (max-width: 480px) {
-  .contact-card-wrap {
-    min-height: 260px;
-  }
+  pointer-events: none;
 }
