@@ -19,15 +19,11 @@ function useStars(count = 60) {
   )
 }
 
-function useShootingStars(count = 5) {
+function useMeteors(count = 5) {
   return useMemo(
     () =>
       Array.from({ length: count }, (_, i) => {
-        // Angle of travel — the trail's bright head is rendered at the
-        // "far" end of the element, and the element is rotated to this
-        // angle, so the head always leads in the direction of motion.
         const angle = 18 + Math.random() * 24
-        const rad = (angle * Math.PI) / 180
         const distance = 160 + Math.random() * 220
         const length = 40 + Math.random() * 130 // varies a lot — some much bigger than others
         const thickness = 1.5 + (length / 170) * 2.5
@@ -37,8 +33,7 @@ function useShootingStars(count = 5) {
           top: 4 + Math.random() * 38,
           left: Math.random() * 55,
           angle,
-          dx: Math.cos(rad) * distance,
-          dy: Math.sin(rad) * distance,
+          distance,
           length,
           thickness,
           delay: i * 2.1 + Math.random() * 2,
@@ -52,7 +47,7 @@ function useShootingStars(count = 5) {
 
 export default function ContactBackground() {
   const stars = useStars()
-  const shootingStars = useShootingStars()
+  const meteors = useMeteors()
 
   return (
     <div className="contact-bg" aria-hidden="true">
@@ -68,30 +63,38 @@ export default function ContactBackground() {
         />
       ))}
 
-      {shootingStars.map((s) => (
-        <motion.span
-          key={s.id}
-          className="contact-bg-meteor"
-          style={{
-            top: `${s.top}%`,
-            left: `${s.left}%`,
-            width: s.length,
-            height: s.thickness,
-            transform: `rotate(${s.angle}deg)`,
-            background: `linear-gradient(90deg, transparent 0%, ${s.color}55 35%, ${s.color} 75%, #fff 100%)`,
-            boxShadow: `0 0 ${4 + s.thickness * 2}px ${s.color}`,
-          }}
-          initial={{ opacity: 0, x: 0, y: 0 }}
-          animate={{ opacity: [0, 1, 1, 0], x: s.dx, y: s.dy }}
-          transition={{
-            duration: s.duration,
-            delay: s.delay,
-            repeat: Infinity,
-            repeatDelay: 5 + Math.random() * 4,
-            ease: 'easeIn',
-            opacity: { times: [0, 0.15, 0.7, 1] },
-          }}
-        />
+      {meteors.map((m) => (
+        // Outer span: fixed, static rotation only (never touched by
+        // framer-motion). Inner motion.span: travels purely along its
+        // own local x-axis, which — because the outer span is already
+        // rotated — reads as diagonal motion on screen. Keeping
+        // rotation and motion on separate elements avoids framer-motion
+        // overwriting a manual `transform` when it animates x/y.
+        <span
+          key={m.id}
+          className="meteor-rotator"
+          style={{ top: `${m.top}%`, left: `${m.left}%`, transform: `rotate(${m.angle}deg)` }}
+        >
+          <motion.span
+            className="contact-bg-meteor"
+            style={{
+              width: m.length,
+              height: m.thickness,
+              background: `linear-gradient(90deg, transparent 0%, ${m.color}55 35%, ${m.color} 75%, #fff 100%)`,
+              boxShadow: `0 0 ${4 + m.thickness * 2}px ${m.color}`,
+            }}
+            initial={{ opacity: 0, x: 0 }}
+            animate={{ opacity: [0, 1, 1, 0], x: m.distance }}
+            transition={{
+              duration: m.duration,
+              delay: m.delay,
+              repeat: Infinity,
+              repeatDelay: 5 + Math.random() * 4,
+              ease: 'easeIn',
+              opacity: { times: [0, 0.15, 0.7, 1] },
+            }}
+          />
+        </span>
       ))}
 
       <svg className="contact-bg-mountains-far" viewBox="0 0 400 100" preserveAspectRatio="none">

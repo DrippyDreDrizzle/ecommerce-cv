@@ -1,9 +1,14 @@
-.contact-scene {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  overflow: hidden;
+.contact-card-wrap {
+  position: relative;
+  z-index: 1;
+  min-height: 300px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@media (max-width: 480px) {
+  .contact-card-wrap {
+    min-height: 260px;
+  }
 }

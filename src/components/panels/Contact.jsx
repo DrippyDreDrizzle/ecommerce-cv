@@ -12,8 +12,11 @@ export default function Contact() {
     <Panel eyebrow="09 — Contact" title={t.contactTitle}>
       <p className="lede">{c.lede}</p>
 
-      <div className="contact-scene">
-        <ContactBackground />
+      {/* Fixed, full-screen decorative backdrop — sits behind everything */}
+      <ContactBackground />
+
+      {/* Normal stacking order, above the background, fully clickable */}
+      <div className="contact-card-wrap">
         <ContactCard>
           <div className="contact-actions" style={{ marginTop: 0, flexDirection: 'column', alignItems: 'center' }}>
             <a className="contact-btn" href="mailto:hello@example.com">

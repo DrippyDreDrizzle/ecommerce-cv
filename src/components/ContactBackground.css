@@ -1,9 +1,8 @@
 .contact-bg {
-  position: absolute;
+  position: fixed;
   inset: 0;
+  z-index: -1;
   overflow: hidden;
-  border-radius: inherit;
-  z-index: 0;
 }
 
 .contact-bg-sky {
@@ -18,10 +17,14 @@
   background: var(--white);
 }
 
-.contact-bg-meteor {
+.meteor-rotator {
   position: absolute;
-  border-radius: 3px;
   transform-origin: left center;
+}
+
+.contact-bg-meteor {
+  display: block;
+  border-radius: 3px;
 }
 
 .contact-bg-mountains-far,
