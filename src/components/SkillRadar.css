@@ -1,0 +1,42 @@
+.skill-radar {
+  display: flex;
+  justify-content: center;
+}
+
+.skill-radar-svg {
+  width: 100%;
+  max-width: 300px;
+}
+
+.radar-grid-ring {
+  fill: none;
+  stroke: var(--panel-light);
+  stroke-width: 1;
+}
+
+.radar-axis {
+  stroke: var(--panel-light);
+  stroke-width: 1;
+}
+
+.radar-stat-shape {
+  fill: var(--primary);
+  fill-opacity: 0.32;
+  stroke: var(--primary);
+  stroke-width: 2;
+  filter: drop-shadow(0 0 8px var(--primary));
+}
+
+.radar-dot {
+  fill: var(--secondary);
+  stroke: var(--white);
+  stroke-width: 1;
+}
+
+.radar-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  fill: var(--white);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}

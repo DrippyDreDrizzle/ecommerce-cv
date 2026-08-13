@@ -31,19 +31,19 @@
 /* Flight happens in the first ~32% of the cycle; the rest is idle
    time before the next pass. Rotation + travel distance come in via
    the --angle / --distance custom properties set per meteor in JS. */
+/* Movement and fade-out finish at the same keyframe stop, so the
+   meteor is always still traveling while visible — it never sits
+   motionless before disappearing. */
 @keyframes meteor-fly {
-  0%, 100% {
+  0% {
     opacity: 0;
     transform: rotate(var(--angle)) translateX(0);
   }
-  8% {
+  10% {
     opacity: 1;
+    transform: rotate(var(--angle)) translateX(calc(var(--distance) * 0.15));
   }
-  25% {
-    opacity: 1;
-    transform: rotate(var(--angle)) translateX(var(--distance));
-  }
-  32% {
+  30%, 100% {
     opacity: 0;
     transform: rotate(var(--angle)) translateX(var(--distance));
   }

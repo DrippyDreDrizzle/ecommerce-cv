@@ -4,38 +4,32 @@ import MBTIBadge from '../MBTIBadge'
 import { useLanguage } from '../../context/LanguageContext'
 import './panels.css'
 
-// Placeholder stat values — adjust to taste (0-100 each).
-const STATS = [
-  { label: 'Social', value: 70 },
-  { label: 'Creativity', value: 85 },
-  { label: 'Drive', value: 90 },
-  { label: 'Adaptability', value: 75 },
-  { label: 'Intelligence', value: 80 },
-]
-
-// Playful JRPG-style "special move" naming for real skills. Edit
-// freely — mark one `ultimate: true` for the special glow treatment.
-const SPECIAL_SKILLS = [
-  { name: 'Full Funnel Rebuild', tag: 'Special', desc: 'Tears down a broken checkout and rebuilds it from data up.' },
-  { name: 'Data-Driven Pivot', tag: 'Special', desc: 'Reads the numbers and changes direction before the quarter is lost.' },
-  { name: 'Zero-to-Launch', tag: 'Ultimate', desc: 'Ships a full Shopify build from brief to live store, solo.', ultimate: true },
-]
+// Values are language-independent — only the labels come from
+// translations.js. Adjust these numbers (0-100) to taste.
+const STAT_VALUES = {
+  social: 70,
+  creativity: 85,
+  drive: 90,
+  adaptability: 75,
+  intelligence: 80,
+}
 
 export default function Skills() {
   const { t } = useLanguage()
+  const stats = t.content.skillStats.map((s) => ({ label: s.label, value: STAT_VALUES[s.key] }))
 
   return (
     <Panel eyebrow="02 — Skills" title={t.skillsTitle}>
       <div className="skill-stat-row">
-        <SkillRadar stats={STATS} />
+        <SkillRadar stats={stats} />
 
         <div className="special-skills-col">
           <div className="special-skills-header">
-            <span className="special-skills-title">Special Skills</span>
+            <span className="special-skills-title">{t.content.specialSkillsHeader}</span>
             <MBTIBadge type="INTJ" />
           </div>
 
-          {SPECIAL_SKILLS.map((s) => (
+          {t.content.specialSkills.map((s) => (
             <div key={s.name} className={`special-skill-card ${s.ultimate ? 'is-ultimate' : ''}`}>
               <div className="special-skill-name-row">
                 <span className="special-skill-name">{s.name}</span>

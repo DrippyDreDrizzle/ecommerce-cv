@@ -1,0 +1,25 @@
+.mbti-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  width: 90px;
+  padding: 0.9rem 0.5rem 0.7rem;
+  background: linear-gradient(160deg, var(--primary), var(--secondary));
+  clip-path: polygon(50% 0%, 100% 22%, 100% 78%, 50% 100%, 0% 78%, 0% 22%);
+  box-shadow: 0 0 16px rgba(157, 92, 255, 0.5);
+}
+
+.mbti-badge-label {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.mbti-badge-type {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--white);
+  letter-spacing: 0.03em;
+}
