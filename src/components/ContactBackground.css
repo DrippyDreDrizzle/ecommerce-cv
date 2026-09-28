@@ -4,9 +4,9 @@
 .contact-bg-stars { position: absolute; inset: 0; }
 .contact-bg-star { position: absolute; border-radius: 50%; background: #f4f4ff; box-shadow: 0 0 7px #c8c6ff; animation: contact-twinkle 4s ease-in-out infinite alternate; }
 @keyframes contact-twinkle { from { opacity: .22; transform: scale(.7); } to { opacity: .9; transform: scale(1.2); } }
-.contact-bg-meteor { position: absolute; width: clamp(80px, 12vw, 175px); height: 2px; transform: rotate(-27deg); transform-origin: right center; opacity: 0; background: linear-gradient(90deg, transparent, var(--meteor-color) 70%, #fff); border-radius: 99px; filter: drop-shadow(0 0 6px var(--meteor-color)); animation: contact-meteor linear infinite; }
-.contact-bg-meteor::after { content: ''; position: absolute; right: 0; top: -2px; width: 6px; height: 6px; background: #fff; border-radius: 50%; box-shadow: 0 0 9px 3px var(--meteor-color); }
-@keyframes contact-meteor { 0%, 8% { opacity: 0; translate: 0 0; } 10% { opacity: 1; } 25%, 100% { opacity: 0; translate: 34vw 19vw; } }
+.contact-bg-meteor { position: absolute; width: clamp(100px, 14vw, 190px); height: 2px; transform: rotate(27deg); transform-origin: right center; opacity: 0; background: linear-gradient(90deg, transparent 0%, transparent 10%, var(--meteor-color) 92%, #fff 100%); border-radius: 99px; filter: drop-shadow(0 0 3px var(--meteor-color)); animation: contact-meteor linear infinite; }
+.contact-bg-meteor::after { content: ''; position: absolute; right: -2px; top: -2px; width: 6px; height: 6px; background: #fff; border-radius: 50%; box-shadow: 0 0 7px 2px var(--meteor-color), 0 0 17px 3px var(--meteor-color); }
+@keyframes contact-meteor { 0%, 8% { opacity: 0; translate: 0 0; } 11% { opacity: 1; } 22% { opacity: 1; } 30%, 100% { opacity: 0; translate: 34vw 19vw; } }
 .contact-bg-horizon { position: absolute; left: 22%; right: 22%; top: 64%; height: 10%; background: #b9a3c6; filter: blur(75px); opacity: .19; }
 .contact-bg-landscape { position: absolute; width: 100%; height: min(78%, 720px); bottom: 0; left: 0; }
 .contact-bg-vignette { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(6,10,21,.55), transparent 25%, transparent 75%, rgba(6,10,21,.55)), linear-gradient(0deg, rgba(3,8,16,.48), transparent 45%); }
