@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { geoDistance, geoGraticule10, geoOrthographic, geoPath } from 'd3-geo'
+import { geoCentroid, geoDistance, geoGraticule10, geoOrthographic, geoPath } from 'd3-geo'
 import { feature } from 'topojson-client'
 import world from 'world-atlas/countries-110m.json'
 import Panel from '../Panel'
@@ -21,6 +21,17 @@ const DESTINATIONS = [
 ]
 
 const countries = feature(world, world.objects.countries).features
+const countryDestinations = countries.map((country) => DESTINATIONS.find((d) => d.country === country.id) || {
+  id: `country-${country.id}`,
+  country: country.id,
+  status: 'explore',
+  coordinates: geoCentroid(country),
+  palette: ['#829cbb', '#323c62'],
+  images: [],
+  name: country.properties.name,
+})
+const destinationByCountry = new Map(countryDestinations.map((d) => [d.country, d]))
+const destinationById = new Map(countryDestinations.map((d) => [d.id, d]))
 const graticule = geoGraticule10()
 const SIZE = 440
 const clamp = (value, min, max) => Math.max(min, Math.min(max, value))
@@ -53,9 +64,10 @@ export default function Travel() {
 
   const projection = useMemo(() => geoOrthographic().translate([SIZE / 2, SIZE / 2]).scale(205).rotate(rotation).clipAngle(90).precision(.7), [rotation])
   const path = geoPath(projection)
-  const active = DESTINATIONS.find((d) => d.id === activeId)
-  const openDest = DESTINATIONS.find((d) => d.id === openId)
-  const openInfo = openDest && t.content.travel[openDest.id]
+  const active = destinationById.get(activeId)
+  const openDest = destinationById.get(openId)
+  const getInfo = (destination) => t.content.travel[destination.id] || { name: destination.name, blurb: t.travelUnlisted }
+  const openInfo = openDest && getInfo(openDest)
   const gallery = openDest ? (openDest.images.length ? openDest.images : [null, null]) : []
 
   useEffect(() => () => {
@@ -105,24 +117,26 @@ export default function Travel() {
   const onPointerDown = (event) => {
     if (event.button !== 0) return
     cancelAnimationFrame(animation.current)
-    drag.current = { x: event.clientX, y: event.clientY, rotation, moved: false }
+    ignoreClick.current = false
+    drag.current = { pointerId: event.pointerId, x: event.clientX, y: event.clientY, rotation, moved: false }
     event.currentTarget.setPointerCapture(event.pointerId)
   }
   const onPointerMove = (event) => {
-    if (!drag.current) return
+    if (!drag.current || drag.current.pointerId !== event.pointerId) return
     const dx = event.clientX - drag.current.x
     const dy = event.clientY - drag.current.y
     if (Math.abs(dx) + Math.abs(dy) > 5) drag.current.moved = true
     if (drag.current.moved) setRotation([drag.current.rotation[0] + dx * .42, clamp(drag.current.rotation[1] - dy * .42, -85, 85)])
   }
-  const onPointerUp = () => {
+  const onPointerUp = (event) => {
+    if (!drag.current || drag.current.pointerId !== event.pointerId) return
     if (drag.current?.moved) {
       ignoreClick.current = true
-      window.setTimeout(() => { ignoreClick.current = false }, 100)
     }
     drag.current = null
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId)
   }
-  const statusLabel = (status) => status === 'home' ? t.home : status === 'visited' ? t.visited : t.wantToVisit
+  const statusLabel = (status) => status === 'home' ? t.home : status === 'visited' ? t.visited : status === 'want' ? t.wantToVisit : t.travelExplore
 
   return (
     <Panel eyebrow="05 — Travel" title={t.travelTitle}>
@@ -131,7 +145,7 @@ export default function Travel() {
         <div className="travel-globe-column">
           <div className="globe-frame">
             <div className="globe-orbit" aria-hidden="true" />
-            <svg className="travel-globe" viewBox={`0 0 ${SIZE} ${SIZE}`} role="group" aria-label={t.travelGlobeLabel} onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} onPointerCancel={onPointerUp}>
+            <svg className="travel-globe" viewBox={`0 0 ${SIZE} ${SIZE}`} role="group" aria-label={t.travelGlobeLabel} onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} onPointerCancel={onPointerUp} onLostPointerCapture={() => { drag.current = null }} onClickCapture={(event) => { if (ignoreClick.current) { event.preventDefault(); event.stopPropagation(); ignoreClick.current = false } }}>
               <defs>
                 <radialGradient id="travel-ocean" cx="34%" cy="26%" r="77%"><stop stopColor="#456e9a"/><stop offset=".5" stopColor="#173957"/><stop offset="1" stopColor="#07182b"/></radialGradient>
                 <radialGradient id="travel-shade" cx="28%" cy="24%" r="78%"><stop offset=".32" stopColor="#fff" stopOpacity=".09"/><stop offset=".68" stopColor="#081527" stopOpacity=".03"/><stop offset="1" stopColor="#020812" stopOpacity=".75"/></radialGradient>
@@ -141,8 +155,9 @@ export default function Travel() {
               <g clipPath="url(#travel-sphere-clip)">
                 <path d={path(graticule)} fill="none" stroke="#c4e9ff" strokeOpacity=".15" strokeWidth=".7" />
                 {countries.map((country) => {
-                  const destination = DESTINATIONS.find((d) => d.country === country.id)
-                  return <path key={country.id} d={path(country) || ''} className={`travel-country ${destination ? 'is-destination' : ''} ${activeId === destination?.id ? 'is-selected' : ''}`} onClick={() => { if (!ignoreClick.current && destination) focusDestination(destination) }} role={destination ? 'button' : undefined} tabIndex={destination ? 0 : undefined} aria-label={destination ? t.content.travel[destination.id].name : undefined} onKeyDown={destination ? (event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); focusDestination(destination) } } : undefined} />
+                  const destination = destinationByCountry.get(country.id)
+                  const listed = DESTINATIONS.some((d) => d.country === country.id)
+                  return <path key={country.id} d={path(country) || ''} className={`travel-country ${listed ? 'is-destination' : ''} ${activeId === destination.id ? 'is-selected' : ''}`} onClick={() => focusDestination(destination)} role="button" tabIndex={listed ? 0 : undefined} aria-label={getInfo(destination).name} onKeyDown={listed ? (event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); focusDestination(destination) } } : undefined} />
                 })}
                 <circle cx="220" cy="220" r="205" fill="url(#travel-shade)" pointerEvents="none" />
               </g>
@@ -155,7 +170,7 @@ export default function Travel() {
             </svg>
           </div>
           <p className="travel-globe-hint">↔ {t.travelDragHint}</p>
-          <div className="travel-current"><span className="travel-current-kicker">{t.travelSelected}</span><strong>{t.content.travel[active.id].name}</strong><span>{statusLabel(active.status)}</span></div>
+          <div className="travel-current"><span className="travel-current-kicker">{t.travelSelected}</span><strong>{getInfo(active).name}</strong><span>{statusLabel(active.status)}</span></div>
         </div>
 
         <div className="destination-list">

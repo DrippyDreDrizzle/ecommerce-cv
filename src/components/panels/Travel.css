@@ -6,7 +6,8 @@
 .globe-orbit { position: absolute; inset: 3%; border: 1px solid rgba(175,181,255,.17); border-radius: 50%; transform: rotate(-19deg) scaleY(.37); box-shadow: 0 0 30px rgba(133,114,247,.1); }
 .travel-globe { display: block; width: 94%; overflow: visible; touch-action: none; cursor: grab; filter: drop-shadow(0 16px 40px rgba(0,0,0,.5)) drop-shadow(0 0 24px rgba(95,111,199,.25)); }
 .travel-globe:active { cursor: grabbing; }
-.travel-country { fill: #516d77; stroke: #b6d1cc; stroke-opacity: .28; stroke-width: .65; transition: fill .25s; }
+.travel-country { fill: #516d77; stroke: #b6d1cc; stroke-opacity: .28; stroke-width: .65; cursor: pointer; transition: fill .25s; }
+.travel-country:hover { fill: #7899a5; }
 .travel-country.is-destination { fill: #a48dba; cursor: pointer; }
 .travel-country.is-destination:hover, .travel-country.is-destination:focus-visible { fill: #dfbaff; outline: none; stroke: #fff; stroke-opacity: .9; stroke-width: 1.5; }
 .travel-country.is-selected { fill: #d1aaf2; }
