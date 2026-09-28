@@ -1,73 +1,14 @@
-.contact-bg {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  overflow: hidden;
-}
-
-.contact-bg-sky {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, #0a0d14 0%, #171129 45%, #241539 75%, #2c1a3f 100%);
-}
-
-.contact-bg-star {
-  position: absolute;
-  border-radius: 50%;
-  background: var(--white);
-}
-
-.contact-bg-meteor {
-  position: absolute;
-  display: block;
-  border-radius: 3px;
-  transform-origin: left center;
-  opacity: 0;
-  animation-name: meteor-fly;
-  animation-timing-function: ease-in;
-  animation-iteration-count: infinite;
-}
-
-/* Flight happens in the first ~32% of the cycle; the rest is idle
-   time before the next pass. Rotation + travel distance come in via
-   the --angle / --distance custom properties set per meteor in JS. */
-/* Movement and fade-out finish at the same keyframe stop, so the
-   meteor is always still traveling while visible — it never sits
-   motionless before disappearing. */
-@keyframes meteor-fly {
-  0% {
-    opacity: 0;
-    transform: rotate(var(--angle)) translateX(0);
-  }
-  10% {
-    opacity: 1;
-    transform: rotate(var(--angle)) translateX(calc(var(--distance) * 0.15));
-  }
-  30%, 100% {
-    opacity: 0;
-    transform: rotate(var(--angle)) translateX(var(--distance));
-  }
-}
-
-.contact-bg-mountains-far,
-.contact-bg-mountains-near {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 45%;
-}
-
-.contact-bg-mountains-far polygon {
-  fill: #241a38;
-  opacity: 0.9;
-}
-
-.contact-bg-mountains-near {
-  height: 35%;
-}
-
-.contact-bg-mountains-near polygon {
-  fill: #140f22;
-}
+.contact-bg { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; background: #0a1020; }
+.contact-bg-sky { position: absolute; inset: 0; background: radial-gradient(ellipse at 54% 55%, #413353 0%, #20223c 38%, #0a1020 85%); }
+.contact-bg-glow { position: absolute; width: 62vw; height: 40vw; min-width: 500px; min-height: 320px; left: 50%; top: 25%; transform: translateX(-50%); background: radial-gradient(ellipse, rgba(180,137,180,.2), transparent 69%); }
+.contact-bg-stars { position: absolute; inset: 0; }
+.contact-bg-star { position: absolute; border-radius: 50%; background: #f4f4ff; box-shadow: 0 0 7px #c8c6ff; animation: contact-twinkle 4s ease-in-out infinite alternate; }
+@keyframes contact-twinkle { from { opacity: .22; transform: scale(.7); } to { opacity: .9; transform: scale(1.2); } }
+.contact-bg-meteor { position: absolute; width: clamp(80px, 12vw, 175px); height: 2px; transform: rotate(-27deg); transform-origin: right center; opacity: 0; background: linear-gradient(90deg, transparent, var(--meteor-color) 70%, #fff); border-radius: 99px; filter: drop-shadow(0 0 6px var(--meteor-color)); animation: contact-meteor linear infinite; }
+.contact-bg-meteor::after { content: ''; position: absolute; right: 0; top: -2px; width: 6px; height: 6px; background: #fff; border-radius: 50%; box-shadow: 0 0 9px 3px var(--meteor-color); }
+@keyframes contact-meteor { 0%, 8% { opacity: 0; translate: 0 0; } 10% { opacity: 1; } 25%, 100% { opacity: 0; translate: 34vw 19vw; } }
+.contact-bg-horizon { position: absolute; left: 22%; right: 22%; top: 64%; height: 10%; background: #b9a3c6; filter: blur(75px); opacity: .19; }
+.contact-bg-landscape { position: absolute; width: 100%; height: min(78%, 720px); bottom: 0; left: 0; }
+.contact-bg-vignette { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(6,10,21,.55), transparent 25%, transparent 75%, rgba(6,10,21,.55)), linear-gradient(0deg, rgba(3,8,16,.48), transparent 45%); }
+@media (max-width: 650px) { .contact-bg-landscape { height: 67%; width: 160%; left: -30%; } }
+@media (prefers-reduced-motion: reduce) { .contact-bg-meteor { animation: none; } .contact-bg-star { animation: none; opacity: .65; } }

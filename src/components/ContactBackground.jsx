@@ -1,98 +1,45 @@
-import { useMemo } from 'react'
-import { motion } from 'framer-motion'
 import './ContactBackground.css'
 
-const METEOR_COLORS = ['#e0202b', '#9d5cff', '#3ecf6e', '#5cc9ff', '#e8b93a']
+const stars = Array.from({ length: 80 }, (_, i) => ({
+  x: (i * 73.37 + 11) % 100,
+  y: (i * 37.19 + 7) % 58,
+  size: i % 11 === 0 ? 2 : 1,
+  delay: `${(i % 13) * -.37}s`,
+}))
 
-function useStars(count = 60) {
-  return useMemo(
-    () =>
-      Array.from({ length: count }, (_, i) => ({
-        id: i,
-        x: Math.random() * 100,
-        y: Math.random() * 65,
-        size: 1 + Math.random() * 2,
-        delay: Math.random() * 4,
-        duration: 2 + Math.random() * 3,
-      })),
-    [count]
-  )
-}
-
-// Plain CSS-driven meteors (no framer-motion) — a single shared
-// @keyframes rule handles rotate+translate+opacity together in one
-// transform string, so there's nothing for two animation systems to
-// fight over. Each meteor only varies via CSS custom properties and
-// its own animation-duration/delay.
-function useMeteors(count = 5) {
-  return useMemo(
-    () =>
-      Array.from({ length: count }, (_, i) => {
-        const angle = 18 + Math.random() * 24
-        const distanceVh = 55 + Math.random() * 40 // travels a % of screen height, not a fixed px amount
-        const length = 40 + Math.random() * 130 // some much bigger than others
-        const thickness = 1.5 + (length / 170) * 2.5
-
-        return {
-          id: i,
-          top: 2 + Math.random() * 20, // start higher up so the longer travel still fits on screen
-          left: Math.random() * 55,
-          angle,
-          distanceVh,
-          length,
-          thickness,
-          cycleDuration: 6 + Math.random() * 6,
-          delay: i * 1.3 + Math.random() * 2,
-          color: METEOR_COLORS[i % METEOR_COLORS.length],
-        }
-      }),
-    [count]
-  )
-}
+const meteors = [
+  { x: '12%', y: '17%', color: '#a68cff', delay: '1s', duration: '9s' },
+  { x: '58%', y: '9%', color: '#7edcff', delay: '4s', duration: '11s' },
+  { x: '78%', y: '27%', color: '#f6aa9c', delay: '2s', duration: '13s' },
+  { x: '35%', y: '6%', color: '#bce8c5', delay: '7s', duration: '12s' },
+]
 
 export default function ContactBackground() {
-  const stars = useStars()
-  const meteors = useMeteors()
-
   return (
     <div className="contact-bg" aria-hidden="true">
       <div className="contact-bg-sky" />
-
-      {stars.map((s) => (
-        <motion.span
-          key={s.id}
-          className="contact-bg-star"
-          style={{ left: `${s.x}%`, top: `${s.y}%`, width: s.size, height: s.size }}
-          animate={{ opacity: [0.15, 1, 0.15] }}
-          transition={{ duration: s.duration, delay: s.delay, repeat: Infinity, ease: 'easeInOut' }}
-        />
-      ))}
-
-      {meteors.map((m) => (
-        <span
-          key={m.id}
-          className="contact-bg-meteor"
-          style={{
-            top: `${m.top}%`,
-            left: `${m.left}%`,
-            width: m.length,
-            height: m.thickness,
-            background: `linear-gradient(90deg, transparent 0%, ${m.color}55 35%, ${m.color} 75%, #fff 100%)`,
-            boxShadow: `0 0 ${4 + m.thickness * 2}px ${m.color}`,
-            '--angle': `${m.angle}deg`,
-            '--distance': `${m.distanceVh}vh`,
-            animationDuration: `${m.cycleDuration}s`,
-            animationDelay: `${m.delay}s`,
-          }}
-        />
-      ))}
-
-      <svg className="contact-bg-mountains-far" viewBox="0 0 400 100" preserveAspectRatio="none">
-        <polygon points="0,100 0,55 60,20 130,60 190,30 260,65 320,25 400,55 400,100" />
+      <div className="contact-bg-glow" />
+      <div className="contact-bg-stars">
+        {stars.map((star, i) => <span key={i} className="contact-bg-star" style={{ left: `${star.x}%`, top: `${star.y}%`, width: star.size, height: star.size, animationDelay: star.delay }} />)}
+        {meteors.map((meteor, i) => <span key={i} className="contact-bg-meteor" style={{ left: meteor.x, top: meteor.y, '--meteor-color': meteor.color, animationDelay: meteor.delay, animationDuration: meteor.duration }} />)}
+      </div>
+      <div className="contact-bg-horizon" />
+      <svg className="contact-bg-landscape" viewBox="0 0 1440 700" preserveAspectRatio="xMidYMax slice">
+        <defs>
+          <linearGradient id="contact-far" x2="0" y2="1"><stop stopColor="#535277"/><stop offset="1" stopColor="#25253f"/></linearGradient>
+          <linearGradient id="contact-near" x2="0" y2="1"><stop stopColor="#273248"/><stop offset="1" stopColor="#101827"/></linearGradient>
+          <linearGradient id="contact-water" x2="0" y2="1"><stop stopColor="#36445b"/><stop offset=".38" stopColor="#192b3e"/><stop offset="1" stopColor="#0a1422"/></linearGradient>
+          <linearGradient id="contact-snow" x2="0" y2="1"><stop stopColor="#d0d4de"/><stop offset="1" stopColor="#8896ae"/></linearGradient>
+        </defs>
+        <path d="M0 375 95 309 150 332 280 142 380 297 456 261 555 164 694 339 766 297 876 199 1037 351 1108 316 1230 139 1370 323 1440 275V700H0Z" fill="url(#contact-far)"/>
+        <path d="m221 207 59-65 57 107-56-38-24 34Zm300 8 34-51 73 114-72-50-26 29Zm668-28 41-48 66 110-68-46-31 31Z" fill="url(#contact-snow)" opacity=".86"/>
+        <path d="M0 440 98 376 199 416 317 327 425 426 540 341 677 438 787 352 929 428 1094 320 1220 420 1348 341 1440 401V700H0Z" fill="url(#contact-near)"/>
+        <path d="M0 470Q350 452 720 472T1440 465V700H0Z" fill="url(#contact-water)"/>
+        <path d="M0 470Q350 452 720 472T1440 465" fill="none" stroke="#a9acbd" strokeWidth="2" opacity=".45"/>
+        <g stroke="#aec0ce" strokeLinecap="round" opacity=".23"><path d="M530 502h389M626 516h255M410 542h309M768 550h414M250 578h385M903 599h282M549 628h334M144 650h334" strokeWidth="2"/><path d="M628 488h176M684 528h156M529 563h154M794 584h142M413 611h215"/></g>
+        <path d="M0 508 64 482 91 501 146 478 194 507 220 490 265 519 298 505 351 538 403 530 445 570 344 565 276 548 201 551 136 529 76 540 0 523Zm1440 5-66-32-46 25-51-26-46 28-30-16-59 36-52-9-46 36-59-15-62 29 110-5 75-17 70 16 72-29 72 13 68-18 50 6Z" fill="#07121c"/>
       </svg>
-      <svg className="contact-bg-mountains-near" viewBox="0 0 400 100" preserveAspectRatio="none">
-        <polygon points="0,100 0,70 80,35 150,72 220,40 300,75 360,45 400,68 400,100" />
-      </svg>
+      <div className="contact-bg-vignette" />
     </div>
   )
 }
