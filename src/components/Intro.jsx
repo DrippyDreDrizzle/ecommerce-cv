@@ -7,13 +7,14 @@ import './Intro.css'
 export default function Intro({ tabs, onSelectTab, onEnter }) {
   const reducedMotion = useReducedMotion()
   const [entering, setEntering] = useState(false)
+  const [struck, setStruck] = useState(false)
   const [panned, setPanned] = useState(false)
 
   useEffect(() => {
-    if (!entering) return undefined
-    const timer = setTimeout(() => setPanned(true), 420)
+    if (!struck) return undefined
+    const timer = setTimeout(() => setPanned(true), 240)
     return () => clearTimeout(timer)
-  }, [entering])
+  }, [struck])
 
   const handleEnter = () => {
     if (entering) return
@@ -39,8 +40,8 @@ export default function Intro({ tabs, onSelectTab, onEnter }) {
         >
           <div className="intro-stripe" />
           <div className="intro-content">
-            <div className={`intro-name-frame ${entering ? 'is-breaking' : ''}`}>
-              <GlassName text="André Marjolin" trigger={entering} />
+            <div className={`intro-name-frame ${struck ? 'is-breaking' : ''}`}>
+              <GlassName text="André Marjolin" trigger={entering} onImpact={setStruck} />
             </div>
             <motion.p
               className="intro-role"
