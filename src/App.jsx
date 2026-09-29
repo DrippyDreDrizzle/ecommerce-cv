@@ -98,8 +98,8 @@ function AppInner() {
       {ripple && !reduced && <div className="navigation-ripple" aria-hidden="true">
         <motion.div key={ripple.id} className="navigation-ripple-disc"
           style={{ left: ripple.x - ripple.radius, top: ripple.y - ripple.radius, width: ripple.radius * 2, height: ripple.radius * 2, '--ripple-color': ripple.color }}
-          initial={{ scale: 0, opacity: .65 }} animate={{ scale: 1, opacity: [ .65, .38, 0 ] }}
-          transition={{ duration: .34, ease: [.16, .7, .24, 1] }}
+          initial={{ scale: .02, opacity: .95 }} animate={{ scale: [ .02, .72, 1.08 ], opacity: [ .95, .85, 0 ] }}
+          transition={{ duration: .42, times: [0, .72, 1], ease: [.3, .1, .35, 1] }}
           onAnimationComplete={() => setRipple(current => current?.id === ripple.id ? null : current)} />
       </div>}
     </div>

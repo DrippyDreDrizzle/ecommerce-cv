@@ -21,5 +21,5 @@
 
 .app-shell { height: 100dvh; }
 .navigation-ripple { position: absolute; inset: 0; overflow: hidden; z-index: 30; pointer-events: none; }
-.navigation-ripple-disc { position: absolute; border-radius: 50%; background: radial-gradient(circle, transparent 0 44%, color-mix(in srgb, var(--ripple-color) 12%, transparent) 45% 57%, transparent 58% 63%, color-mix(in srgb, var(--ripple-color) 25%, transparent) 64% 74%, transparent 75% 80%, var(--ripple-color) 81% 96%, transparent 97%); will-change: transform, opacity; }
+.navigation-ripple-disc { position: absolute; border-radius: 50%; background: radial-gradient(circle, transparent 0 37%, color-mix(in srgb, var(--ripple-color) 55%, transparent) 38% 44%, transparent 45% 56%, color-mix(in srgb, var(--ripple-color) 75%, transparent) 57% 65%, transparent 66% 76%, var(--ripple-color) 77% 88%, #eee7ff 89% 89.5%, transparent 90%); will-change: transform, opacity; }
 @media (prefers-reduced-motion: reduce) { .navigation-ripple { display: none; } }
