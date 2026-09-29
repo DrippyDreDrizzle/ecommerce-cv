@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import ElectricTitle from './ElectricTitle'
 import './GlassName.css'
@@ -56,7 +56,7 @@ function buildShards(rows = 3, cols = 5) {
       shards.push({
         id: `${r}-${c}`,
         clipPath,
-        delay: 0.55 + distFromMid * 0.3 + Math.random() * 0.06,
+        delay: 0.06 + distFromMid * 0.12 + Math.random() * 0.025,
         burstX: dirX * (30 + Math.random() * 40),
         burstY: dirY * (20 + Math.random() * 30),
         fallX: dirX * (40 + Math.random() * 60) + (Math.random() - 0.5) * 40,
@@ -76,77 +76,36 @@ function buildSparkles(count = 14) {
       id: i,
       x: Math.cos(angle) * dist,
       y: Math.sin(angle) * dist,
-      size: 4 + Math.random() * 8,
-      delay: Math.random() * 0.15,
-      hue: Math.random() > 0.5 ? 'var(--primary)' : 'var(--secondary)',
+      size: 2 + Math.random() * 4,
+      delay: Math.random() * 0.05,
+      hue: Math.random() > 0.5 ? 'var(--primary)' : '#e8d0ff',
     }
   })
 }
 
-export default function GlassName({ text, trigger, onFallComplete }) {
-  const [shards, setShards] = useState(null)
-  const [sparkles, setSparkles] = useState(null)
+export default function GlassName({ text, trigger }) {
+  const stage = useRef(null)
+  const [scene, setScene] = useState(null)
 
   useEffect(() => {
-    if (trigger && !shards) {
-      const built = buildShards()
-      setShards(built)
-      setSparkles(buildSparkles())
-      const maxDuration = Math.max(...built.map((s) => s.delay)) + 0.95
-      const timeout = setTimeout(() => onFallComplete?.(), maxDuration * 1000)
-      return () => clearTimeout(timeout)
-    }
-  }, [trigger, shards, onFallComplete])
-
-  if (!shards) {
-    return <ElectricTitle text={text} />
-  }
+    if (!trigger || scene) return
+    const source = stage.current.querySelector('canvas')
+    const bounds = stage.current.getBoundingClientRect()
+    let image = null
+    try { image = source?.toDataURL('image/png') || null } catch { /* Text fallback if capture is unavailable. */ }
+    setScene({ image, width: bounds.width, height: bounds.height, shards: buildShards(), sparkles: buildSparkles() })
+  }, [trigger, scene])
 
   return (
-    <div className="glass-name" aria-hidden="true">
-      <span className="glass-text glass-text-ghost">{text}</span>
-
-      <motion.div
-        className="impact-flash"
-        initial={{ scale: 0.3, opacity: 1 }}
-        animate={{ scale: 2.6, opacity: 0 }}
-        transition={{ duration: 0.45, ease: 'easeOut' }}
-      />
-
-      {sparkles.map((sp) => (
-        <motion.span
-          key={sp.id}
-          className="glass-sparkle"
-          style={{ width: sp.size, height: sp.size, background: sp.hue }}
-          initial={{ x: 0, y: 0, opacity: 1, scale: 1 }}
-          animate={{ x: sp.x, y: sp.y, opacity: 0, scale: 0.2 }}
-          transition={{ duration: 0.6 + Math.random() * 0.3, delay: sp.delay, ease: 'easeOut' }}
-        />
-      ))}
-
-      {shards.map((s) => (
-        <motion.div
-          key={s.id}
-          className="glass-shard"
-          style={{ clipPath: s.clipPath }}
-          initial={{ x: 0, y: 0, rotate: 0, opacity: 1 }}
-          animate={{
-            x: [0, s.burstX, s.fallX],
-            y: [0, s.burstY, s.fallY],
-            rotate: [0, s.rotate * 0.4, s.rotate],
-            opacity: [1, 1, 0],
-          }}
-          transition={{
-            duration: 0.75 + Math.random() * 0.25,
-            delay: s.delay,
-            times: [0, 0.22, 1],
-            ease: [0.3, 0, 0.6, 1],
-          }}
-        >
-          <span className="glass-text">{text}</span>
+    <div ref={stage} className="glass-name-stage" style={scene ? { width: scene.width, height: scene.height } : undefined}>
+      {!scene ? <ElectricTitle text={text} /> : <div className="glass-name" aria-hidden="true">
+        <motion.div className="impact-flash" initial={{ scale: .5, opacity: .65 }} animate={{ scale: 1.4, opacity: 0 }} transition={{ duration: .24, ease: 'easeOut' }} />
+        {scene.sparkles.map((spark) => <motion.span key={spark.id} className="glass-sparkle" style={{ width: spark.size, height: spark.size, background: spark.hue }} initial={{ x: 0, y: 0, opacity: 1, scale: 1 }} animate={{ x: spark.x, y: spark.y, opacity: 0, scale: .2 }} transition={{ duration: .45, delay: spark.delay, ease: 'easeOut' }} />)}
+        {scene.shards.map((shard) => <motion.div key={shard.id} className="glass-shard" style={{ clipPath: shard.clipPath }} initial={{ x: 0, y: 0, rotate: 0, opacity: 1 }} animate={{ x: [0, shard.burstX * .5, shard.fallX], y: [0, shard.burstY * .4, shard.fallY], rotate: [0, shard.rotate * .12, shard.rotate], opacity: [1, 1, 0] }} transition={{ duration: .78, delay: shard.delay, times: [0, .2, 1], ease: [.32, 0, .7, 1] }}>
+          {scene.image ? <img className="glass-snapshot" src={scene.image} alt="" draggable="false" /> : <span className="glass-text">{text}</span>}
           <span className="glass-facet" />
-        </motion.div>
-      ))}
+        </motion.div>)}
+      </div>}
     </div>
   )
 }
