@@ -1,28 +1,32 @@
-import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
 import GlassName from './GlassName'
 import MainMenu from './MainMenu'
 import './Intro.css'
 
 export default function Intro({ tabs, onSelectTab, onEnter }) {
+  const reducedMotion = useReducedMotion()
   const [entering, setEntering] = useState(false)
   const [panned, setPanned] = useState(false)
 
+  useEffect(() => {
+    if (!entering) return undefined
+    const timer = setTimeout(() => setPanned(true), 420)
+    return () => clearTimeout(timer)
+  }, [entering])
+
   const handleEnter = () => {
     if (entering) return
+    if (reducedMotion) { onEnter(); return }
     setEntering(true)
-    // Let the glass name fully shatter and settle before the screen
-    // starts panning down — gives time to see the impact and the
-    // shards fall, rather than cutting away immediately.
-    setTimeout(() => setPanned(true), 2600)
   }
 
   return (
     <div className="intro-viewport">
       <motion.div
         className="intro-track"
-        animate={{ y: panned ? '-100vh' : '0vh' }}
-        transition={{ duration: 1.15, ease: [0.65, 0, 0.35, 1] }}
+        animate={{ y: panned ? '-50%' : '0%' }}
+        transition={{ duration: .82, ease: [.45, 0, .2, 1] }}
         onAnimationComplete={() => {
           if (panned) onEnter()
         }}
@@ -35,24 +39,22 @@ export default function Intro({ tabs, onSelectTab, onEnter }) {
         >
           <div className="intro-stripe" />
           <div className="intro-content">
-            <GlassName
-              text="André Marjolin"
-              trigger={entering}
-              onFallComplete={() => {}}
-            />
+            <div className={`intro-name-frame ${entering ? 'is-breaking' : ''}`}>
+              <GlassName text="André Marjolin" trigger={entering} />
+            </div>
             <motion.p
               className="intro-role"
               animate={{ opacity: entering ? 0 : 1 }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.18 }}
             >
               Ecommerce Growth &amp; Shopify Development
             </motion.p>
             <motion.p
               className="intro-cta"
-              animate={entering ? { opacity: 0 } : { opacity: [0.35, 1, 0.35] }}
+              animate={entering ? { opacity: 0 } : { opacity: [.72, 1, .72] }}
               transition={
                 entering
-                  ? { duration: 0.3 }
+                  ? { duration: 0.18 }
                   : { repeat: Infinity, duration: 1.8, ease: 'easeInOut' }
               }
             >
@@ -61,7 +63,7 @@ export default function Intro({ tabs, onSelectTab, onEnter }) {
           </div>
         </button>
 
-        <div className="intro-menu-preview">
+        <div className="intro-menu-preview" inert="" aria-hidden="true">
           <MainMenu tabs={tabs} onSelect={onSelectTab} />
         </div>
       </motion.div>
