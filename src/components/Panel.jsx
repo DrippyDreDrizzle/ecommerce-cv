@@ -1,34 +1,15 @@
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import './Panel.css'
 
-const wipeVariants = {
-  initial: { clipPath: 'polygon(100% 0, 100% 0, 100% 100%, 100% 100%)', opacity: 0.4 },
-  animate: {
-    clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
-    opacity: 1,
-    transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1] },
-  },
-  exit: {
-    clipPath: 'polygon(0 0, 0 0, 0 100%, 0 100%)',
-    opacity: 0.4,
-    transition: { duration: 0.35, ease: [0.76, 0, 0.24, 1] },
-  },
-}
-
 export default function Panel({ eyebrow, title, children }) {
+  const reduced = useReducedMotion()
   return (
-    <motion.section
-      className="panel"
-      variants={wipeVariants}
-      initial="initial"
-      animate="animate"
-      exit="exit"
-    >
+    <motion.section className="panel"
+      initial={reduced ? false : { opacity: .65, y: 6 }}
+      animate={{ opacity: 1, y: 0 }} transition={{ duration: reduced ? 0 : .22, ease: 'easeOut' }}>
       <div className="panel-header">
         {eyebrow && <p className="panel-eyebrow">{eyebrow}</p>}
-        <h2 className="panel-title glitch-title" data-text={title}>
-          {title}
-        </h2>
+        <h2 className="panel-title" tabIndex={-1}>{title}</h2>
       </div>
       <div className="panel-body">{children}</div>
     </motion.section>
