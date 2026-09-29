@@ -1,5 +1,6 @@
-import { useState } from 'react'
-import { AnimatePresence } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
+import { menuTheme } from './components/menuTheme'
 import { LanguageProvider } from './context/LanguageContext'
 import Intro from './components/Intro'
 import MainMenu from './components/MainMenu'
@@ -31,18 +32,44 @@ function AppInner() {
   const [view, setView] = useState('intro')
   const [activeId, setActiveId] = useState(null)
 
+  const shell = useRef(null)
+  const rippleId = useRef(0)
+  const [ripple, setRipple] = useState(null)
+  const reduced = useReducedMotion()
+
+  const navigate = (id, event) => {
+    if (view === 'panel' && id === activeId) return
+    if (!reduced) {
+      const bounds = shell.current.getBoundingClientRect()
+      const button = event?.currentTarget?.getBoundingClientRect()
+      const x = event?.detail > 0 ? event.clientX - bounds.left : button ? button.left + button.width / 2 - bounds.left : bounds.width / 2
+      const y = event?.detail > 0 ? event.clientY - bounds.top : button ? button.top + button.height / 2 - bounds.top : bounds.height / 2
+      const radius = Math.hypot(Math.max(x, bounds.width - x), Math.max(y, bounds.height - y))
+      setRipple({ id: ++rippleId.current, x, y, radius, color: menuTheme(id || activeId).color })
+    } else setRipple(null)
+    if (id) setActiveId(id)
+    setView(id ? 'panel' : 'menu')
+  }
+
+  useEffect(() => {
+    if (view === 'intro') return undefined
+    const frame = requestAnimationFrame(() => {
+      const target = view === 'panel' ? shell.current?.querySelector('.panel-title') : shell.current?.querySelector(`[data-menu-id="${activeId || 'profile'}"]`)
+      target?.focus({ preventScroll: true })
+    })
+    return () => cancelAnimationFrame(frame)
+    // Section changes preserve focus on the navigation; only changing views moves it.
+  }, [view])
+
   const active = TABS.find((t) => t.id === activeId)
   const ActivePanel = active?.Component
 
   return (
-    <div className="app-shell">
+    <div ref={shell} className="app-shell" style={{ '--section-color': menuTheme(activeId).color }}>
       {view === 'intro' && (
         <Intro
           tabs={TABS}
-          onSelectTab={(id) => {
-            setActiveId(id)
-            setView('panel')
-          }}
+          onSelectTab={navigate}
           onEnter={() => setView('menu')}
         />
       )}
@@ -50,10 +77,8 @@ function AppInner() {
       {view === 'menu' && (
         <MainMenu
           tabs={TABS}
-          onSelect={(id) => {
-            setActiveId(id)
-            setView('panel')
-          }}
+          onSelect={navigate}
+          selectedId={activeId}
         />
       )}
 
@@ -62,16 +87,21 @@ function AppInner() {
           <TopBar
             tabs={TABS}
             activeId={activeId}
-            onSelect={setActiveId}
-            onBack={() => setView('menu')}
+            onSelect={navigate}
+            onBack={(event) => navigate(null, event)}
           />
-          <div className="panel-stage">
-            <AnimatePresence mode="wait">
-              <ActivePanel key={activeId} />
-            </AnimatePresence>
+          <div className="panel-stage" key={activeId}>
+            <ActivePanel />
           </div>
         </div>
       )}
+      {ripple && !reduced && <div className="navigation-ripple" aria-hidden="true">
+        <motion.div key={ripple.id} className="navigation-ripple-disc"
+          style={{ left: ripple.x - ripple.radius, top: ripple.y - ripple.radius, width: ripple.radius * 2, height: ripple.radius * 2, '--ripple-color': ripple.color }}
+          initial={{ scale: 0, opacity: .65 }} animate={{ scale: 1, opacity: [ .65, .38, 0 ] }}
+          transition={{ duration: .34, ease: [.16, .7, .24, 1] }}
+          onAnimationComplete={() => setRipple(current => current?.id === ripple.id ? null : current)} />
+      </div>}
     </div>
   )
 }

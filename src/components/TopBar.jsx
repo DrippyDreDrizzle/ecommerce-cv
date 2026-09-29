@@ -1,6 +1,7 @@
 import { useLanguage } from '../context/LanguageContext'
 import LanguageToggle from './LanguageToggle'
 import './TopBar.css'
+import { menuTheme } from './menuTheme'
 
 export default function TopBar({ tabs, activeId, onSelect, onBack }) {
   const { t } = useLanguage()
@@ -14,7 +15,9 @@ export default function TopBar({ tabs, activeId, onSelect, onBack }) {
           <button
             key={tab.id}
             className={`top-bar-tab ${tab.id === activeId ? 'is-active' : ''}`}
-            onClick={() => onSelect(tab.id)}
+            style={{ '--item-color': menuTheme(tab.id).color }}
+            aria-current={tab.id === activeId ? 'page' : undefined}
+            onClick={(event) => onSelect(tab.id, event)}
           >
             <span className="top-bar-number">{tab.number}</span>
             {t.tabs[tab.labelKey] || tab.label}
