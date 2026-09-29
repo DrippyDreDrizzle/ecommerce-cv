@@ -17,8 +17,22 @@ function Reflection({ motif }) {
   if (motif === 'book') return <><path d="M210 151 Q145 113 65 138 V316 Q147 294 210 331 Q277 294 357 316 V138 Q281 113 210 151Z" fill="currentColor" fillOpacity=".2" /><path d="M210 151 V331 M93 173 Q142 161 178 182 M93 212 Q142 200 178 221 M93 251 Q142 239 178 260 M242 182 Q288 161 328 173 M242 221 Q288 200 328 212" strokeWidth="4" /></>
   if (motif === 'star') return <><circle cx="210" cy="208" r="115" opacity=".35" /><path d="M210 94 L241 172 L325 179 L260 233 L280 317 L210 272 L140 317 L160 233 L95 179 L179 172Z" fill="currentColor" fillOpacity=".32" strokeWidth="4" /><path d="M157 306 L128 397 L210 356 L292 397 L264 306" /></>
   if (motif === 'letter') return <><circle cx="213" cy="223" r="137" opacity=".22" /><path d="M64 142 H358 V316 H64Z" fill="currentColor" fillOpacity=".18" strokeWidth="4" /><path d="M64 142 L211 250 L358 142 M64 316 L165 227 M358 316 L258 227" strokeWidth="4" /><path d="M96 356 H329 M141 378 H287" opacity=".5" /></>
-  // Original graphic study: an anonymous anime-style reflection, not a user portrait.
-  return <><path d="M88 377 L99 150 L153 72 L277 61 L339 152 L325 372 L269 304 L157 311Z" fill="currentColor" fillOpacity=".28" /><path d="M117 188 Q118 104 213 106 Q302 111 307 197 L285 302 L211 358 L140 304Z" fill="#141322" /><path d="M101 191 L149 79 L289 85 L331 204 L271 153 L258 210 L224 146 L187 211 L180 151 L129 212Z" fill="currentColor" fillOpacity=".78" /><path d="M129 232 L183 218 L171 246Z M240 219 L294 231 L252 248Z" fill="#f7f2ff" stroke="none" /><path d="M154 227 V243 M267 228 V244" strokeWidth="10" /><path d="M202 277 L219 279 M188 308 Q212 315 235 305" opacity=".7" />{motif === 'eyes' && <path d="M88 267 L340 194 M71 286 L353 214" strokeWidth="3" opacity=".7" />}</>
+  if (motif === 'manga') return <>
+    <path d="M85 108 L298 81 L326 284 L113 312Z" fill="currentColor" fillOpacity=".15" strokeWidth="4" />
+    <path d="M105 129 L188 119 L199 204 L116 215Z M208 116 L282 106 L293 191 L219 201Z M119 231 L297 207 L304 264 L127 288Z" fill="currentColor" fillOpacity=".18" strokeWidth="2" />
+    <path d="M133 155 L177 182 M135 185 L169 142 M236 135 L251 163 L270 126 M145 251 L278 234" strokeWidth="4" />
+    <path d="M142 287 Q125 279 114 302 L91 358 Q84 388 110 387 L153 356 H269 L310 386 Q336 393 328 360 L306 302 Q298 280 278 287Z" fill="#151321" strokeWidth="5" />
+    <path d="M137 310 V344 M120 327 H154" strokeWidth="7" />
+    <circle cx="278" cy="316" r="6" fill="currentColor" /><circle cx="297" cy="335" r="6" fill="currentColor" />
+    <path d="M190 329 H205 M219 329 H234 M60 219 L81 207 M331 146 L354 131 M331 175 H359" strokeWidth="3" />
+  </>
+  return <>
+    <path d="M210 72 L346 150 V307 L210 385 L74 307 V150Z" fill="currentColor" fillOpacity=".1" strokeWidth="3" />
+    <path d="M210 94 L326 161 M326 287 L210 357 M94 285 V172" opacity=".5" strokeWidth="6" />
+    <path d="M112 281 L153 167 L194 281 M129 237 H178 M215 281 V168 L259 232 L303 168 V281" stroke="currentColor" strokeWidth="13" strokeLinecap="square" />
+    <path d="M147 313 H272 M171 329 H248" opacity=".6" strokeWidth="3" />
+    <circle cx="210" cy="72" r="6" fill="#f7f2ff" /><circle cx="74" cy="307" r="5" fill="currentColor" /><circle cx="346" cy="150" r="5" fill="currentColor" />
+  </>
 }
 
 export default function MenuArtwork({ tab, label }) {
