@@ -1,89 +1,93 @@
 import { useEffect, useRef, useState } from 'react'
 import './ElectricTitle.css'
 
-// Generates a jagged lightning-bolt path between two points, as an
-// SVG path string, by walking from start to end and offsetting each
-// step perpendicular to the line by a random "jag" amount.
-function makeBoltPath(x1, y1, x2, y2, segments = 6, jag = 10) {
-  const dx = x2 - x1
-  const dy = y2 - y1
-  const len = Math.hypot(dx, dy) || 1
-  const nx = -dy / len // unit normal, for perpendicular offsets
-  const ny = dx / len
+const random = (min, max) => min + Math.random() * (max - min)
+const path = (points) => points.map(([x, y], i) => `${i ? 'L' : 'M'}${x.toFixed(2)},${y.toFixed(2)}`).join(' ')
 
-  const points = [[x1, y1]]
-  for (let i = 1; i < segments; i++) {
-    const t = i / segments
-    const baseX = x1 + dx * t
-    const baseY = y1 + dy * t
-    const offset = (Math.random() - 0.5) * jag * (1 - Math.abs(t - 0.5) * 1.2)
-    points.push([baseX + nx * offset, baseY + ny * offset])
-  }
-  points.push([x2, y2])
-
-  return points.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join(' ')
+// Subdivide in pixel space: large bends break into progressively finer
+// irregularities without stretching the geometry on narrow screens.
+function filament(start, end, displacement, depth = 5) {
+  if (!depth) return [start, end]
+  const dx = end[0] - start[0]
+  const dy = end[1] - start[1]
+  const length = Math.hypot(dx, dy) || 1
+  const offset = random(-displacement, displacement)
+  const middle = [(start[0] + end[0]) / 2 - dy / length * offset, (start[1] + end[1]) / 2 + dx / length * offset]
+  return [...filament(start, middle, displacement * .48, depth - 1).slice(0, -1), ...filament(middle, end, displacement * .48, depth - 1)]
 }
 
-function generateBolts() {
-  const count = 2 + Math.floor(Math.random() * 2) // 2-3 bolts at a time
-  const bolts = []
-  for (let i = 0; i < count; i++) {
-    const y1 = 15 + Math.random() * 20
-    const y2 = 65 + Math.random() * 20
-    const x1 = 5 + Math.random() * 90
-    const x2 = x1 + (Math.random() - 0.5) * 40
-    bolts.push({
-      id: `${Date.now()}-${i}-${Math.random()}`,
-      d: makeBoltPath(x1, y1, x2, y2, 5 + Math.floor(Math.random() * 3), 14),
-    })
-  }
-  return bolts
+function discharge(width, height, id) {
+  const fromLeft = Math.random() > .5
+  const start = [width * (fromLeft ? .06 : .94), height * random(.35, .58)]
+  const end = [width * (fromLeft ? .94 : .06), height * random(.4, .64)]
+  const points = filament(start, end, Math.min(height * .24, 25), 6)
+  const branches = Array.from({ length: width < 420 ? 4 : 6 }, (_, i) => {
+    const origin = points[Math.floor(random(10, 53))]
+    const tip = [Math.max(4, Math.min(width - 4, origin[0] + (fromLeft ? 1 : -1) * random(18, width * .13))), Math.max(5, Math.min(height - 5, origin[1] + (i % 2 ? 1 : -1) * random(height * .14, height * .38)))]
+    const branch = filament(origin, tip, 5, 4)
+    // Separate sections taper towards the end of each branch.
+    return [path(branch.slice(0, 7)), path(branch.slice(6, 12)), path(branch.slice(11))]
+  })
+  return { id, d: path(points), branches, start, end }
 }
 
 export default function ElectricTitle({ text }) {
-  const [flash, setFlash] = useState(false)
-  const [bolts, setBolts] = useState(generateBolts())
+  const element = useRef(null)
+  const size = useRef({ width: 0, height: 0 })
+  const [box, setBox] = useState({ width: 0, height: 0 })
+  const [bolt, setBolt] = useState(null)
 
-  // Continuous bolts: swap in a fresh random set every ~450ms so the
-  // lightning is always live and never stops running through the name.
   useEffect(() => {
-    const boltInterval = setInterval(() => {
-      setBolts(generateBolts())
-    }, 350 + Math.random() * 250)
-    return () => clearInterval(boltInterval)
+    const observer = new ResizeObserver(([entry]) => {
+      const { width, height } = entry.target.getBoundingClientRect()
+      size.current = { width, height }
+      setBox({ width, height })
+      setBolt(null)
+    })
+    observer.observe(element.current)
+    return () => observer.disconnect()
   }, [])
 
-  // Separate, slower highlight flash: the whole name brightens every
-  // ~4 seconds, independent of the constant bolt flow.
   useEffect(() => {
-    let timeout
-    const cycle = () => {
-      setFlash(true)
-      timeout = setTimeout(() => {
-        setFlash(false)
-        timeout = setTimeout(cycle, 3600 + Math.random() * 900)
-      }, 250 + Math.random() * 120)
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)')
+    let timer
+    let sequence = 0
+    const strike = () => {
+      if (motion.matches || document.hidden) return
+      const { width, height } = size.current
+      if (width && height) setBolt(discharge(width, height, ++sequence))
+      timer = window.setTimeout(strike, random(1800, 3000))
     }
-    timeout = setTimeout(cycle, 1500)
-    return () => clearTimeout(timeout)
+    const restart = () => {
+      clearTimeout(timer)
+      setBolt(null)
+      if (!motion.matches && !document.hidden) timer = window.setTimeout(strike, 450)
+    }
+    restart()
+    motion.addEventListener('change', restart)
+    document.addEventListener('visibilitychange', restart)
+    return () => {
+      clearTimeout(timer)
+      motion.removeEventListener('change', restart)
+      document.removeEventListener('visibilitychange', restart)
+    }
   }, [])
 
   return (
-    <div className={`electric-title ${flash ? 'is-flashing' : ''}`}>
+    <div ref={element} className="electric-title">
       <span className="electric-text">{text}</span>
-      <svg
-        className="electric-bolts"
-        viewBox="0 0 100 100"
-        preserveAspectRatio="none"
-        aria-hidden="true"
-      >
-        {bolts.map((bolt) => (
-          <g key={bolt.id} className="bolt-group">
-            <path className="bolt-glow" d={bolt.d} fill="none" />
-            <path className="bolt-core" d={bolt.d} fill="none" />
+      {bolt && <span key={`light-${bolt.id}`} className="electric-letter-light" aria-hidden="true">{text}</span>}
+      {box.width > 0 && <svg className="electric-bolts" viewBox={`0 0 ${box.width} ${box.height}`} aria-hidden="true" focusable="false">
+        {bolt && <g key={bolt.id} className="electric-discharge">
+          <path className="electric-bloom" d={bolt.d} />
+          <path className="electric-channel" d={bolt.d} />
+          <g className="electric-branches">
+            {bolt.branches.map((segments, index) => <g key={index}>{segments.map((d, part) => <path key={part} d={d} style={{ strokeWidth: [1.05, .65, .3][part], opacity: [ .85, .6, .3 ][part] }} />)}</g>)}
           </g>
-        ))}
-      </svg>
+          <path className="electric-hot-core" d={bolt.d} pathLength="1" />
+          {[bolt.start, bolt.end].map(([cx, cy], index) => <circle key={index} className="electric-contact-spark" cx={cx} cy={cy} r="1.5" />)}
+        </g>}
+      </svg>}
     </div>
   )
 }
