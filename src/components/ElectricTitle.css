@@ -37,36 +37,33 @@
   stroke: #ede5f7;
   stroke-width: 1.7px;
 }
-/* SVG text strokes follow every outer edge and inner counter of the actual
-   font glyph. Short, uneven dash packets travel along those contours. */
+/* Longer connected arcs travel along each glyph's outer and inner contours.
+   A displaced violet channel and a fine lavender core share the same path. */
 .electric-letter-current {
   fill: none;
-  stroke: #c084ff;
-  stroke-width: 1.35px;
-  stroke-dasharray: 7 22 2 41 11 33;
-  filter: drop-shadow(0 0 2px #a442ff) drop-shadow(0 0 4px #952dff);
+  stroke: #ad4dff;
+  stroke-width: 3px;
+  stroke-dasharray: 28 34 16 38;
   animation: letter-current-travel var(--current-duration) linear infinite, letter-current-energy var(--current-drift) ease-in-out infinite;
   animation-delay: var(--current-delay);
   animation-direction: var(--current-direction), normal;
 }
 .electric-letter-spark {
   fill: none;
-  stroke: #dfb5ff;
-  stroke-width: .8px;
-  stroke-dasharray: 2 53 3 79;
-  filter: drop-shadow(0 0 2px #bb69ff);
-  animation: letter-current-travel var(--current-duration) linear infinite;
+  stroke: #eed3ff;
+  stroke-width: .95px;
+  stroke-dasharray: 28 34 16 38;
+  animation: letter-current-travel var(--current-duration) linear infinite, letter-current-energy var(--current-drift) ease-in-out infinite;
   animation-delay: var(--current-delay);
-  animation-direction: var(--current-direction);
-  opacity: .85;
+  animation-direction: var(--current-direction), normal;
 }
 /* Brief, slightly displaced filaments wander to either side of the edge;
    they never distort the base lettering or flood its interior. */
 .electric-letter-fringe {
   fill: none;
-  stroke: #ac50ff;
-  stroke-width: .8px;
-  stroke-dasharray: 5 57 8 83;
+  stroke: #b765ff;
+  stroke-width: 1.2px;
+  stroke-dasharray: 20 47 19 67;
   animation: letter-fringe-travel var(--current-drift) linear infinite, letter-fringe-energy var(--current-duration) ease-in-out infinite;
   animation-delay: var(--current-delay);
   animation-direction: var(--current-direction), normal;
@@ -92,7 +89,7 @@
   70% { opacity: .15; }
 }
 @media (max-width: 480px) {
-  .electric-letter-current { filter: drop-shadow(0 0 2px #a442ff); stroke-width: 1.1px; }
+  .electric-letter-current { stroke-width: 2.4px; }
   .electric-letter-base { stroke-width: 1.5px; }
 }
 @media (prefers-reduced-motion: reduce) {
