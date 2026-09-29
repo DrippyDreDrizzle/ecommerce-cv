@@ -1,13 +1,4 @@
-import { useId } from 'react'
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { menuTheme } from './menuTheme'
-
-const SHARDS = [
-  '38,51 282,17 218,147 12,241',
-  '298,22 403,73 374,293 230,153',
-  '20,257 216,162 345,306 94,423',
-  '237,173 367,311 343,443 110,438',
-]
 
 function Reflection({ motif }) {
   if (motif === 'mountain') return <><circle cx="299" cy="111" r="40" fill="currentColor" opacity=".5" /><path d="M-30 330 L125 108 L211 236 L270 156 L445 354Z" fill="currentColor" opacity=".28" /><path d="M55 306 L125 108 L159 213 L132 190 L113 225Z" fill="#faf5ff" /><path d="M0 353 Q180 327 430 357 M10 375 Q240 344 400 380 M75 402 H335" /></>
@@ -35,26 +26,12 @@ function Reflection({ motif }) {
   </>
 }
 
-export default function MenuArtwork({ tab, label }) {
-  const id = useId().replace(/:/g, '')
-  const reduced = useReducedMotion()
-  const theme = menuTheme(tab.id)
-  return <div className="menu-artwork" aria-hidden="true" style={{ '--section-color': theme.color }}>
-    <div className="menu-art-orbit" />
-    <div className="menu-art-index">{tab.number}</div>
-    <AnimatePresence initial={false}>
-      <motion.div key={tab.id} className="menu-art-reflection" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: reduced ? 0 : .18 }}>
-        <svg viewBox="0 0 420 460" fill="none" focusable="false">
-          <defs>
-            <linearGradient id={`${id}-${tab.id}-glass`} x2="1" y2="1"><stop stopColor={theme.color} stopOpacity=".26" /><stop offset=".52" stopColor="#080b15" /><stop offset="1" stopColor={theme.color} stopOpacity=".45" /></linearGradient>
-            <g id={`${id}-${tab.id}-reflection`} stroke="currentColor" strokeWidth="2" strokeLinejoin="round"><rect width="420" height="460" fill={`url(#${id}-${tab.id}-glass)`} stroke="none" /><Reflection motif={theme.motif} /></g>
-            {SHARDS.map((points, i) => <clipPath id={`${id}-${tab.id}-${i}`} key={i}><polygon points={points} /></clipPath>)}
-          </defs>
-          {SHARDS.map((points, i) => <g key={i}><g clipPath={`url(#${id}-${tab.id}-${i})`}><use href={`#${id}-${tab.id}-reflection`} /><path d="M-40 320 L430 38 L465 77 L0 368Z" fill="#fff" opacity=".065" /></g><polygon points={points} stroke="currentColor" strokeWidth="1.2" opacity=".65" /></g>)}
-          <path d="M8 153 L31 112 L21 186Z M374 366 L410 348 L390 397Z" fill="currentColor" opacity=".55" />
-        </svg>
-      </motion.div>
-    </AnimatePresence>
-    <div className="menu-art-caption"><span>{tab.number} /</span> {label}</div>
-  </div>
+export default function MenuArtwork({ tab }) {
+  return <span className="menu-card-art" aria-hidden="true">
+    <svg viewBox="0 0 420 460" fill="none" focusable="false">
+      <g stroke="currentColor" strokeWidth="2" strokeLinejoin="round">
+        <Reflection motif={menuTheme(tab.id).motif} />
+      </g>
+    </svg>
+  </span>
 }
