@@ -6,12 +6,12 @@
 }
 
 .intro-track {
-  height: 200vh;
+  height: 200%;
   width: 100%;
 }
 
 .intro-screen {
-  height: 100vh;
+  height: 50%;
   width: 100%;
   background: var(--black);
   display: flex;
@@ -48,6 +48,7 @@
   position: relative;
   text-align: center;
   color: var(--white);
+  width: min(960px, 100%);
 }
 
 .intro-role {
@@ -65,14 +66,26 @@
   text-transform: uppercase;
   letter-spacing: 0.2em;
   font-size: 0.8rem;
-  color: var(--primary);
+  color: #dabfff;
 }
 
 .intro-menu-preview {
-  height: 100vh;
+  height: 50%;
   width: 100%;
   /* Without this, an overflowing menu list (see MainMenu.css) bleeds
      upward past this section's own boundary and shows through on the
      intro screen above it, before the person has even clicked in. */
   overflow: hidden;
+}
+
+.intro-name-frame { position: relative; width: fit-content; max-width: 100%; margin: 0 auto; padding: .8rem 0; }
+.intro-name-frame::before, .intro-name-frame::after { content: ''; position: absolute; left: 8%; right: 8%; height: 3px; background: linear-gradient(90deg, transparent, #ab71ed 20%, #eedcff 50%, #ab71ed 80%, transparent); box-shadow: 0 0 13px #9851e766; pointer-events: none; transition: opacity .18s, transform .3s; }
+.intro-name-frame::before { top: 0; }
+.intro-name-frame::after { bottom: 0; }
+.intro-name-frame.is-breaking::before, .intro-name-frame.is-breaking::after { opacity: 0; transform: scaleX(.5); }
+@media (max-width: 600px) {
+  .intro-stripe { inset: 0; opacity: 1; background: radial-gradient(ellipse at 0% 0%, #66349b55, transparent 48%), radial-gradient(ellipse at 100% 100%, #49347144, transparent 48%); }
+  .intro-role { max-width: 90%; margin: 1.15rem auto 0; font-size: .66rem; letter-spacing: .11em; line-height: 1.65; color: #b9bfcd; }
+  .intro-cta { margin-top: 2.3rem; font-size: .72rem; letter-spacing: .16em; color: #e0caff; }
+  .intro-name-frame::before, .intro-name-frame::after { height: 2px; }
 }
