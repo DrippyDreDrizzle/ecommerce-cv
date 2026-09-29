@@ -1,44 +1,43 @@
-.main-menu { height: 100%; width: 100%; position: relative; overflow-y: auto; overflow-x: hidden; padding: 5rem clamp(1rem, 5vw, 5rem) 1.5rem; display: flex; flex-direction: column; background: radial-gradient(ellipse at 76% 45%, #28203677, transparent 58%), #0a0d14; }
+.main-menu { height: 100%; width: 100%; position: relative; overflow-y: auto; overflow-x: hidden; padding: 5rem clamp(1rem, 5vw, 5rem) 1.5rem; display: flex; flex-direction: column; background: radial-gradient(ellipse at 75% 30%, #30204466, transparent 60%), #0a0d14; }
 .main-menu::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(115deg, transparent 0 110px, #ffffff03 111px 112px); }
 .main-menu-mark { position: absolute; top: 2rem; left: clamp(1.5rem, 5vw, 5rem); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: .17em; font-size: .75rem; color: #b8b4c5; }
 .main-menu-lang { position: absolute; top: 1.6rem; right: clamp(1.5rem, 5vw, 5rem); z-index: 2; }
-.main-menu-composition { position: relative; display: grid; grid-template-columns: 1fr 1fr; align-items: center; width: min(1100px, 100%); margin: auto; gap: 2rem; flex-shrink: 0; }
-.main-menu-navigation { z-index: 2; }
-.main-menu-list { list-style: none; padding: 0; margin: 0; }
-.main-menu-item { width: 100%; min-height: 46px; display: block; padding: 2px 6px; text-align: left; touch-action: manipulation; }
-.menu-item-visual { position: relative; display: flex; align-items: center; gap: 1rem; padding: .18rem 1.2rem; color: #c5c3d1; font-family: var(--font-display); text-transform: uppercase; font-size: clamp(1.5rem, min(3.4vw, 4vh), 2.65rem); animation: menu-drift var(--float-duration) ease-in-out var(--float-delay) infinite; }
-.menu-slash { position: absolute; inset: 0; background: var(--item-color); clip-path: polygon(3% 0, 100% 0, 95% 100%, 0 100%); opacity: 0; transform: scaleX(.94); transition: opacity .13s, transform .16s; }
-.menu-number, .menu-label, .menu-arrow { position: relative; }
-.menu-number { font-family: var(--font-mono); font-size: .66rem; color: var(--item-color); }
-.menu-label { transform: skewX(-7deg); transition: transform .16s; }
-.menu-arrow { margin-left: auto; font-family: var(--font-mono); font-size: 1.2rem; opacity: 0; }
-.main-menu-item.is-previewed .menu-item-visual { color: #0b0e18; }
-.main-menu-item.is-previewed .menu-number { color: #242033; }
-.main-menu-item.is-previewed .menu-slash { opacity: 1; transform: scaleX(1); }
-.main-menu-item.is-previewed .menu-arrow { opacity: 1; }
+.main-menu-composition { position: relative; width: min(940px, 100%); margin: auto; flex-shrink: 0; }
+.main-menu-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.main-menu-list li { min-width: 0; }
+.menu-card-wide { grid-column: 1 / -1; }
+.main-menu-item { width: 100%; display: block; padding: 3px; text-align: left; touch-action: manipulation; }
+.menu-item-visual { position: relative; display: block; height: clamp(100px, 15vh, 142px); overflow: hidden; isolation: isolate; background: #151b28; color: var(--item-color); clip-path: polygon(0 0, 94% 0, 100% 18%, 100% 100%, 6% 100%, 0 82%); animation: menu-drift var(--float-duration) ease-in-out var(--float-delay) infinite; transition: background .16s; }
+.menu-item-visual::before { content: ''; position: absolute; inset: 0; background: linear-gradient(115deg, #ffffff04, transparent 45%), repeating-linear-gradient(135deg, transparent 0 7px, #ffffff04 7px 8px); pointer-events: none; }
+.menu-item-visual::after { content: ''; position: absolute; inset: 0; border-top: 2px solid currentColor; border-bottom: 2px solid currentColor; opacity: .45; pointer-events: none; transition: opacity .16s; }
+.menu-card-stripe { position: absolute; width: 42%; height: 160%; right: -7%; top: -30%; background: currentColor; opacity: .16; transform: skewX(-22deg); transition: opacity .16s; }
+.menu-card-art { position: absolute; right: 1%; top: -32%; width: 58%; height: 165%; opacity: .7; transform: rotate(-10deg); transition: transform .2s, opacity .2s; pointer-events: none; }
+.menu-card-art svg { width: 100%; height: 100%; }
+.menu-card-shade { position: absolute; inset: 0; background: linear-gradient(0deg, #080c16 0%, #080c16eb 23%, #080c1633 75%), linear-gradient(90deg, #080c1688, transparent 65%); }
+.menu-number { position: absolute; left: 1.1rem; top: .8rem; font-family: var(--font-mono); font-size: .65rem; letter-spacing: .14em; }
+.menu-label { position: absolute; left: 1.1rem; right: 2.4rem; bottom: .8rem; color: #faf8ff; font-family: var(--font-display); font-size: clamp(1.3rem, 2.6vw, 2rem); line-height: 1.2; text-transform: uppercase; transform: skewX(-7deg); text-shadow: 0 2px 8px #000; overflow-wrap: anywhere; }
+.menu-arrow { position: absolute; right: 1rem; bottom: .9rem; font-family: var(--font-mono); font-size: 1.1rem; transition: transform .16s; }
+.main-menu-item.is-previewed .menu-item-visual { background: #242b3c; }
+.main-menu-item.is-previewed .menu-item-visual::after { opacity: 1; }
+.main-menu-item.is-previewed .menu-card-stripe { opacity: .38; }
+.main-menu-item.is-previewed .menu-card-art { transform: rotate(-5deg) scale(1.05); opacity: .95; }
+.main-menu-item.is-previewed .menu-arrow { transform: translate(2px, -2px); }
 .main-menu-item:hover .menu-item-visual, .main-menu-item:focus-visible .menu-item-visual { animation-play-state: paused; }
 .main-menu-item:focus-visible { outline: 2px solid var(--item-color); outline-offset: 1px; }
+.menu-card-wide .menu-card-art { width: 40%; right: 10%; }
 .main-menu-hint { position: relative; text-align: center; margin-top: 1.5rem; font-family: var(--font-mono); font-size: .65rem; letter-spacing: .13em; text-transform: uppercase; color: #a29cae; flex-shrink: 0; }
-.menu-artwork { position: relative; height: min(62vh, 550px); min-height: 360px; color: var(--section-color); pointer-events: none; isolation: isolate; }
-.menu-art-reflection { position: absolute; inset: 0; color: var(--section-color); }
-.menu-art-reflection svg { width: 100%; height: 100%; filter: drop-shadow(0 14px 24px #0009); }
-.menu-art-orbit { position: absolute; width: 90%; aspect-ratio: 1; top: 9%; left: 5%; border: 1px solid currentColor; opacity: .13; border-radius: 50%; box-shadow: 0 0 0 26px #ffffff04, 0 0 0 52px #ffffff02; }
-.menu-art-index { position: absolute; top: -4%; right: -2%; font-family: var(--font-display); font-size: clamp(8rem, 18vw, 17rem); line-height: 1; opacity: .09; transform: skew(-10deg); }
-.menu-art-caption { position: absolute; bottom: -1rem; left: 10%; right: 0; font-family: var(--font-mono); text-transform: uppercase; font-size: .75rem; letter-spacing: .15em; }
-.menu-art-caption span { opacity: .55; }
-@keyframes menu-drift { 0%, 100% { transform: translateY(-1.5px); } 50% { transform: translateY(1.5px); } }
+@keyframes menu-drift { 0%, 100% { transform: translateY(-1px); } 50% { transform: translateY(1px); } }
 @media (max-width: 640px) {
-  .main-menu { padding: 4rem 1.1rem 1.2rem; }
-  .main-menu-mark { top: 1.55rem; left: 1.25rem; font-size: .57rem; letter-spacing: .08em; }
-  .main-menu-lang { top: 1.1rem; right: 1.2rem; }
-  .main-menu-composition { grid-template-columns: 1fr; gap: .6rem; max-width: 420px; }
-  .menu-artwork { grid-row: 1; min-height: 0; height: clamp(110px, 19vh, 175px); margin-bottom: .6rem; }
-  .menu-art-reflection { inset: -10px 0; }
-  .menu-art-orbit { width: 145px; top: 0; left: calc(50% - 72px); }
-  .menu-art-index { font-size: 8rem; top: 0; right: 9%; }
-  .menu-art-caption { left: 0; bottom: 0; font-size: .55rem; max-width: 95px; line-height: 1.7; }
-  .main-menu-item { min-height: 44px; }
-  .menu-item-visual { font-size: 1.45rem; padding: .15rem 1rem; }
+  .main-menu { padding: 4rem .85rem 1.2rem; }
+  .main-menu-mark { top: 1.55rem; left: 1.15rem; font-size: .57rem; letter-spacing: .08em; }
+  .main-menu-lang { top: 1.1rem; right: 1.1rem; }
+  .main-menu-list { gap: 9px; }
+  .menu-item-visual { height: clamp(108px, 15vh, 128px); }
+  .menu-card-art { width: 95%; right: -18%; top: -25%; height: 145%; }
+  .menu-number { left: .75rem; top: .7rem; font-size: .58rem; }
+  .menu-label { left: .75rem; right: 1.65rem; bottom: .85rem; font-size: clamp(1rem, 4.5vw, 1.45rem); }
+  .menu-arrow { right: .55rem; bottom: .85rem; font-size: .95rem; }
+  .menu-card-wide .menu-card-art { width: 52%; right: 2%; }
   .main-menu-hint { margin-top: 1rem; font-size: .52rem; }
 }
 @media (prefers-reduced-motion: reduce) { .menu-item-visual { animation: none; } }
