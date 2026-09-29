@@ -90,3 +90,20 @@
     display: none;
   }
 }
+
+/* The SVG tip is the rotation origin and lands exactly at the crack centre. */
+.kunai-flight { position: absolute; left: 50%; top: 50%; width: clamp(112px, 22vw, 180px); z-index: 9; pointer-events: none; }
+.kunai-angle { position: absolute; width: 100%; right: 100%; transform: translateY(-50%) rotate(35deg); transform-origin: 100% 50%; }
+.kunai-angle svg { position: relative; display: block; width: 100%; overflow: visible; filter: drop-shadow(0 0 5px #ac72e9aa); }
+.kunai-trail { position: absolute; right: 45%; top: 42%; width: 210%; height: 16%; border-radius: 50%; background: linear-gradient(90deg, transparent, #9850ec33 50%, #d4a4ffbb); filter: blur(3px); }
+.glass-impact-frame { position: absolute; inset: 0; z-index: 3; background: #09060f; opacity: 0; pointer-events: none; animation: glass-impact-hold 60ms linear both; }
+.glass-impact-image { width: 100%; height: 100%; object-fit: contain; filter: brightness(2) drop-shadow(0 0 3px #d6afff); }
+.glass-cracks { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 6; pointer-events: none; fill: none; stroke: #e7caff; stroke-width: 1; filter: drop-shadow(0 0 3px #b270ff); animation: glass-crack-fade 180ms ease-out both; }
+.has-impact { animation: glass-hit-shake 160ms ease-out both; }
+@keyframes glass-impact-hold { 0%, 90% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes glass-crack-fade { 0%, 35% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes glass-hit-shake { 0%, 100% { transform: translate(0, 0); } 25% { transform: translate(3px, 2px); } 55% { transform: translate(-2px, -1px); } 80% { transform: translate(1px, 0); } }
+@media (prefers-reduced-motion: reduce) {
+  .kunai-flight, .glass-impact-frame, .glass-cracks { display: none; }
+  .has-impact { animation: none; }
+}
