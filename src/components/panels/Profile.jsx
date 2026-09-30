@@ -31,20 +31,20 @@ const copy = {
 }
 
 export default function Profile({ onNavigate }) {
-  const { lang, t } = useLanguage()
+  const { lang } = useLanguage()
   const c = copy[lang] || copy.en
-  return <Panel eyebrow={`01 — ${t.tabs.profile}`} title={t.profileTitle}>
+  return <Panel>
     <div className="profile-dossier">
       <header className="profile-hero">
         <span className="profile-watermark" aria-hidden="true">PROFILE</span>
         <div className="profile-identity">
           <p className="profile-kicker">{c.role}</p>
-          <h3 className="profile-name">André<span>Marjolin<span className="profile-name-dot">.</span></span></h3>
+          <h2 className="profile-name panel-title" tabIndex={-1}>André<span>Marjolin<span className="profile-name-dot">.</span></span></h2>
           <div className="profile-meta"><span>{c.location}</span><span>{c.experience}</span></div>
           <p className="profile-intro">{c.intro}</p>
           <p className="profile-summary">{c.summary}</p>
         </div>
-        <div className="profile-insignia"><div className="profile-monogram" aria-hidden="true"><span>AM</span><small>PROFILE / 01</small></div><MBTIBadge /></div>
+        <div className="profile-insignia"><div className="profile-monogram" aria-hidden="true"><span>AM</span><small>PROFILE</small></div><MBTIBadge /></div>
       </header>
       <section className="profile-story" aria-labelledby="profile-story-title">
         <div><p className="profile-section-index" aria-hidden="true">01 / ORIGIN</p><h3 id="profile-story-title">{c.story}</h3></div>
