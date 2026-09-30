@@ -73,3 +73,14 @@
 @keyframes menu-bar-grow { 0% { transform: scaleY(.2); opacity: 0; } 15% { opacity: 1; } 80% { transform: scaleY(1); opacity: 1; } 100% { transform: scaleY(1); opacity: 0; } }
 @keyframes menu-arrow-rise { 0% { transform: translate(-24px,50px); opacity: 0; } 20% { opacity: 1; } 80% { transform: translate(8px,-20px); opacity: 1; } 100% { transform: translate(12px,-28px); opacity: 0; } }
 @keyframes menu-page-turn { 0% { transform: scaleX(1); opacity: 0; } 10% { opacity: 1; } 45% { transform: scaleX(.08); } 80% { transform: scaleX(-1); opacity: 1; } 100% { transform: scaleX(-1); opacity: 0; } }
+
+/* Touch previews follow the existing pointer-down highlight while scrolling. */
+@media (hover: none) and (prefers-reduced-motion: no-preference) {
+  .main-menu-item.is-previewed .menu-card-art--animated .menu-static-scene { display: none; }
+  .main-menu-item.is-previewed .menu-hover-scene { display: inline; }
+  .main-menu-item.is-previewed .menu-plane { animation: menu-plane-float 2.4s ease-in-out infinite; }
+  .main-menu-item.is-previewed .menu-cloud { animation: menu-cloud-pass 3.2s linear infinite; }
+  .main-menu-item.is-previewed .menu-growing-bar { animation: menu-bar-grow 2.4s ease-in-out infinite; }
+  .main-menu-item.is-previewed .menu-rising-arrow { animation: menu-arrow-rise 2.4s ease-in-out infinite; }
+  .main-menu-item.is-previewed .menu-turning-page { animation: menu-page-turn 2.4s ease-in-out infinite; }
+}
