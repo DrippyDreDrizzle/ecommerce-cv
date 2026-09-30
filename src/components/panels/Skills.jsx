@@ -1,64 +1,35 @@
 import Panel from '../Panel'
-import SkillRadar from '../SkillRadar'
 import MBTIBadge from '../MBTIBadge'
 import { useLanguage } from '../../context/LanguageContext'
-import './panels.css'
-
-// Placeholder stat values — adjust to taste (0-100 each).
-const STATS = [
-  { label: 'Social', value: 70 },
-  { label: 'Creativity', value: 85 },
-  { label: 'Drive', value: 90 },
-  { label: 'Adaptability', value: 75 },
-  { label: 'Intelligence', value: 80 },
-]
-
-// Playful JRPG-style "special move" naming for real skills. Edit
-// freely — mark one `ultimate: true` for the special glow treatment.
-const SPECIAL_SKILLS = [
-  { name: 'Full Funnel Rebuild', tag: 'Special', desc: 'Tears down a broken checkout and rebuilds it from data up.' },
-  { name: 'Data-Driven Pivot', tag: 'Special', desc: 'Reads the numbers and changes direction before the quarter is lost.' },
-  { name: 'Zero-to-Launch', tag: 'Ultimate', desc: 'Ships a full Shopify build from brief to live store, solo.', ultimate: true },
-]
+import { skillsContent } from './skillsContent'
+import './Skills.css'
 
 export default function Skills() {
-  const { t } = useLanguage()
-
-  return (
-    <Panel eyebrow="02 — Skills" title={t.skillsTitle}>
-      <div className="skill-stat-row">
-        <SkillRadar stats={STATS} />
-
-        <div className="special-skills-col">
-          <div className="special-skills-header">
-            <span className="special-skills-title">Special Skills</span>
-            <MBTIBadge type="INTJ" />
-          </div>
-
-          {SPECIAL_SKILLS.map((s) => (
-            <div key={s.name} className={`special-skill-card ${s.ultimate ? 'is-ultimate' : ''}`}>
-              <div className="special-skill-name-row">
-                <span className="special-skill-name">{s.name}</span>
-                <span className="special-skill-tag">{s.tag}</span>
-              </div>
-              <p className="special-skill-desc">{s.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="skill-grid">
-        {t.content.skills.map((s) => (
-          <div className="skill-card" key={s.label}>
-            <h3>{s.label}</h3>
-            <ul>
-              {s.items.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-    </Panel>
-  )
+  const { lang, t } = useLanguage()
+  const c = skillsContent[lang] || skillsContent.en
+  return <Panel eyebrow={`02 — ${t.tabs.skills}`} title={t.skillsTitle}>
+    <div className="skills-dossier">
+      <header className="skills-identity">
+        <div><p className="skills-kicker">{c.role}</p><h3>{c.heading}</h3><p>{c.intro}</p><span className="skills-tenure">{c.experience}</span></div>
+        <MBTIBadge />
+      </header>
+      <section className="skills-section" aria-labelledby="skills-core-heading">
+        <h3 className="skills-section-heading" id="skills-core-heading">{c.core}</h3>
+        <div className="skills-core-grid">{c.strengths.map((skill, index) => <article className="skills-ability" key={skill.title}>
+          <div className="skills-ability-top"><span className="skills-ability-number">0{index + 1}</span><span>{skill.tag}</span></div>
+          <h4>{skill.title}</h4><p>{skill.desc}</p><ul>{skill.items.map(item => <li key={item}>{item}</li>)}</ul>
+        </article>)}</div>
+      </section>
+      <section className="skills-section" aria-labelledby="skills-evidence-heading">
+        <h3 className="skills-section-heading" id="skills-evidence-heading">{c.evidence}</h3>
+        <div className="skills-evidence-grid">{c.projects.map(project => <article className="skills-evidence" key={project.title}><strong>{project.metric}</strong><h4>{project.title}</h4><p>{project.desc}</p></article>)}</div>
+      </section>
+      <section className="skills-section skills-tools" aria-labelledby="skills-tools-heading">
+        <h3 className="skills-section-heading" id="skills-tools-heading">{c.tools}</h3>
+        <p className="skills-tool-label">{c.primary}</p><ul className="skills-tool-chips"><li>Google Merchant Center</li><li>Google Search Console</li></ul>
+        <p className="skills-tool-label">{c.supporting}</p><ul className="skills-tool-chips is-secondary"><li>Shopify</li><li>Excel</li><li>HTML / CSS / JavaScript</li></ul>
+      </section>
+      <div className="skills-working-grid"><section className="skills-working"><h3>{c.approach}</h3><p>{c.build}</p></section><section className="skills-working"><h3>{c.working}</h3><p>{c.teamwork}</p></section></div>
+    </div>
+  </Panel>
 }
