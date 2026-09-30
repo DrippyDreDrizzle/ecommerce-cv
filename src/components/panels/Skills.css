@@ -33,3 +33,9 @@
 .skills-working { padding-top: 1rem; border-top: 1px solid #6ee7ed44; }
 .skills-working h3 { font-size: 1.1rem; }
 @media (max-width: 640px) { .skills-identity { flex-direction: column; gap: 1rem; } .skills-core-grid, .skills-evidence-grid, .skills-working-grid { grid-template-columns: 1fr; } .skills-ability { padding: 1.15rem; } .skills-evidence strong { font-size: 1.7rem; } }
+
+@media (max-width: 640px) {
+  .skills-identity > div { width: 100%; container-type: inline-size; }
+  .skills-identity .skills-identity-heading { font-size: clamp(1rem, 5vw, 1.5rem); font-size: clamp(1rem, 7.8cqw, 1.5rem); }
+  .skills-identity-heading > span { display: block; white-space: nowrap; }
+}
