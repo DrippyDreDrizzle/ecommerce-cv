@@ -1,0 +1,64 @@
+.profile-dossier { --profile-accent: #b58aff; color: #f4f0fa; }
+.profile-hero { position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(0, 1fr) 180px; gap: 2rem; padding: 2.5rem 0 2rem; border-top: 1px solid #b58aff55; overflow: hidden; }
+.profile-hero::before { content: ''; position: absolute; z-index: -1; inset: 0; background: radial-gradient(ellipse at 85% 40%, #9162db24, transparent 60%), repeating-linear-gradient(130deg, transparent 0 35px, #b58aff05 36px 37px); }
+.profile-watermark { position: absolute; z-index: -1; right: -10px; top: -20px; font: clamp(5rem, 14vw, 10rem)/1 var(--font-display); color: transparent; -webkit-text-stroke: 1px #b58aff1c; pointer-events: none; }
+.profile-kicker, .profile-meta, .profile-section-index, .profile-section-heading > span { font-family: var(--font-mono); font-size: .65rem; line-height: 1.6; letter-spacing: .08em; text-transform: uppercase; }
+.profile-kicker { color: var(--profile-accent); margin: 0 0 1rem; }
+.profile-name { font-size: clamp(3.3rem, 7vw, 6rem); line-height: 1.02; letter-spacing: -.015em; }
+.profile-name > span { display: block; }
+.profile-name-dot { color: var(--profile-accent); }
+.profile-meta { display: flex; flex-wrap: wrap; gap: .6rem 1.2rem; margin: 1.2rem 0 1.6rem; color: #d1bddf; }
+.profile-meta > span + span { border-left: 2px solid #b58aff; padding-left: 1.2rem; }
+.profile-intro { font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 600; line-height: 1.25; max-width: 28ch; margin: 0; }
+.profile-summary { color: #b9b3c8; font-size: 1.1rem; line-height: 1.5; max-width: 43ch; }
+.profile-insignia { display: flex; flex-direction: column; justify-content: center; gap: 1.6rem; }
+.profile-monogram { aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid #b58aff88; background: linear-gradient(135deg, #b58aff20, #b58aff03); clip-path: polygon(14% 0,100% 0,100% 86%,86% 100%,0 100%,0 14%); box-shadow: inset 0 0 0 8px #b58aff09; }
+.profile-monogram > span { font: italic 5rem/1 var(--font-display); letter-spacing: -.06em; color: #c9a7ff; }
+.profile-monogram small { font: .5rem var(--font-mono); letter-spacing: .2em; margin-top: .8rem; }
+.profile-insignia .mbti-badge { width: 100%; }
+.profile-story { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 2rem; padding: 2rem 0; border-block: 1px solid #b58aff33; }
+.profile-section-index { color: #b58aff; margin: 0 0 .8rem; }
+.profile-story h3, .profile-section-heading h3 { font-size: 1.4rem; }
+.profile-story p:not(.profile-section-index) { margin: 0; color: #c7c1d2; font-size: 1.15rem; line-height: 1.65; }
+.profile-timeline { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .8rem; list-style: none; margin: 1.5rem 0 0; padding: 0; }
+.profile-timeline li { border-top: 1px solid #b58aff70; padding-top: .8rem; font-size: .95rem; }
+.profile-timeline span { display: block; color: #b58aff; font: .6rem var(--font-mono); margin-bottom: .5rem; }
+.profile-section-heading { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin: 2rem 0 1rem; }
+.profile-section-heading > span { color: #9282a8; font-size: .55rem; }
+.profile-traits { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+.profile-traits article { position: relative; padding: 1.4rem 1.2rem; background: linear-gradient(145deg, #b58aff10, #b58aff03); border: 1px solid #b58aff28; border-top: 2px solid #b58aff99; }
+.profile-trait-number { color: #b58aff; font: .65rem var(--font-mono); }
+.profile-traits h4 { margin: .9rem 0 .6rem; font-size: 1.25rem; }
+.profile-traits p { font-size: 1.05rem; line-height: 1.5; color: #bdb6cc; margin: 0; }
+.profile-destinations { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.profile-destination { position: relative; isolation: isolate; min-width: 0; height: 280px; padding: 0; text-align: left; overflow: hidden; border: 1px solid #b58aff50; background: #161322; transition: border-color .2s, transform .2s, box-shadow .2s; }
+.profile-destination > svg { position: absolute; inset: 0; height: 100%; width: 100%; object-fit: cover; transition: transform .35s ease; }
+.profile-destination::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(0deg, #0b0917 0%, #0b0917dc 20%, #0b091722 65%, transparent); }
+.profile-destination > svg { z-index: -2; }
+.profile-destination-content { height: 100%; display: flex; flex-direction: column; justify-content: flex-end; padding: 1.4rem; }
+.profile-destination-title { font: 2rem/1.1 var(--font-display); text-transform: uppercase; }
+.profile-destination-subtitle { margin-top: .4rem; font-size: .95rem; color: #ded2ee; }
+.profile-destination-cta { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #b58aff44; padding-top: .7rem; margin-top: 1rem; text-transform: uppercase; font: .6rem var(--font-mono); letter-spacing: .1em; color: #cab0f3; }
+.profile-destination-cta > span { font: 1.4rem var(--font-body); }
+.profile-destination:focus-visible { outline: 2px solid #d2b7ff; outline-offset: 4px; }
+@media (hover: hover) { .profile-destination:hover { border-color: #b58aff; transform: translateY(-3px); box-shadow: 0 12px 30px #0005; } .profile-destination:hover > svg { transform: scale(1.04); } }
+@media (max-width: 640px) {
+  .profile-hero { grid-template-columns: minmax(0, 1fr); gap: .7rem; padding-top: 1.5rem; }
+  .profile-name { font-size: clamp(2.8rem, 12vw, 4.8rem); }
+  .profile-insignia { flex-direction: row; align-items: stretch; justify-content: flex-start; gap: 1rem; margin: .4rem 0; }
+  .profile-monogram { width: 86px; flex-shrink: 0; }
+  .profile-monogram > span { font-size: 2.7rem; }
+  .profile-monogram small { font-size: .35rem; margin-top: .4rem; }
+  .profile-insignia .mbti-badge { width: auto; flex-grow: 1; justify-content: center; }
+  .profile-story { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+  .profile-traits { grid-template-columns: minmax(0, 1fr); gap: .7rem; }
+  .profile-traits article { padding: 1rem 1rem 1rem 3.3rem; }
+  .profile-trait-number { position: absolute; top: 1.25rem; left: 1rem; }
+  .profile-traits h4 { margin-top: 0; }
+  .profile-destinations { gap: .7rem; }
+  .profile-destination { height: 240px; }
+  .profile-destination-content { padding: .8rem; }
+  .profile-destination-title { font-size: 1.5rem; }
+  .profile-destination-subtitle { font-size: .85rem; min-height: 2.8em; }
+  .profile-section-heading > span { display: none; }
+}

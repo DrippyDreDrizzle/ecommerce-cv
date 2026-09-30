@@ -91,7 +91,10 @@ function AppInner() {
             onBack={(event) => navigate(null, event)}
           />
           <div className="panel-stage" key={activeId}>
-            <ActivePanel />
+            <ActivePanel onNavigate={(id, event) => {
+              navigate(id, event)
+              requestAnimationFrame(() => shell.current?.querySelector('.panel-title')?.focus({ preventScroll: true }))
+            }} />
           </div>
         </div>
       )}

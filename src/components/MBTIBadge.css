@@ -1,20 +1,20 @@
-.mbti-badge { display: flex; flex-direction: column; align-items: flex-start; gap: .5rem; min-width: 132px; padding: .9rem 1.2rem; color: #baf9ff; background: #6ee7ed0d; border: 1px solid #6ee7ed66; border-right: 4px solid #6ee7ed; transition: background .15s, border-color .15s; flex-shrink: 0; }
-.mbti-badge:hover { background: #6ee7ed24; border-color: #6ee7ed; }
-.mbti-badge:focus-visible { outline: 2px solid #6ee7ed; outline-offset: 4px; }
+.mbti-badge { display: flex; flex-direction: column; align-items: flex-start; gap: .5rem; min-width: 132px; padding: .9rem 1.2rem; color: #e3d1ff; background: #b58aff0d; border: 1px solid #b58aff66; border-right: 4px solid #b58aff; transition: background .15s, border-color .15s; flex-shrink: 0; }
+.mbti-badge:hover { background: #b58aff24; border-color: #b58aff; }
+.mbti-badge:focus-visible { outline: 2px solid #b58aff; outline-offset: 4px; }
 .mbti-badge-label { font-family: var(--font-mono); font-size: .55rem; letter-spacing: .08em; text-transform: uppercase; }
 .mbti-badge-type { font-family: var(--font-display); font-size: 1.6rem; letter-spacing: .06em; }
 .mbti-badge-type span { font-family: var(--font-body); font-size: 1rem; margin-left: .5rem; }
-.mbti-dialog { color: #f2f5fa; background: linear-gradient(145deg, #183039, #101620 60%); border: 1px solid #6ee7ed88; border-top: 4px solid #6ee7ed; width: min(620px, calc(100vw - 2rem)); max-height: calc(100dvh - 2rem); padding: clamp(1.3rem, 4vw, 2rem); overflow: auto; box-shadow: 0 20px 80px #000b; }
+.mbti-dialog { color: #f2f5fa; background: linear-gradient(145deg, #2b203e, #101620 60%); border: 1px solid #b58aff88; border-top: 4px solid #b58aff; width: min(620px, calc(100vw - 2rem)); max-height: calc(100dvh - 2rem); padding: clamp(1.3rem, 4vw, 2rem); overflow: auto; box-shadow: 0 20px 80px #000b; }
 .mbti-dialog[open] { animation: mbti-appear .16s ease-out; }
 .mbti-dialog::backdrop { background: #050a12dd; }
 .mbti-close { position: absolute; right: .3rem; top: .3rem; height: 44px; width: 44px; font-size: 1.7rem; }
-.mbti-dialog-kicker { font-family: var(--font-mono); font-size: .65rem; letter-spacing: .12em; color: #6ee7ed; margin: .5rem 2rem 1rem 0; }
+.mbti-dialog-kicker { font-family: var(--font-mono); font-size: .65rem; letter-spacing: .12em; color: #b58aff; margin: .5rem 2rem 1rem 0; }
 .mbti-dialog h2 { font-size: clamp(1.5rem, 5vw, 2rem); padding-right: 1.5rem; }
 .mbti-intro { line-height: 1.65; color: #c0cbd9; }
 .mbti-traits { display: grid; gap: .75rem; margin: 1.5rem 0; }
-.mbti-traits > div { background: #ffffff04; border-left: 2px solid #6ee7ed66; padding: .85rem 1rem; }
+.mbti-traits > div { background: #ffffff04; border-left: 2px solid #b58aff66; padding: .85rem 1rem; }
 .mbti-traits dt { font-weight: 600; font-size: 1.1rem; }
-.mbti-traits dt span { display: inline-block; color: #6ee7ed; font-family: var(--font-display); width: 1.7rem; }
+.mbti-traits dt span { display: inline-block; color: #b58aff; font-family: var(--font-display); width: 1.7rem; }
 .mbti-traits dd { margin: .35rem 0 0 1.7rem; color: #bfccdc; line-height: 1.5; }
 .mbti-note { margin-bottom: 0; padding-top: 1rem; border-top: 1px solid #ffffff15; font-size: .85rem; line-height: 1.6; color: #a8b6ca; }
 @keyframes mbti-appear { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }

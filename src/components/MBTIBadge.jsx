@@ -5,13 +5,13 @@ import './MBTIBadge.css'
 
 const COPY = {
   en: {
-    label: 'Working style', open: 'About my ISTP working style', close: 'Close personality explanation', heading: 'My working style',
+    label: 'Personality', open: 'About my ISTP personality type', close: 'Close personality explanation', heading: 'My personality type',
     intro: 'MBTI is a framework describing preferences for recharging, taking in information, making decisions and approaching everyday life. It doesn’t measure ability or define someone completely.',
     traits: [ ['I', 'Introversion', 'I recharge through quiet time, while enjoying time with friends and supportive teammates.'], ['S', 'Sensing', 'I tend to learn through concrete examples and hands-on experience.'], ['T', 'Thinking', 'I value sound reasoning and effective results, with feedback delivered respectfully.'], ['P', 'Perceiving', 'I enjoy flexibility, experimentation and room to improve things.'] ],
     note: 'My best-fit type from informal self-reflection, rather than an official assessment.',
   },
   ja: {
-    label: '働き方', open: 'ISTPと私の働き方について', close: '性格タイプの説明を閉じる', heading: '私の働き方',
+    label: '性格タイプ', open: 'ISTPと私の性格タイプについて', close: '性格タイプの説明を閉じる', heading: '私の性格タイプ',
     intro: 'MBTIは、エネルギーの回復、情報の受け取り方、意思決定、日々の過ごし方の傾向を表す枠組みです。能力を測定したり、その人のすべてを定義したりするものではありません。',
     traits: [ ['I', '内向', '静かな時間でエネルギーを回復しますが、友人や協力的な仲間と過ごす時間も楽しみます。'], ['S', '感覚', '具体的な例や実際に手を動かす経験から学ぶ傾向があります。'], ['T', '思考', '筋道の通った考え方と効果的な結果を重視し、相手を尊重して意見を伝えます。'], ['P', '知覚', '柔軟性、試行錯誤、改善の余地を大切にしています。'] ],
     note: '正式な検査結果ではなく、自己理解を通じて最も近いと感じたタイプです。',
