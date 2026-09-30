@@ -29,7 +29,7 @@
 .skills-tool-chips { list-style: none; display: flex; flex-wrap: wrap; gap: .65rem; padding: 0; margin: 0; }
 .skills-tool-chips li { color: #d4fcff; padding: .6rem .85rem; background: #6ee7ed0d; border: 1px solid #6ee7ed44; font-size: .95rem; }
 .skills-tool-chips.is-secondary li { border-color: #ffffff20; color: #c4cddd; background: #ffffff04; }
-.skills-working-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem; }
+.skills-working-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-top: 2rem; }
 .skills-working { padding-top: 1rem; border-top: 1px solid #6ee7ed44; }
 .skills-working h3 { font-size: 1.1rem; }
 @media (max-width: 640px) { .skills-identity { flex-direction: column; gap: 1rem; } .skills-core-grid, .skills-evidence-grid, .skills-working-grid { grid-template-columns: 1fr; } .skills-ability { padding: 1.15rem; } .skills-evidence strong { font-size: 1.7rem; } }
