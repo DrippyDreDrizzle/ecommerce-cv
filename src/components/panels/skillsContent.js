@@ -1,7 +1,7 @@
 export const skillsContent = {
   en: {
     role: 'Senior eCommerce Manager', experience: '10 years of hands-on experience',
-    heading: 'Practical thinking. Creative solutions.',
+    heading: 'Practical thinking. Creative solutions.', headingLines: ['Practical thinking.', 'Creative solutions.'],
     intro: 'I build and manage Shopify stores, organise product data and improve customer journeys. I enjoy finding where something is going wrong and working out how to make it better.',
     core: 'Core strengths', evidence: 'Skills in action', tools: 'Tools I work with', working: 'How I work with others',
     strengths: [
@@ -12,7 +12,7 @@ export const skillsContent = {
     ],
     projects: [
       { metric: 'Built from scratch', title: 'Shopify for a UK Thule retailer', desc: 'Built the Shopify website from scratch and continued developing its layouts, product catalogue and buying journey as the business grew.' },
-      { metric: '131 × 4–5★', title: 'Website-related customer feedback', desc: 'A filtered review export contains 131 distinct comments rated four or five stars. Customers repeatedly praise clear navigation, finding compatible products and straightforward ordering. This is a selected set of website-related feedback, not the overall store rating.' },
+      { metric: '130+ reviews', title: 'Website-related customer feedback', desc: 'A filtered review export contains over 130 distinct comments rated four or five stars. Customers repeatedly praise clear navigation, finding compatible products and straightforward ordering. This is a selected set of website-related feedback, not the overall store rating.' },
       { metric: '1 week → ~1 day', title: 'Faster product onboarding', desc: 'Streamlined product onboarding from around a week to about a day, depending on the source data.' },
       { metric: 'Reg → product', title: 'Vehicle compatibility mapping', desc: 'Mapped vehicle codes from an external registration-lookup API to the internal catalogue to return compatible products.' },
     ],
@@ -31,7 +31,7 @@ export const skillsContent = {
     ],
     projects: [
       { metric: 'ゼロから構築', title: '英国のThule販売店のShopifyサイト', desc: 'Shopifyサイトをゼロから構築し、事業の成長に合わせてレイアウト、商品カタログ、購入までの流れを継続的に改善しました。' },
-      { metric: '131件 × 星4〜5', title: 'ウェブサイトに関連するお客様の声', desc: 'ウェブサイトに関連するレビューの抽出データには、重複を除いて星4〜5のコメントが131件あります。分かりやすいナビゲーション、適合商品の探しやすさ、注文のしやすさが繰り返し評価されています。店舗全体の評価ではなく、抽出したレビューに基づく数字です。' },
+      { metric: '130件以上のレビュー', title: 'ウェブサイトに関連するお客様の声', desc: 'ウェブサイトに関連するレビューの抽出データには、重複を除いて星4〜5のコメントが130件以上あります。分かりやすいナビゲーション、適合商品の探しやすさ、注文のしやすさが繰り返し評価されています。店舗全体の評価ではなく、抽出したレビューに基づく数字です。' },
       { metric: '約1週間 → 約1日', title: '商品登録を効率化', desc: '元データの状態にもよりますが、商品登録にかかる時間を約1週間から約1日に短縮しました。' },
       { metric: '車両登録 → 商品', title: '適合商品の紐付け', desc: '外部の車両登録検索APIの車両コードと社内の商品カタログを紐付け、適合商品を返す仕組みを作りました。' },
     ],
