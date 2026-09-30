@@ -25,7 +25,6 @@ export default function MainMenu({ tabs, onSelect, selectedId }) {
                   <span className="menu-card-stripe" aria-hidden="true" />
                   <MenuArtwork tab={tab} />
                   <span className="menu-card-shade" aria-hidden="true" />
-                  <span className="menu-number">{tab.number}</span>
                   <span className="menu-label">{t.tabs[tab.labelKey] || tab.label}</span>
                   <span className="menu-arrow" aria-hidden="true">↗</span>
                 </span>
