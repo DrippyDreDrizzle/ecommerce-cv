@@ -19,7 +19,6 @@ export default function TopBar({ tabs, activeId, onSelect, onBack }) {
             aria-current={tab.id === activeId ? 'page' : undefined}
             onClick={(event) => onSelect(tab.id, event)}
           >
-            <span className="top-bar-number">{tab.number}</span>
             {t.tabs[tab.labelKey] || tab.label}
           </button>
         ))}
