@@ -11,7 +11,8 @@ export const skillsContent = {
       { title: 'Troubleshooting', tag: 'INSPECT / RESOLVE', desc: 'Confident inspecting source code to identify where an issue occurs and work towards a fix.', items: ['Source inspection and issue localisation', 'Working through store and integration problems', 'Connecting technical details to the customer experience'] },
     ],
     projects: [
-      { metric: '~80%', title: 'Shopify website build', desc: 'Built roughly 80% of my company’s current Shopify website, including layouts and implementation.' },
+      { metric: 'Built from scratch', title: 'Shopify for a UK Thule retailer', desc: 'Built the Shopify website from scratch and continued developing its layouts, product catalogue and buying journey as the business grew.' },
+      { metric: '131 × 4–5★', title: 'Website-related customer feedback', desc: 'A filtered review export contains 131 distinct comments rated four or five stars. Customers repeatedly praise clear navigation, finding compatible products and straightforward ordering. This is a selected set of website-related feedback, not the overall store rating.' },
       { metric: '1 week → ~1 day', title: 'Faster product onboarding', desc: 'Streamlined product onboarding from around a week to about a day, depending on the source data.' },
       { metric: 'Reg → product', title: 'Vehicle compatibility mapping', desc: 'Mapped vehicle codes from an external registration-lookup API to the internal catalogue to return compatible products.' },
     ],
@@ -29,7 +30,8 @@ export const skillsContent = {
       { title: 'トラブルシューティング', tag: '調査 / 解決', desc: 'ソースコードを確認し、問題が起きている箇所を特定して解決に取り組みます。', items: ['ソースの確認と問題箇所の特定', 'ストアや外部連携の問題への対応', '技術的な課題と顧客体験の結び付け'] },
     ],
     projects: [
-      { metric: '約80%', title: 'Shopifyサイト構築', desc: '勤務先の現在のShopifyサイトの約80%を構築。レイアウト設計と実装を担当しました。' },
+      { metric: 'ゼロから構築', title: '英国のThule販売店のShopifyサイト', desc: 'Shopifyサイトをゼロから構築し、事業の成長に合わせてレイアウト、商品カタログ、購入までの流れを継続的に改善しました。' },
+      { metric: '131件 × 星4〜5', title: 'ウェブサイトに関連するお客様の声', desc: 'ウェブサイトに関連するレビューの抽出データには、重複を除いて星4〜5のコメントが131件あります。分かりやすいナビゲーション、適合商品の探しやすさ、注文のしやすさが繰り返し評価されています。店舗全体の評価ではなく、抽出したレビューに基づく数字です。' },
       { metric: '約1週間 → 約1日', title: '商品登録を効率化', desc: '元データの状態にもよりますが、商品登録にかかる時間を約1週間から約1日に短縮しました。' },
       { metric: '車両登録 → 商品', title: '適合商品の紐付け', desc: '外部の車両登録検索APIの車両コードと社内の商品カタログを紐付け、適合商品を返す仕組みを作りました。' },
     ],
