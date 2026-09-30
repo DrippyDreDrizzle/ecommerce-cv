@@ -22,7 +22,7 @@ function Cover({ book }) {
   </span>
 }
 
-export default function MangaShelf({ intro }) {
+export default function MangaShelf({ intro, collection }) {
   const [openBook, setOpenBook] = useState(null)
   const dialog = useRef(null)
   useEffect(() => {
@@ -32,10 +32,7 @@ export default function MangaShelf({ intro }) {
 
   return <div className="manga-shelf">
     <p className="panel-note">{intro}</p>
-    <section className="manga-collection" aria-labelledby="manga-collection-title">
-      <div className="manga-section-heading"><span className="manga-section-index">01</span><h3 id="manga-collection-title">Manga Collection</h3></div>
-      <p className="manga-coming-soon">My manga shelf is being catalogued. Series and volumes coming soon.</p>
-    </section>
+    {collection || <p className="manga-coming-soon">My collection photos are coming soon.</p>}
     <section className="artbook-collection" aria-labelledby="artbook-collection-title">
       <div className="manga-section-heading"><span className="manga-section-index">02</span><h3 id="artbook-collection-title">Artbooks &amp; Special Editions</h3><span className="artbook-count">06 owned</span></div>
       <div className="artbook-grid">
