@@ -10,7 +10,7 @@ export default function Skills() {
   return <Panel eyebrow={`02 — ${t.tabs.skills}`} title={t.skillsTitle}>
     <div className="skills-dossier">
       <header className="skills-identity">
-        <div><p className="skills-kicker">{c.role}</p><h3>{c.heading}</h3><p>{c.intro}</p><span className="skills-tenure">{c.experience}</span></div>
+        <div><p className="skills-kicker">{c.role}</p><h3 className={c.headingLines ? 'skills-identity-heading' : undefined}>{c.headingLines ? <><span>{c.headingLines[0]}</span>{' '}<span>{c.headingLines[1]}</span></> : c.heading}</h3><p>{c.intro}</p><span className="skills-tenure">{c.experience}</span></div>
         <MBTIBadge />
       </header>
       <section className="skills-section" aria-labelledby="skills-core-heading">
@@ -26,7 +26,7 @@ export default function Skills() {
       </section>
       <section className="skills-section skills-tools" aria-labelledby="skills-tools-heading">
         <h3 className="skills-section-heading" id="skills-tools-heading">{c.tools}</h3>
-        <p className="skills-tool-label">{c.primary}</p><ul className="skills-tool-chips"><li>Google Merchant Center</li><li>Google Search Console</li><li>Photoshop</li><li>Excel</li><li>Shopify</li><li>HTML / CSS / JavaScript</li></ul>
+        <p className="skills-tool-label">{c.primary}</p><ul className="skills-tool-chips"><li>Google Merchant Center</li><li>Google Search Console</li><li>Photoshop</li><li>Excel</li><li>Shopify</li><li>HTML / CSS / JavaScript</li><li>ChatGPT</li><li>Claude</li><li>Copilot</li></ul>
       </section>
       <div className="skills-working-grid"><section className="skills-working"><h3>{c.working}</h3><p>{c.teamwork}</p></section></div>
     </div>
