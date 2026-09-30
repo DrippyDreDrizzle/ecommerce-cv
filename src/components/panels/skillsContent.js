@@ -1,9 +1,9 @@
 export const skillsContent = {
   en: {
-    role: 'Senior eCommerce Manager', experience: '9 years of hands-on experience',
+    role: 'Senior eCommerce Manager', experience: '10 years of hands-on experience',
     heading: 'Practical thinking. Creative solutions.',
     intro: 'I build and manage Shopify stores, organise product data and improve customer journeys. I enjoy finding where something is going wrong and working out how to make it better.',
-    core: 'Core strengths', evidence: 'Skills in action', tools: 'Tools I work with', approach: 'How I build', working: 'How I work with others',
+    core: 'Core strengths', evidence: 'Skills in action', tools: 'Tools I work with', working: 'How I work with others',
     strengths: [
       { title: 'Shopify & Store Management', tag: 'BUILD / MANAGE', desc: 'Taking ownership of store operations, product listings, layouts and ongoing improvements.', items: ['Shopify store builds and management', 'Product setup and catalogue maintenance', 'Storefront updates and issue resolution'] },
       { title: 'Product Data & Excel', tag: 'ORGANISE / AUTOMATE', desc: 'Making large catalogues easier to maintain, with cleaner data and less repetitive work.', items: ['Excel and bulk product imports', 'CSV feeds and catalogue organisation', 'Product onboarding and data mapping'] },
@@ -15,14 +15,13 @@ export const skillsContent = {
       { metric: '1 week → ~1 day', title: 'Faster product onboarding', desc: 'Streamlined product onboarding from around a week to about a day, depending on the source data.' },
       { metric: 'Reg → product', title: 'Vehicle compatibility mapping', desc: 'Mapped vehicle codes from an external registration-lookup API to the internal catalogue to return compatible products.' },
     ],
-    primary: 'Most confident', supporting: 'Supporting tools',
-    build: 'I use AI to help implement and refine website features, supported by my understanding of HTML, CSS and JavaScript. I understand much of the code from context and am confident inspecting source to locate issues.',
-    teamwork: 'I’m comfortable taking ownership and working independently, but I enjoy sharing ideas and solving problems with others. I value approachable teammates, constructive feedback and collaboration where we help each other do better work.',
+    primary: 'Most confident',
+    teamwork: 'I’m comfortable taking ownership and working independently, but I enjoy sharing ideas and solving problems with others. I also work well one-to-one with business owners, listening to their ideas and working closely with them to turn their vision into a website they’re proud of. I value approachable teammates, constructive feedback and collaboration where we help each other do better work.',
   },
   ja: {
-    role: 'シニアEコマースマネージャー', experience: '9年間の実務経験', heading: '実践的な思考。創造的な解決策。',
+    role: 'シニアEコマースマネージャー', experience: '10年間の実務経験', heading: '実践的な思考。創造的な解決策。',
     intro: 'Shopifyストアの構築・運営、商品データの整理、購入体験の改善に取り組んでいます。問題の原因を見つけ、より良い方法を考えることが好きです。',
-    core: '得意分野', evidence: 'スキルを活かした実例', tools: '使用ツール', approach: '開発への取り組み', working: 'チームでの働き方',
+    core: '得意分野', evidence: 'スキルを活かした実例', tools: '使用ツール', working: '人と一緒に働くとき',
     strengths: [
       { title: 'Shopify・ストア運営', tag: '構築 / 運営', desc: 'ストア運営、商品登録、レイアウト、継続的な改善まで主体的に取り組みます。', items: ['Shopifyストアの構築と運営', '商品設定とカタログ管理', 'ストアの更新と問題解決'] },
       { title: '商品データ・Excel', tag: '整理 / 効率化', desc: '大規模なカタログのデータを整理し、繰り返し作業を減らします。', items: ['Excelと商品の一括インポート', 'CSVフィードとカタログ整理', '商品登録の効率化とデータ紐付け'] },
@@ -34,8 +33,7 @@ export const skillsContent = {
       { metric: '約1週間 → 約1日', title: '商品登録を効率化', desc: '元データの状態にもよりますが、商品登録にかかる時間を約1週間から約1日に短縮しました。' },
       { metric: '車両登録 → 商品', title: '適合商品の紐付け', desc: '外部の車両登録検索APIの車両コードと社内の商品カタログを紐付け、適合商品を返す仕組みを作りました。' },
     ],
-    primary: '特に自信のあるツール', supporting: 'その他の使用ツール',
-    build: 'HTML・CSS・JavaScriptの知識を活かし、AIの支援を受けながらサイトの機能を実装・改善しています。文脈からコードの多くを理解でき、ソースを確認して問題箇所を探すことに自信があります。',
-    teamwork: '責任を持って自立して仕事を進める一方、周囲とアイデアを共有し、一緒に問題を解決することも好きです。話しやすさ、建設的なフィードバック、お互いの仕事をより良くする協力関係を大切にしています。',
+    primary: '特に自信のあるツール',
+    teamwork: '責任を持って自立して仕事を進める一方、周囲とアイデアを共有し、一緒に問題を解決することも好きです。事業オーナーと一対一で仕事を進めることも得意です。アイデアに耳を傾け、密に相談しながら、思い描く理想を誇れるウェブサイトとして形にします。話しやすさ、建設的なフィードバック、お互いの仕事をより良くする協力関係を大切にしています。',
   },
 }
