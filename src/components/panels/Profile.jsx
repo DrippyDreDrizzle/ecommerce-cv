@@ -2,6 +2,7 @@ import Panel from '../Panel'
 import MBTIBadge from '../MBTIBadge'
 import { useLanguage } from '../../context/LanguageContext'
 import ProfileArtwork from './ProfileArtwork'
+import hobbiesArtwork from '../../assets/profile/hobbies-anime.webp'
 import './Profile.css'
 
 const copy = {
@@ -16,7 +17,7 @@ const copy = {
       ['One-to-one', 'I work closely with business owners, listening to their ideas and helping turn their dream website into reality.'],
       ['Collaboration', 'I enjoy sharing ideas with people who help each other do better work, with encouragement and constructive feedback.'],
     ],
-    beyond: 'Beyond the screen', hobbies: 'Hobbies', hobbiesSub: 'Football · Basketball · Anime', travel: 'Travel', travelSub: 'Places, memories & what’s next', explore: 'Explore',
+    beyond: 'Beyond the screen', hobbies: 'Hobbies', travel: 'Travel', explore: 'Explore',
   },
   ja: {
     role: 'シニアECマネージャー', location: '英国・セブノークス', experience: '10年の経験',
@@ -26,7 +27,7 @@ const copy = {
       ['主体性', '自ら責任を持ち、課題を解決し、アイデアを最後まで形にすることを大切にしています。'],
       ['一対一の協働', '事業主の想いに耳を傾け、理想のウェブサイトを一緒に実現します。'],
       ['チームワーク', '互いを尊重し、前向きな意見交換を通じて、より良い仕事につなげます。'],
-    ], beyond: '仕事の外では', hobbies: '趣味', hobbiesSub: 'サッカー・バスケ・アニメ', travel: '旅', travelSub: '場所、思い出、次の冒険', explore: '見る',
+    ], beyond: '仕事の外では', hobbies: '趣味', travel: '旅', explore: '見る',
   },
 }
 
@@ -57,8 +58,8 @@ export default function Profile({ onNavigate }) {
       <section aria-labelledby="profile-beyond-title">
         <div className="profile-section-heading"><h3 id="profile-beyond-title">{c.beyond}</h3><span aria-hidden="true">03 / EXPLORE</span></div>
         <div className="profile-destinations">{['hobbies', 'travel'].map(id => <button type="button" className={`profile-destination profile-destination--${id}`} key={id} onClick={event => onNavigate(id, event)}>
-          <ProfileArtwork type={id} />
-          <span className="profile-destination-content"><span className="profile-destination-title">{c[id]}</span><span className="profile-destination-subtitle">{c[`${id}Sub`]}</span><span className="profile-destination-cta">{c.explore}<span aria-hidden="true">↗</span></span></span>
+          {id === 'hobbies' ? <img src={hobbiesArtwork} className="profile-hobbies-art" alt="" width="1536" height="1024" loading="lazy" decoding="async" /> : <ProfileArtwork type={id} />}
+          <span className="profile-destination-content"><span className="profile-destination-title">{c[id]}</span><span className="profile-destination-cta">{c.explore}<span aria-hidden="true">↗</span></span></span>
         </button>)}</div>
       </section>
     </div>
