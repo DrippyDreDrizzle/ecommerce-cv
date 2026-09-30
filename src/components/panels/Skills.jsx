@@ -1,5 +1,4 @@
 import Panel from '../Panel'
-import MBTIBadge from '../MBTIBadge'
 import { useLanguage } from '../../context/LanguageContext'
 import { skillsContent } from './skillsContent'
 import './Skills.css'
@@ -11,7 +10,6 @@ export default function Skills() {
     <div className="skills-dossier">
       <header className="skills-identity">
         <div><p className="skills-kicker">{c.role}</p><h3 className={c.headingLines ? 'skills-identity-heading' : undefined}>{c.headingLines ? <><span>{c.headingLines[0]}</span>{' '}<span>{c.headingLines[1]}</span></> : c.heading}</h3><p>{c.intro}</p><span className="skills-tenure">{c.experience}</span></div>
-        <MBTIBadge />
       </header>
       <section className="skills-section" aria-labelledby="skills-core-heading">
         <h3 className="skills-section-heading" id="skills-core-heading">{c.core}</h3>
@@ -28,7 +26,6 @@ export default function Skills() {
         <h3 className="skills-section-heading" id="skills-tools-heading">{c.tools}</h3>
         <ul className="skills-tool-chips"><li>Shopify</li><li>Excel</li><li>HTML / CSS / JavaScript</li><li>Photoshop</li><li>Google Merchant Center</li><li>Google Search Console</li><li>Google Analytics</li><li>Google Ads</li><li>ChatGPT</li><li>Claude</li><li>Copilot</li><li>SAP</li><li>Ahrefs</li><li>{lang === 'ja' ? 'Thule B2Bポータル' : 'Thule B2B Portal'}</li><li>GitHub</li></ul>
       </section>
-      <div className="skills-working-grid"><section className="skills-working"><h3>{c.working}</h3><p>{c.teamwork}</p></section></div>
     </div>
   </Panel>
 }
