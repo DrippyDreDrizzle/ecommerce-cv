@@ -1,7 +1,8 @@
 import Panel from '../Panel'
 import MBTIBadge from '../MBTIBadge'
 import { useLanguage } from '../../context/LanguageContext'
-import ProfileArtwork from './ProfileArtwork'
+import travelArtwork from '../../assets/profile/travel-lake.webp'
+import travelMobileArtwork from '../../assets/profile/travel-lake-mobile.webp'
 import hobbiesArtwork from '../../assets/profile/hobbies-anime.webp'
 import hobbiesMobileArtwork from '../../assets/profile/hobbies-anime-mobile.webp'
 import './Profile.css'
@@ -59,7 +60,7 @@ export default function Profile({ onNavigate }) {
       <section aria-labelledby="profile-beyond-title">
         <div className="profile-section-heading"><h3 id="profile-beyond-title">{c.beyond}</h3><span aria-hidden="true">03 / EXPLORE</span></div>
         <div className="profile-destinations">{['hobbies', 'travel'].map(id => <button type="button" className={`profile-destination profile-destination--${id}`} key={id} onClick={event => onNavigate(id, event)}>
-          {id === 'hobbies' ? <picture className="profile-hobbies-art"><source media="(max-width: 640px)" srcSet={hobbiesMobileArtwork} width="1024" height="1536" /><img src={hobbiesArtwork} alt="" width="1536" height="1024" loading="lazy" decoding="async" /></picture> : <ProfileArtwork type={id} />}
+          {id === 'hobbies' ? <picture className="profile-hobbies-art"><source media="(max-width: 640px)" srcSet={hobbiesMobileArtwork} width="1024" height="1536" /><img src={hobbiesArtwork} alt="" width="1536" height="1024" loading="lazy" decoding="async" /></picture> : <picture className="profile-travel-art"><source media="(max-width: 640px)" srcSet={travelMobileArtwork} width="1024" height="1536" /><img src={travelArtwork} alt="" width="1536" height="1024" loading="lazy" decoding="async" /></picture>}
           <span className="profile-destination-content"><span className="profile-destination-title">{c[id]}</span><span className="profile-destination-cta">{c.explore}<span aria-hidden="true">↗</span></span></span>
         </button>)}</div>
       </section>
