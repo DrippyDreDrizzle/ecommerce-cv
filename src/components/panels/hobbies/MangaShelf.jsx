@@ -1,18 +1,20 @@
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import './MangaShelf.css'
+import fullmetalAnniversary from '../../../assets/books/fullmetal-20th-anniversary.webp'
+import jjkSpecial from '../../../assets/books/jujutsu-kaisen-0-5.webp'
 
 // Japanese ISBNs match the three Naruto editions in the collection photo.
 // ISBN cover lookup uses default=false so missing images trigger the designed fallback.
 const isbnCover = (isbn) => `https://covers.openlibrary.org/b/isbn/${isbn}-L.jpg?default=false`
 const ARTBOOKS = [
+  { id: 'jjk-special', title: 'Jujutsu Kaisen 0.5', series: 'Jujutsu Kaisen', author: 'Gege Akutami', image: jjkSpecial, color: '#ce9b9d', description: 'The Tokyo Jujutsu High School 0.5 special booklet from my collection.' },
   { id: 'uzumaki', title: 'Uzumaki', series: 'Naruto', author: 'Masashi Kishimoto', image: isbnCover('9784088737065'), color: '#efb760', description: 'Masashi Kishimoto’s Naruto artwork, collected in the original Uzumaki artbook.', source: 'https://www.viz.com/manga-books/art-book/art-of-naruto-uzumaki/product/1075' },
   { id: 'naruto', title: 'Naruto Illustration Book', series: 'Naruto', author: 'Masashi Kishimoto', image: isbnCover('9784088748238'), color: '#ff9e68', description: 'A collection of Naruto illustrations by Masashi Kishimoto. The orange-cover Japanese edition in my collection.', source: 'https://www.simonandschuster.co.uk/books/Naruto-Illustration-Book/Masashi-Kishimoto/Naruto-Illustration-Book/9781421538693' },
   { id: 'uzumaki-naruto', title: 'Uzumaki Naruto: Illustrations', series: 'Naruto', author: 'Masashi Kishimoto', image: 'https://www.japanzon.com/32456-product_hd/naruto-illustrations-naruto-uzumaki-jump-comics-manga.jpg', color: '#f2ce86', description: 'The white-cover Naruto illustration collection, featuring artwork from the concluding years of the manga.', source: 'https://www.viz.com/manga-books/art-book/uzumaki-naruto-illustrations/product/3780' },
   { id: 'dragon-ball', title: 'Dragon Ball: A Visual History', series: 'Dragon Ball', author: 'Akira Toriyama', image: isbnCover('9781974707409'), color: '#ff866e', description: 'A collection of Akira Toriyama’s Dragon Ball artwork, including illustrations, sketches and creator commentary.', source: 'https://www.viz.com/manga-books/art-book/dragon-ball-a-visual-history/product/6071' },
   { id: 'mha', title: 'My Hero Academia: Ultra Artworks', series: 'My Hero Academia', author: 'Kohei Horikoshi', image: 'https://d2j6dbq0eux0bg.cloudfront.net/images/28453054/4974801625.jpg', color: '#77d8b2', description: 'Kohei Horikoshi’s illustration collection celebrating ten years of My Hero Academia.', source: 'https://www.simonandschuster.com/books/My-Hero-Academia-Ultra-Artworks/Kohei-Horikoshi/My-Hero-Academia-Ultra-Artworks/9781974768844' },
-  // Owner describes this as the 25th-anniversary edition; do not substitute the verified 20th cover.
-  { id: 'fullmetal', title: 'Fullmetal Alchemist Anniversary Book', series: 'Fullmetal Alchemist', author: 'Hiromu Arakawa', image: '', color: '#b6afff', description: 'An anniversary special from my Fullmetal Alchemist collection.', coverPending: true },
+  { id: 'fullmetal', title: 'Fullmetal Alchemist 20th Anniversary Book', series: 'Fullmetal Alchemist', author: 'Hiromu Arakawa', image: fullmetalAnniversary, color: '#b6afff', description: 'Hiromu Arakawa’s 20th Anniversary Book from my collection.' },
 ]
 
 function Cover({ book }) {
@@ -34,7 +36,7 @@ export default function MangaShelf({ intro, collection }) {
     <p className="panel-note">{intro}</p>
     {collection || <p className="manga-coming-soon">My collection photos are coming soon.</p>}
     <section className="artbook-collection" aria-labelledby="artbook-collection-title">
-      <div className="manga-section-heading"><span className="manga-section-index">02</span><h3 id="artbook-collection-title">Artbooks &amp; Special Editions</h3><span className="artbook-count">06 owned</span></div>
+      <div className="manga-section-heading"><span className="manga-section-index">02</span><h3 id="artbook-collection-title">Artbooks &amp; Special Editions</h3><span className="artbook-count">{String(ARTBOOKS.length).padStart(2, '0')} owned</span></div>
       <div className="artbook-grid">
         {ARTBOOKS.map((book, index) => <button key={book.id} className="artbook-card" style={{ '--book-accent': book.color }} onClick={() => setOpenBook(book)} aria-haspopup="dialog" aria-label={`View ${book.title}`}>
           <span className="artbook-card-top"><span>{String(index + 1).padStart(2, '0')} / {book.series}</span><span>↗</span></span>

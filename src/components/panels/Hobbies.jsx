@@ -4,6 +4,10 @@ import MangaShelf from './hobbies/MangaShelf'
 import { useLanguage } from '../../context/LanguageContext'
 import sportsArt from '../../assets/profile/hobbies-anime.webp'
 import './Hobbies.css'
+import demonSlayer08 from '../../assets/books/demon-slayer-08.webp'
+import fullmetal27 from '../../assets/books/fullmetal-27.webp'
+import onePunch01 from '../../assets/books/one-punch-man-01.webp'
+import jjk0 from '../../assets/books/jujutsu-kaisen-0.webp'
 
 const ANIME = ['Naruto', 'Fullmetal Alchemist: Brotherhood', 'My Hero Academia', 'Dragon Ball Z', 'Demon Slayer', 'Jujutsu Kaisen']
 const SHOWS = ['How I Met Your Mother', 'Parks and Recreation', 'The Inbetweeners', 'South Park', 'American Dad!', 'Bob’s Burgers', 'Brooklyn Nine-Nine', 'It’s Always Sunny in Philadelphia']
@@ -12,8 +16,10 @@ const KON = ['Perfect Blue', 'Paprika', 'Millennium Actress']
 const BOOKS = [
   ['Dragon Ball Z', 'Full collection · special covers', '全巻コレクション・特別カバー', 'ドラゴンボール', '#f4b669'],
   ['Naruto', 'Around 7 volumes', '約7冊', 'ナルト', '#ee9569'],
-  ['Fullmetal Alchemist', 'Final volume', '最終巻', '鋼の錬金術師', '#bdafec'],
-  ['Jujutsu Kaisen 0', 'A favourite: Yuta', 'お気に入りの乙骨憂太', '呪術廻戦', '#83c9c1'],
+  ['Fullmetal Alchemist', 'Volume 27 · final volume', '第27巻・最終巻', '鋼の錬金術師', '#bdafec', fullmetal27],
+  ['Jujutsu Kaisen 0', 'Volume 0 · Yuta’s story', '第0巻・乙骨憂太の物語', '呪術廻戦', '#83c9c1', jjk0],
+  ['Demon Slayer', 'Volume 8', '第8巻', '鬼滅の刃', '#ee9569', demonSlayer08],
+  ['One-Punch Man', 'Volume 1', '第1巻', 'ワンパンマン', '#f4b669', onePunch01],
 ]
 const COPY = {
   en: {
@@ -23,7 +29,7 @@ const COPY = {
     footballDetails: ['I played to a high level as a goalkeeper, winning county-level competitions and attending trials with Chelsea FC and Leyton Orient at 15.', 'I also helped coach Maidstone United’s first-team goalkeepers on match days in the National League and FA Cup.', 'One recent highlight: being in North London for Arsenal’s parade on 31 May 2026. The atmosphere was incredible.'],
     basketball: 'Basketball', positions: 'Shooting guard · Small forward · Power forward', basketballText: 'Miami Heat supporter. I played for many years across three positions, and Dwyane Wade is my favourite player.', basketballMore: 'Following the game', basketballDetail: 'NBA tip-off times can make following games from the UK tricky, but I watch whenever I can. Even though I no longer play, I still love the game.',
     anime: 'Stories that hit different.', animeIntro: 'Beautiful art, unforgettable fights and emotional moments that bring goosebumps—or tears. Naruto is probably my favourite, but there are so many I love.', favourites: 'Personal favourites', watching: 'Currently watching', first: 'New to anime?', recommendation: 'Demon Slayer and Jujutsu Kaisen are my go-to recommendations: exciting action, strong pacing and emotional stories, with less of the fan service that can put newcomers off.',
-    shelf: 'Collected for the art.', shelfIntro: 'I collect Japanese editions for the artwork rather than to read. The illustrations, covers and artbooks are what draw me in.', photo: 'Collection photos coming soon',
+    shelf: 'Collected for the art.', shelfIntro: 'I collect Japanese editions for the artwork rather than to read. The illustrations, covers and artbooks are what draw me in.', photo: 'More collection photos to follow',
     screen: 'Usually, something funny.', screenIntro: 'Comedy is my favourite—live action, animation and films I can come back to. Satoshi Kon’s work has a place here too.', television: 'On television', films: 'Movie favourites', director: 'The worlds of Satoshi Kon',
   },
   ja: {
@@ -33,7 +39,7 @@ const COPY = {
     footballDetails: ['ゴールキーパーとして高いレベルでプレーし、州レベルの大会で優勝。15歳でチェルシーFCとレイトン・オリエントのトライアルに参加しました。', 'メイドストーン・ユナイテッドでは、ナショナルリーグとFAカップの試合日にトップチームのGK指導を手伝いました。', '最近の思い出は2026年5月31日、北ロンドンで見たアーセナルのパレード。素晴らしい雰囲気でした。'],
     basketball: 'バスケットボール', positions: 'SG・SF・PF', basketballText: 'マイアミ・ヒートのファンです。長年、三つのポジションでプレーしました。好きな選手はドウェイン・ウェイドです。', basketballMore: '今も観戦を楽しむ', basketballDetail: 'NBAの試合時間は英国から見るには難しいこともありますが、できる限り観戦しています。今はプレーしていなくても、バスケが大好きです。',
     anime: '心に響く物語。', animeIntro: '美しい絵、忘れられない戦い、鳥肌が立つ瞬間や涙する物語。特に好きなのはナルトですが、大好きな作品はたくさんあります。', favourites: 'お気に入り', watching: '視聴中', first: 'アニメを初めて見るなら', recommendation: 'おすすめは鬼滅の刃と呪術廻戦。迫力あるアクション、テンポの良さ、心に響く物語があり、初めての人が戸惑うようなファンサービスも比較的少ない作品です。',
-    shelf: 'アートを集める。', shelfIntro: '読むためというより、絵を楽しむために日本語版を集めています。イラスト、表紙、画集に惹かれます。', photo: 'コレクションの写真は後日追加',
+    shelf: 'アートを集める。', shelfIntro: '読むためというより、絵を楽しむために日本語版を集めています。イラスト、表紙、画集に惹かれます。', photo: 'コレクションの写真は順次追加',
     screen: 'やっぱりコメディ。', screenIntro: '実写もアニメも、何度でも見たい映画も。コメディが一番好きです。今敏監督の作品も大切なお気に入りです。', television: 'テレビのお気に入り', films: '映画のお気に入り', director: '今敏の世界',
   },
 }
@@ -83,7 +89,7 @@ export default function Hobbies() {
           <aside className="hobbies-watching"><span><i aria-hidden="true" />{c.watching}</span><strong>The Elusive Samurai</strong><strong>Daemons of the Shadow Realm</strong></aside>
           <h3 className="hobbies-subtitle">{c.favourites}</h3><TitleGallery titles={ANIME} kind="anime" />
           <aside className="hobbies-recommendation"><h4>{c.first}</h4><p>{c.recommendation}</p></aside>
-          <MangaShelf intro={c.shelfIntro} collection={<><h3 className="hobbies-subtitle">{c.shelf}</h3><p className="hobbies-photo-note">{c.photo}</p><ul className="hobbies-bookshelf">{BOOKS.map(([title, note, jaNote, japanese, color]) => <li key={title} style={{ '--book-color': color }}><div className="hobbies-book-jacket"><span lang="ja">{japanese}</span><strong>{title}</strong></div><h4>{title}</h4><p>{lang === 'ja' ? jaNote : note}</p></li>)}</ul></>} />
+          <MangaShelf intro={c.shelfIntro} collection={<><h3 className="hobbies-subtitle">{c.shelf}</h3><p className="hobbies-photo-note">{c.photo}</p><ul className="hobbies-bookshelf">{BOOKS.map(([title, note, jaNote, japanese, color, image]) => <li key={title} style={{ '--book-color': color }}><div className={`hobbies-book-jacket ${image ? 'hobbies-book-jacket--photo' : ''}`}>{image ? <img src={image} alt={`${title} — ${lang === 'ja' ? jaNote : note}`} width="1152" height="1536" loading="lazy" decoding="async" /> : <><span lang="ja">{japanese}</span><strong>{title}</strong></>}</div><h4>{title}</h4><p>{lang === 'ja' ? jaNote : note}</p></li>)}</ul></>} />
         </>}
         {active === 2 && <>
           <header className="hobbies-section-intro"><h3>{c.screen}</h3><p>{c.screenIntro}</p></header>
