@@ -9,13 +9,21 @@ import fullmetal27 from '../../assets/books/fullmetal-27.webp'
 import onePunch01 from '../../assets/books/one-punch-man-01.webp'
 import jjk0 from '../../assets/books/jujutsu-kaisen-0.webp'
 
+import naruto26 from '../../assets/books/naruto-26.webp'
+import naruto37 from '../../assets/books/naruto-37.webp'
+import naruto53 from '../../assets/books/naruto-53.webp'
+import naruto63 from '../../assets/books/naruto-63.webp'
+
 const ANIME = ['Naruto', 'Fullmetal Alchemist: Brotherhood', 'My Hero Academia', 'Dragon Ball Z', 'Demon Slayer', 'Jujutsu Kaisen']
 const SHOWS = ['How I Met Your Mother', 'Parks and Recreation', 'The Inbetweeners', 'South Park', 'American Dad!', 'Bob’s Burgers', 'Brooklyn Nine-Nine', 'It’s Always Sunny in Philadelphia']
 const FILMS = ['Shrek', 'Step Brothers', 'Superbad', 'Scary Movie']
 const KON = ['Perfect Blue', 'Paprika', 'Millennium Actress']
 const BOOKS = [
   ['Dragon Ball Z', 'Full collection · special covers', '全巻コレクション・特別カバー', 'ドラゴンボール', '#f4b669'],
-  ['Naruto', 'Around 7 volumes', '約7冊', 'ナルト', '#ee9569'],
+  ['Naruto — 26', 'Volume 26', '第26巻', 'ナルト', '#ee9569', naruto26],
+  ['Naruto — 37', 'Volume 37', '第37巻', 'ナルト', '#ee9569', naruto37],
+  ['Naruto — 53', 'Volume 53', '第53巻', 'ナルト', '#ee9569', naruto53],
+  ['Naruto — 63', 'Volume 63', '第63巻', 'ナルト', '#ee9569', naruto63],
   ['Fullmetal Alchemist', 'Volume 27 · final volume', '第27巻・最終巻', '鋼の錬金術師', '#bdafec', fullmetal27],
   ['Jujutsu Kaisen 0', 'Volume 0 · Yuta’s story', '第0巻・乙骨憂太の物語', '呪術廻戦', '#83c9c1', jjk0],
   ['Demon Slayer', 'Volume 8', '第8巻', '鬼滅の刃', '#ee9569', demonSlayer08],
