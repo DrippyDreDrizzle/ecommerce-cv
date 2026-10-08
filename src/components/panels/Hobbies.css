@@ -43,14 +43,6 @@
 .hobbies-recommendation { margin: 1.5rem 0 2.5rem; border-left: 3px solid #f58bc7; padding: .3rem 1.3rem; }
 .hobbies-recommendation h4 { color: #f5b7da; font-size: 1.2rem; margin: .4rem 0; }
 .hobbies-recommendation p { color: #c5b9cb; font-size: 1.1rem; line-height: 1.6; }
-.hobbies-photo-note { color: #aa9cad; font: .6rem var(--font-mono); }
-.hobbies-bookshelf { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.1rem; list-style: none; padding: 1.2rem 1rem; border-bottom: 12px solid #43313a; background: linear-gradient(0deg, #78506425, transparent 85%); box-shadow: 0 14px 16px -12px #000; }
-.hobbies-bookshelf li { min-width: 0; }
-.hobbies-book-jacket { min-height: 210px; padding: 1rem .85rem; display: flex; flex-direction: column; justify-content: space-between; gap: 1rem; border-left: 8px solid color-mix(in srgb, var(--book-color) 55%, #151321); background: linear-gradient(135deg, var(--book-color), color-mix(in srgb, var(--book-color) 50%, #1b1327)); color: #241b28; box-shadow: 5px 7px 10px #0007; }
-.hobbies-book-jacket > span { writing-mode: vertical-rl; font-weight: 700; font-size: 1.4rem; align-self: flex-end; }
-.hobbies-book-jacket strong { font: .85rem/1.25 var(--font-display); text-transform: uppercase; }
-.hobbies-bookshelf h4 { margin: 1rem 0 .4rem; font-size: 1rem; }
-.hobbies-bookshelf p { font-size: .85rem; color: #beafc2; margin: 0; line-height: 1.4; }
 .hobbies-hub .artbook-collection { margin-top: 3rem; }
 .hobbies-hub .artbook-grid { padding-bottom: 1rem; border-bottom: 12px solid #43313a; }
 @media(max-width: 640px) {
@@ -60,14 +52,5 @@
  .hobbies-gallery, .hobbies-gallery--anime, .hobbies-gallery--kon { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .7rem; }
  .hobbies-gallery li, .hobbies-gallery--anime li { min-height: 200px; padding: .9rem; }
  .hobbies-gallery h4 { font-size: 1.1rem; }
- .hobbies-bookshelf { display: flex; overflow-x: auto; scroll-snap-type: x proximity; }
- .hobbies-bookshelf li { flex: 0 0 140px; scroll-snap-align: start; }
  .hobbies-watching { flex-direction: column; align-items: flex-start; }
 }
-
-.hobbies-book-jacket--photo { padding: 0; border-left: 0; background: #151321; aspect-ratio: 3 / 4; min-height: 0; }
-.hobbies-book-jacket--photo img { display: block; width: 100%; height: 100%; object-fit: contain; }
-
-.hobbies-bookshelf .hobbies-book-wide { grid-column: span 2; }
-.hobbies-book-wide .hobbies-book-jacket--photo { aspect-ratio: 4 / 3; }
-@media(max-width: 640px) { .hobbies-bookshelf .hobbies-book-wide { flex-basis: 280px; } }
