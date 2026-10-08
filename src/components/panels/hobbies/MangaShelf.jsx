@@ -28,14 +28,20 @@ const ARTBOOKS = [
 
 function Cover({ book }) {
   const [failed, setFailed] = useState(false)
-  return <span className="artbook-cover" style={{ '--book-accent': book.color }}>
+  return <span className={`artbook-cover${book.landscape ? " artbook-cover--landscape" : ""}`} style={{ '--book-accent': book.color }}>
     {book.image && !failed ? <img src={book.image} alt={`${book.title} cover`} loading="lazy" decoding="async" referrerPolicy="no-referrer" onError={() => setFailed(true)} /> : <span className="artbook-cover-fallback"><span>ART / ARCHIVE</span><strong>{book.title}</strong><small>{book.author}</small><span className="artbook-cover-note">{book.coverPending ? 'Cover to follow' : 'Cover unavailable'}</span></span>}
   </span>
 }
 
-export default function MangaShelf({ intro, collection }) {
+export default function MangaShelf({ intro, title, books = [], lang = 'en' }) {
   const [openBook, setOpenBook] = useState(null)
   const dialog = useRef(null)
+  const japanese = lang === 'ja'
+  const groups = [
+    { id: 'dragon-ball', title: 'Dragon Ball', subtitle: japanese ? 'ボックスコレクション' : 'The boxed collection' },
+    { id: 'naruto', title: 'Naruto', subtitle: japanese ? '岸本斉史の世界' : 'The world of Masashi Kishimoto' },
+    { id: 'other', title: japanese ? 'ほかの作品' : 'Beyond the Hidden Leaf', subtitle: japanese ? 'お気に入りの漫画' : 'More from my manga collection' },
+  ]
   useEffect(() => {
     if (openBook && !dialog.current.open) dialog.current.showModal()
     if (!openBook && dialog.current.open) dialog.current.close()
@@ -43,7 +49,22 @@ export default function MangaShelf({ intro, collection }) {
 
   return <div className="manga-shelf">
     <p className="panel-note">{intro}</p>
-    {collection || <p className="manga-coming-soon">My collection photos are coming soon.</p>}
+    <section className="manga-collection" aria-labelledby="manga-collection-title">
+      <div className="manga-section-heading"><h3 id="manga-collection-title">{title}</h3><span className="artbook-count">{japanese ? '表紙をタップして詳細を見る' : 'Tap a cover to explore'} ↗</span></div>
+      {groups.map(group => {
+        const items = books.filter(book => book.group === group.id)
+        if (!items.length) return null
+        return <section key={group.id} className={`manga-series manga-series--${group.id}`} aria-labelledby={`manga-series-${group.id}`}>
+          <header className="manga-series-heading"><h4 id={`manga-series-${group.id}`}>{group.title}</h4><p>{group.subtitle}</p></header>
+          <ul className="manga-display-shelf">{items.map(book => <li key={book.id}>
+            <button type="button" className={`manga-volume${book.landscape ? ' manga-volume--feature' : ''}`} style={{ '--book-accent': book.color }} aria-haspopup="dialog" aria-label={`${japanese ? '詳細を見る' : 'View'}: ${book.title} · ${japanese ? book.jaNote : book.note}`} onClick={() => setOpenBook(book)}>
+              <Cover book={book} />
+              <span className="manga-volume-copy"><span className="manga-volume-japanese" lang="ja">{book.japanese}</span><strong>{book.title}</strong><span className="manga-volume-note">{japanese ? book.jaNote : book.note}</span><span className="manga-volume-open">{japanese ? '詳しく見る' : 'Take a closer look'} <span aria-hidden="true">↗</span></span></span>
+            </button>
+          </li>)}</ul>
+        </section>
+      })}
+    </section>
     <section className="artbook-collection" aria-labelledby="artbook-collection-title">
       <div className="manga-section-heading"><span className="manga-section-index">02</span><h3 id="artbook-collection-title">Artbooks, Novels &amp; Specials</h3><span className="artbook-count">{String(ARTBOOKS.length).padStart(2, '0')} owned</span></div>
       <div className="artbook-grid">
@@ -57,7 +78,7 @@ export default function MangaShelf({ intro, collection }) {
       </div>
     </section>
     {createPortal(<dialog ref={dialog} className="artbook-dialog" aria-labelledby="artbook-dialog-title" onCancel={() => setOpenBook(null)} onClose={() => setOpenBook(null)} onClick={(event) => { if (event.target === event.currentTarget) { const r = dialog.current.getBoundingClientRect(); if (event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom) setOpenBook(null) } }}>
-      {openBook && <><button className="artbook-dialog-close" autoFocus aria-label="Close book details" onClick={() => setOpenBook(null)}>×</button><div className="artbook-dialog-layout"><Cover key={openBook.id} book={openBook} /><div className="artbook-dialog-copy"><span className="artbook-owned">In my collection</span><h3 id="artbook-dialog-title">{openBook.title}</h3><p className="artbook-author">{openBook.author}</p><p>{openBook.description}</p>{openBook.source && <a href={openBook.source} target="_blank" rel="noreferrer">Book details ↗</a>}</div></div></>}
+      {openBook && <><button className="artbook-dialog-close" autoFocus aria-label="Close book details" onClick={() => setOpenBook(null)}>×</button><div className="artbook-dialog-layout"><Cover key={openBook.id} book={openBook} /><div className="artbook-dialog-copy"><span className="artbook-owned">In my collection</span><h3 id="artbook-dialog-title">{openBook.title}</h3><p className="artbook-author">{openBook.author}</p><p>{openBook.note ? (japanese ? openBook.jaNote : openBook.note) : openBook.description}</p>{openBook.source && <a href={openBook.source} target="_blank" rel="noreferrer">Book details ↗</a>}</div></div></>}
     </dialog>, document.body)}
   </div>
 }
