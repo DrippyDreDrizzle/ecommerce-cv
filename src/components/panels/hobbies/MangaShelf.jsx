@@ -4,20 +4,24 @@ import './MangaShelf.css'
 import fullmetalAnniversary from '../../../assets/books/fullmetal-20th-anniversary.webp'
 import jjkSpecial from '../../../assets/books/jujutsu-kaisen-0-5.webp'
 
-// Japanese ISBNs match the three Naruto editions in the collection photo.
-// ISBN cover lookup uses default=false so missing images trigger the designed fallback.
-const isbnCover = (isbn) => `https://covers.openlibrary.org/b/isbn/${isbn}-L.jpg?default=false`
 import akatsukiHiden from '../../../assets/books/naruto-akatsuki-hiden.webp'
 import itachiDarkNight from '../../../assets/books/naruto-itachi-dark-night.webp'
 
+import itachiBrightLight from '../../../assets/books/naruto-itachi-bright-light.webp'
+import uzumakiNarutoPhoto from '../../../assets/books/uzumaki-naruto-artbook.webp'
+import narutoIllustrationPhoto from '../../../assets/books/naruto-illustration-artbook.webp'
+import uzumakiPhoto from '../../../assets/books/uzumaki-artbook.webp'
+import dragonBallHistoryPhoto from '../../../assets/books/dragon-ball-visual-history.webp'
+
 const ARTBOOKS = [
+  { id: 'itachi-bright-light', title: 'Naruto: Itachi Shinden — Bright Light', series: 'Naruto · Novel', author: 'Takashi Yano · Masashi Kishimoto', image: itachiBrightLight, color: '#d6cec0', description: 'The Japanese novel イタチ真伝 光明篇 (Itachi Shinden: Bright Light), the companion to Dark Night in my collection.' },
   { id: 'akatsuki-hiden', title: 'Naruto: Akatsuki Hiden', series: 'Naruto · Novel', author: 'Shin Towada · Masashi Kishimoto', image: akatsukiHiden, color: '#df9869', description: 'The Japanese novel 暁秘伝 — 咲き乱れる悪の華, collected alongside my Naruto manga and artbooks.' },
   { id: 'itachi-dark-night', title: 'Naruto: Itachi Shinden — Dark Night', series: 'Naruto · Novel', author: 'Takashi Yano · Masashi Kishimoto', image: itachiDarkNight, color: '#baadb5', description: 'The Japanese novel イタチ真伝 暗夜篇 (Itachi Shinden: Dark Night), from my Naruto collection.' },
   { id: 'jjk-special', title: 'Jujutsu Kaisen 0.5', series: 'Jujutsu Kaisen', author: 'Gege Akutami', image: jjkSpecial, color: '#ce9b9d', description: 'The Tokyo Jujutsu High School 0.5 special booklet from my collection.' },
-  { id: 'uzumaki', title: 'Uzumaki', series: 'Naruto', author: 'Masashi Kishimoto', image: isbnCover('9784088737065'), color: '#efb760', description: 'Masashi Kishimoto’s Naruto artwork, collected in the original Uzumaki artbook.', source: 'https://www.viz.com/manga-books/art-book/art-of-naruto-uzumaki/product/1075' },
-  { id: 'naruto', title: 'Naruto Illustration Book', series: 'Naruto', author: 'Masashi Kishimoto', image: isbnCover('9784088748238'), color: '#ff9e68', description: 'A collection of Naruto illustrations by Masashi Kishimoto. The orange-cover Japanese edition in my collection.', source: 'https://www.simonandschuster.co.uk/books/Naruto-Illustration-Book/Masashi-Kishimoto/Naruto-Illustration-Book/9781421538693' },
-  { id: 'uzumaki-naruto', title: 'Uzumaki Naruto: Illustrations', series: 'Naruto', author: 'Masashi Kishimoto', image: 'https://www.japanzon.com/32456-product_hd/naruto-illustrations-naruto-uzumaki-jump-comics-manga.jpg', color: '#f2ce86', description: 'The white-cover Naruto illustration collection, featuring artwork from the concluding years of the manga.', source: 'https://www.viz.com/manga-books/art-book/uzumaki-naruto-illustrations/product/3780' },
-  { id: 'dragon-ball', title: 'Dragon Ball: A Visual History', series: 'Dragon Ball', author: 'Akira Toriyama', image: isbnCover('9781974707409'), color: '#ff866e', description: 'A collection of Akira Toriyama’s Dragon Ball artwork, including illustrations, sketches and creator commentary.', source: 'https://www.viz.com/manga-books/art-book/dragon-ball-a-visual-history/product/6071' },
+  { id: 'uzumaki', title: 'Uzumaki', series: 'Naruto', author: 'Masashi Kishimoto', image: uzumakiPhoto, color: '#efb760', description: 'Masashi Kishimoto’s Naruto artwork, collected in the original Uzumaki artbook.', source: 'https://www.viz.com/manga-books/art-book/art-of-naruto-uzumaki/product/1075' },
+  { id: 'naruto', title: 'Naruto Illustration Book', series: 'Naruto', author: 'Masashi Kishimoto', image: narutoIllustrationPhoto, color: '#ff9e68', description: 'A collection of Naruto illustrations by Masashi Kishimoto. The orange-cover Japanese edition in my collection.', source: 'https://www.simonandschuster.co.uk/books/Naruto-Illustration-Book/Masashi-Kishimoto/Naruto-Illustration-Book/9781421538693' },
+  { id: 'uzumaki-naruto', title: 'Uzumaki Naruto: Illustrations', series: 'Naruto', author: 'Masashi Kishimoto', image: uzumakiNarutoPhoto, color: '#f2ce86', description: 'The white-cover Naruto illustration collection, featuring artwork from the concluding years of the manga.', source: 'https://www.viz.com/manga-books/art-book/uzumaki-naruto-illustrations/product/3780' },
+  { id: 'dragon-ball', title: 'Dragon Ball: A Visual History', series: 'Dragon Ball', author: 'Akira Toriyama', image: dragonBallHistoryPhoto, color: '#ff866e', description: 'A collection of Akira Toriyama’s Dragon Ball artwork, including illustrations, sketches and creator commentary.', source: 'https://www.viz.com/manga-books/art-book/dragon-ball-a-visual-history/product/6071' },
   { id: 'mha', title: 'My Hero Academia: Ultra Artworks', series: 'My Hero Academia', author: 'Kohei Horikoshi', image: 'https://d2j6dbq0eux0bg.cloudfront.net/images/28453054/4974801625.jpg', color: '#77d8b2', description: 'Kohei Horikoshi’s illustration collection celebrating ten years of My Hero Academia.', source: 'https://www.simonandschuster.com/books/My-Hero-Academia-Ultra-Artworks/Kohei-Horikoshi/My-Hero-Academia-Ultra-Artworks/9781974768844' },
   { id: 'fullmetal', title: 'Fullmetal Alchemist 20th Anniversary Book', series: 'Fullmetal Alchemist', author: 'Hiromu Arakawa', image: fullmetalAnniversary, color: '#b6afff', description: 'Hiromu Arakawa’s 20th Anniversary Book from my collection.' },
 ]
