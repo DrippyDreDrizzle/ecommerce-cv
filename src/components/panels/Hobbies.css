@@ -67,3 +67,7 @@
 
 .hobbies-book-jacket--photo { padding: 0; border-left: 0; background: #151321; aspect-ratio: 3 / 4; min-height: 0; }
 .hobbies-book-jacket--photo img { display: block; width: 100%; height: 100%; object-fit: contain; }
+
+.hobbies-bookshelf .hobbies-book-wide { grid-column: span 2; }
+.hobbies-book-wide .hobbies-book-jacket--photo { aspect-ratio: 4 / 3; }
+@media(max-width: 640px) { .hobbies-bookshelf .hobbies-book-wide { flex-basis: 280px; } }

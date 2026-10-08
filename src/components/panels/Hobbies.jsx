@@ -4,6 +4,7 @@ import MangaShelf from './hobbies/MangaShelf'
 import { useLanguage } from '../../context/LanguageContext'
 import sportsArt from '../../assets/profile/hobbies-anime.webp'
 import './Hobbies.css'
+import dragonBallCollection from '../../assets/books/dragon-ball-boxed-collection.webp'
 import demonSlayer08 from '../../assets/books/demon-slayer-08.webp'
 import fullmetal27 from '../../assets/books/fullmetal-27.webp'
 import onePunch01 from '../../assets/books/one-punch-man-01.webp'
@@ -19,7 +20,7 @@ const SHOWS = ['How I Met Your Mother', 'Parks and Recreation', 'The Inbetweener
 const FILMS = ['Shrek', 'Step Brothers', 'Superbad', 'Scary Movie']
 const KON = ['Perfect Blue', 'Paprika', 'Millennium Actress']
 const BOOKS = [
-  ['Dragon Ball Z', 'Full collection · special covers', '全巻コレクション・特別カバー', 'ドラゴンボール', '#f4b669'],
+  ['Dragon Ball', 'Boxed collection', 'ボックスコレクション', 'ドラゴンボール', '#f4b669', dragonBallCollection],
   ['Naruto — 26', 'Volume 26', '第26巻', 'ナルト', '#ee9569', naruto26],
   ['Naruto — 37', 'Volume 37', '第37巻', 'ナルト', '#ee9569', naruto37],
   ['Naruto — 53', 'Volume 53', '第53巻', 'ナルト', '#ee9569', naruto53],
@@ -97,7 +98,7 @@ export default function Hobbies() {
           <aside className="hobbies-watching"><span><i aria-hidden="true" />{c.watching}</span><strong>The Elusive Samurai</strong><strong>Daemons of the Shadow Realm</strong></aside>
           <h3 className="hobbies-subtitle">{c.favourites}</h3><TitleGallery titles={ANIME} kind="anime" />
           <aside className="hobbies-recommendation"><h4>{c.first}</h4><p>{c.recommendation}</p></aside>
-          <MangaShelf intro={c.shelfIntro} collection={<><h3 className="hobbies-subtitle">{c.shelf}</h3><p className="hobbies-photo-note">{c.photo}</p><ul className="hobbies-bookshelf">{BOOKS.map(([title, note, jaNote, japanese, color, image]) => <li key={title} style={{ '--book-color': color }}><div className={`hobbies-book-jacket ${image ? 'hobbies-book-jacket--photo' : ''}`}>{image ? <img src={image} alt={`${title} — ${lang === 'ja' ? jaNote : note}`} width="1152" height="1536" loading="lazy" decoding="async" /> : <><span lang="ja">{japanese}</span><strong>{title}</strong></>}</div><h4>{title}</h4><p>{lang === 'ja' ? jaNote : note}</p></li>)}</ul></>} />
+          <MangaShelf intro={c.shelfIntro} collection={<><h3 className="hobbies-subtitle">{c.shelf}</h3><p className="hobbies-photo-note">{c.photo}</p><ul className="hobbies-bookshelf">{BOOKS.map(([title, note, jaNote, japanese, color, image]) => <li key={title} className={image === dragonBallCollection ? 'hobbies-book-wide' : undefined} style={{ '--book-color': color }}><div className={`hobbies-book-jacket ${image ? 'hobbies-book-jacket--photo' : ''}`}>{image ? <img src={image} alt={`${title} — ${lang === 'ja' ? jaNote : note}`} width={image === dragonBallCollection ? 1536 : 1152} height={image === dragonBallCollection ? 1152 : 1536} loading="lazy" decoding="async" /> : <><span lang="ja">{japanese}</span><strong>{title}</strong></>}</div><h4>{title}</h4><p>{lang === 'ja' ? jaNote : note}</p></li>)}</ul></>} />
         </>}
         {active === 2 && <>
           <header className="hobbies-section-intro"><h3>{c.screen}</h3><p>{c.screenIntro}</p></header>
