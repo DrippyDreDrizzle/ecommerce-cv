@@ -15,6 +15,8 @@ import Awards from './components/panels/Awards'
 import Education from './components/panels/Education'
 import Contact from './components/panels/Contact'
 import './App.css'
+import ElementCursor from './components/elements/ElementCursor'
+import { readElement, ELEMENT_STORAGE_KEY } from './components/elements/elements'
 
 const TABS = [
   { id: 'profile', number: '01', label: 'Profile', labelKey: 'profile', Component: Profile },
@@ -30,6 +32,10 @@ const TABS = [
 
 function AppInner() {
   const [view, setView] = useState('intro')
+  const [element, setElement] = useState(readElement)
+  useEffect(() => {
+    try { localStorage.setItem(ELEMENT_STORAGE_KEY, element) } catch { /* Optional preference storage. */ }
+  }, [element])
   const [activeId, setActiveId] = useState(null)
 
   const shell = useRef(null)
@@ -79,6 +85,8 @@ function AppInner() {
           tabs={TABS}
           onSelect={navigate}
           selectedId={activeId}
+          element={element}
+          onElementChange={setElement}
         />
       )}
 
@@ -98,6 +106,7 @@ function AppInner() {
           </div>
         </div>
       )}
+      <ElementCursor element={element} enabled={view !== 'intro'} />
       {ripple && !reduced && <div className="navigation-ripple" aria-hidden="true">
         <motion.div key={ripple.id} className="navigation-ripple-disc"
           style={{ left: ripple.x - ripple.radius, top: ripple.y - ripple.radius, width: ripple.radius * 2, height: ripple.radius * 2, '--ripple-color': ripple.color }}
