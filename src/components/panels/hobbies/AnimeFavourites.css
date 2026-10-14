@@ -1,0 +1,45 @@
+.panel--hobbies .panel-body { max-width: 1480px; margin-inline: auto; }
+.panel--hobbies .panel-header { max-width: 1480px; margin-inline: auto; }
+.panel--hobbies .manga-shelf { max-width: none; margin-top: 3rem; }
+.anime-favourites-grid { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 1rem; }
+.anime-favourite-card { width: 100%; height: 100%; min-height: 340px; position: relative; isolation: isolate; overflow: hidden; text-align: left; display: flex; align-items: flex-end; padding: 1.25rem; border: 1px solid color-mix(in srgb,var(--anime-tone) 45%,transparent); border-bottom: 4px solid var(--anime-tone); background: radial-gradient(ellipse at 70% 25%,color-mix(in srgb,var(--anime-tone) 30%,#171523),#10101b 80%); }
+.anime-card-index { position: absolute; top: 1rem; left: 1rem; z-index: 2; font: .65rem var(--font-mono); color: var(--anime-tone); background: #111521d9; padding: .4rem; }
+.anime-card-art { position: absolute; inset: .5rem 0 0 20%; z-index: -1; }
+.anime-card-art img { width: 100%; height: 100%; object-fit: contain; object-position: center top; transition: transform .25s; }
+.anime-favourite-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg,#10101b 3%,#10101be8 22%,transparent 80%); z-index: -1; }
+.anime-card-copy { display: grid; gap: .65rem; }
+.anime-card-copy > span:first-child { font: .6rem/1.5 var(--font-mono); color: var(--anime-tone); text-transform: uppercase; }
+.anime-card-copy strong { font: clamp(1.35rem,2vw,1.9rem)/1.15 var(--font-display); text-transform: uppercase; }
+.anime-card-open { font-size: .85rem; color: #e7d5e3; }
+.anime-favourite-card:hover .anime-card-art img { transform: scale(1.04); }
+.anime-dialog { width: min(1100px,calc(100vw - 2rem)); max-height: calc(100dvh - 2rem); padding: 2.5rem; overflow: auto; border: 1px solid #c58baa; background: #12131f; color: #f7eff9; box-shadow: 0 30px 100px #000a; }
+.anime-dialog::backdrop { background: #060711e8; }
+.anime-dialog-close { position: absolute; top: .3rem; right: .3rem; width: 44px; height: 44px; font-size: 1.8rem; }
+.anime-eyebrow { font: .65rem var(--font-mono); text-transform: uppercase; color: var(--anime-tone); }
+.anime-dialog h3 { font: clamp(1.8rem,4vw,3rem)/1.15 var(--font-display); margin: 1rem 0; }
+.anime-dialog header p { max-width: 740px; font-size: 1.1rem; line-height: 1.7; color: #c7bdce; }
+.anime-dialog h4, .favourite-panel h4 { font: 1.25rem var(--font-display); margin: 1.5rem 0 1rem; }
+.anime-dialog-columns { display: grid; grid-template-columns: minmax(0,1.4fr) minmax(0,1fr); gap: 2rem; }
+.anime-character-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(110px,1fr)); gap: .7rem; }
+.anime-character-grid figure { margin: 0; min-width: 0; padding: .6rem; background: #ffffff07; border: 1px solid #ffffff12; }
+.anime-character-grid img { display: block; width: 100%; height: 210px; object-fit: contain; }
+.anime-character-grid figcaption { font-size: .85rem; text-align: center; padding-top: .8rem; }
+.anime-source { display: inline-block; margin-top: 1rem; font-size: .8rem; }
+.anime-dialog a { color: #e6b3d4; text-underline-offset: 4px; }
+.anime-dialog button:focus-visible, .favourite-panel button:focus-visible { outline: 2px solid #ffd2eb; outline-offset: 3px; }
+.collection-empty { min-height: 140px; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.2rem; border: 1px dashed #c796b44d; background: linear-gradient(135deg,#f58bc708,transparent); color: #bdb0c2; text-align: center; }
+.collection-empty > span { font-size: 2rem; color: #d995bd; }
+.collection-empty p { margin: .5rem 0; line-height: 1.5; }
+.anime-video { aspect-ratio: 16/9; background: #05060a; margin-bottom: .8rem; }
+.anime-video iframe { width: 100%; height: 100%; border: 0; }
+.anime-clip-list { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+.anime-clip-list button, .anime-reveal, .favourite-panel button { padding: .8rem; border: 1px solid #d995bd66; background: #d995bd14; }
+.anime-clip-list button[aria-pressed=true] { background: #d995bd; color: #15121e; }
+.favourite-panel { margin-top: 2rem; padding-top: .5rem; border-top: 1px solid #ffffff17; }
+.favourite-panel figure { margin: 0; }
+.favourite-panel img { width: 100%; max-height: 550px; object-fit: contain; }
+.favourite-panel figcaption { margin-top: .7rem; line-height: 1.5; }
+@media(min-width:1200px) { .panel--hobbies .artbook-grid { grid-template-columns: repeat(5,minmax(0,1fr)); } }
+@media(max-width:760px) { .anime-favourites-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } .anime-dialog-columns { grid-template-columns: 1fr; gap: .5rem; } .anime-dialog { padding: 2.5rem 1rem 1.2rem; } .anime-favourite-card { min-height: 280px; padding: .85rem; } .anime-card-copy strong { font-size: 1.3rem; } .anime-card-copy > span:first-child { display: none; } }
+@media(max-width:380px) { .anime-favourites-grid { grid-template-columns: 1fr; } }
+@media(prefers-reduced-motion:reduce) { .anime-card-art img { transition: none; } .anime-favourite-card:hover .anime-card-art img { transform: none; } }

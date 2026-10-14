@@ -1,10 +1,10 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import './Panel.css'
 
-export default function Panel({ title, children }) {
+export default function Panel({ title, children, className = '' }) {
   const reduced = useReducedMotion()
   return (
-    <motion.section className="panel"
+    <motion.section className={`panel ${className}`}
       initial={reduced ? false : { opacity: .65, y: 6 }}
       animate={{ opacity: 1, y: 0 }} transition={{ duration: reduced ? 0 : .22, ease: 'easeOut' }}>
       {title && <div className="panel-header">

@@ -67,3 +67,10 @@ Your site will be live at `https://<your-username>.github.io/ecommerce-cv/`.
 Replace every `YOUR-USERNAME` placeholder (in `robots.txt`, `sitemap.xml`,
 and `index.html`) with your actual GitHub username before deploying, then
 submit the URL to [Google Search Console](https://search.google.com/search-console).
+
+### Anime and manga collection
+
+- `src/components/panels/hobbies/bookNotes.js` holds the spoiler-light manga summaries and publisher sources. Add a `panel: { image, caption, alt }` field to an entry to display a favourite-panel photo behind a spoiler reveal. Use an imported image or a base-path-aware URL. Specials are defined in `MangaShelf.jsx` and accept the same field.
+- `src/components/panels/hobbies/animeDetails.js` holds the six Personal Favourites. Add selected YouTube clips to each `moments` array using `{ title: 'Clip title', youtubeId: 'YouTube ID' }`. The player loads only after a spoiler reveal, supports multiple clips and provides a YouTube fallback link. Empty lists show a deliberate “My picks are on the way” state; no favourites have been invented.
+- Character artwork is stored locally in `public/images/anime`; `sources.json` records its original official URLs. Jujutsu Kaisen uses official Cursed Clash character artwork, and Dragon Ball Z uses ensemble artwork. Each detail view links to its artwork source.
+- The Dragon Ball box remains one collection entry, matching the existing catalogue; its individual volumes have not been enumerated.
