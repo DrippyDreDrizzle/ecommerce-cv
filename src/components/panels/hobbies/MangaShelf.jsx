@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import './MangaShelf.css'
+import FavouritePanel from './FavouritePanel'
 import fullmetalAnniversary from '../../../assets/books/fullmetal-20th-anniversary.webp'
 import jjkSpecial from '../../../assets/books/jujutsu-kaisen-0-5.webp'
 
@@ -78,7 +79,7 @@ export default function MangaShelf({ intro, title, books = [], lang = 'en' }) {
       </div>
     </section>
     {createPortal(<dialog ref={dialog} className="artbook-dialog" aria-labelledby="artbook-dialog-title" onCancel={() => setOpenBook(null)} onClose={() => setOpenBook(null)} onClick={(event) => { if (event.target === event.currentTarget) { const r = dialog.current.getBoundingClientRect(); if (event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom) setOpenBook(null) } }}>
-      {openBook && <><button className="artbook-dialog-close" autoFocus aria-label="Close book details" onClick={() => setOpenBook(null)}>×</button><div className="artbook-dialog-layout"><Cover key={openBook.id} book={openBook} /><div className="artbook-dialog-copy"><span className="artbook-owned">In my collection</span><h3 id="artbook-dialog-title">{openBook.title}</h3><p className="artbook-author">{openBook.author}</p><p>{openBook.note ? (japanese ? openBook.jaNote : openBook.note) : openBook.description}</p>{openBook.source && <a href={openBook.source} target="_blank" rel="noreferrer">Book details ↗</a>}</div></div></>}
+      {openBook && <><button className="artbook-dialog-close" autoFocus aria-label="Close book details" onClick={() => setOpenBook(null)}>×</button><div className="artbook-dialog-layout"><Cover key={openBook.id} book={openBook} /><div className="artbook-dialog-copy"><span className="artbook-owned">In my collection</span><h3 id="artbook-dialog-title">{openBook.title}</h3><p className="artbook-author">{openBook.author}</p><p>{openBook.note ? (japanese ? openBook.jaNote : openBook.note) : openBook.description}</p>{openBook.note && openBook.description && <><h4>{japanese ? 'あらすじ・ネタバレなし' : 'In this volume · spoiler-free'}</h4><p>{japanese ? openBook.jaDescription : openBook.description}</p></>}{openBook.source && <a href={openBook.source} target="_blank" rel="noreferrer">{japanese ? '出版社の詳細（ネタバレあり）' : 'Publisher details (may contain spoilers)'} ↗</a>}</div></div><FavouritePanel key={openBook.id} book={openBook} japanese={japanese} /></>}
     </dialog>, document.body)}
   </div>
 }

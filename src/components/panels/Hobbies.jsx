@@ -1,6 +1,8 @@
 import { useRef, useState } from 'react'
 import Panel from '../Panel'
 import MangaShelf from './hobbies/MangaShelf'
+import AnimeFavourites from './hobbies/AnimeFavourites'
+import { BOOK_NOTES } from './hobbies/bookNotes'
 import { useLanguage } from '../../context/LanguageContext'
 import sportsArt from '../../assets/profile/hobbies-anime.webp'
 import './Hobbies.css'
@@ -15,7 +17,6 @@ import naruto37 from '../../assets/books/naruto-37.webp'
 import naruto53 from '../../assets/books/naruto-53.webp'
 import naruto63 from '../../assets/books/naruto-63.webp'
 
-const ANIME = ['Naruto', 'Fullmetal Alchemist: Brotherhood', 'My Hero Academia', 'Dragon Ball Z', 'Demon Slayer', 'Jujutsu Kaisen']
 const SHOWS = ['How I Met Your Mother', 'Parks and Recreation', 'The Inbetweeners', 'South Park', 'American Dad!', 'Bob’s Burgers', 'Brooklyn Nine-Nine', 'It’s Always Sunny in Philadelphia']
 const FILMS = ['Shrek', 'Step Brothers', 'Superbad', 'Scary Movie']
 const KON = ['Perfect Blue', 'Paprika', 'Millennium Actress']
@@ -30,7 +31,7 @@ const BOOKS = [
   ['Demon Slayer', 'Volume 8', '第8巻', '鬼滅の刃', '#ee9569', demonSlayer08],
   ['One-Punch Man', 'Volume 1', '第1巻', 'ワンパンマン', '#f4b669', onePunch01],
 ].map(([title, note, jaNote, japanese, color, image], index) => ({
-  id: `manga-${index}`, title, note, jaNote, japanese, color, image,
+  id: `manga-${index}`, title, note, jaNote, japanese, color, image, ...BOOK_NOTES[`manga-${index}`],
   group: index === 0 ? 'dragon-ball' : index <= 4 ? 'naruto' : 'other',
   landscape: index === 0,
   author: index === 0 ? 'Akira Toriyama' : index <= 4 ? 'Masashi Kishimoto' : ['Hiromu Arakawa', 'Gege Akutami', 'Koyoharu Gotouge', 'ONE · Yusuke Murata'][index - 5],
@@ -81,7 +82,7 @@ export default function Hobbies() {
     if (next === undefined) return
     event.preventDefault(); setActive(next); tabs.current[next]?.focus()
   }
-  return <Panel title={c.title}>
+  return <Panel title={c.title} className="panel--hobbies">
     <div className="hobbies-hub">
       <p className="hobbies-intro">{c.intro}</p>
       <div className="hobbies-tabs" role="tablist" aria-label={lang === 'ja' ? '趣味のカテゴリー' : 'Hobby categories'}>{c.tabs.map((tab, index) => <button key={index} type="button" role="tab" id={`hobby-tab-${index}`} aria-controls={`hobby-panel-${index}`} aria-selected={active === index} tabIndex={active === index ? 0 : -1} ref={el => { tabs.current[index] = el }} onClick={() => setActive(index)} onKeyDown={event => selectWithKeys(event, index)}>{tab}</button>)}</div>
@@ -102,8 +103,7 @@ export default function Hobbies() {
         {active === 1 && <>
           <header className="hobbies-section-intro"><h3>{c.anime}</h3><p>{c.animeIntro}</p></header>
           <aside className="hobbies-watching"><span><i aria-hidden="true" />{c.watching}</span><strong>The Elusive Samurai</strong><strong>Daemons of the Shadow Realm</strong></aside>
-          <h3 className="hobbies-subtitle">{c.favourites}</h3><TitleGallery titles={ANIME} kind="anime" />
-          <aside className="hobbies-recommendation"><h4>{c.first}</h4><p>{c.recommendation}</p></aside>
+          <h3 className="hobbies-subtitle">{c.favourites}</h3><AnimeFavourites lang={lang} />
           <MangaShelf intro={c.shelfIntro} title={c.shelf} books={BOOKS} lang={lang} />
         </>}
         {active === 2 && <>
