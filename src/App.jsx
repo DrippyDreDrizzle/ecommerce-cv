@@ -1,5 +1,7 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
+import { flushSync } from 'react-dom'
+import { useReducedMotion } from 'framer-motion'
+import { afterPaint, createMenuFlight } from './components/menuFlight'
 import { menuTheme } from './components/menuTheme'
 import { LanguageProvider } from './context/LanguageContext'
 import Intro from './components/Intro'
@@ -32,78 +34,87 @@ function AppInner() {
   const [view, setView] = useState('intro')
   const [activeId, setActiveId] = useState(null)
   const [moving, setMoving] = useState(false)
-  const previousView = useRef('intro')
-  const cameraAnimation = useRef(null)
   const shell = useRef(null)
   const menuLayer = useRef(null)
   const navigating = useRef(false)
-  const unlockTimer = useRef(null)
+  const flight = useRef(null)
+  const mounted = useRef(true)
   const reduced = useReducedMotion()
 
-  useEffect(() => () => clearTimeout(unlockTimer.current), [])
+  useEffect(() => {
+    mounted.current = true
+    return () => { mounted.current = false; flight.current?.remove() }
+  }, [])
 
-  const navigate = (id, event) => {
+  const navigate = async (id) => {
     if (navigating.current || (view === 'panel' && id === activeId)) return
-    if (id) setActiveId(id)
-    setView(id ? 'panel' : 'menu')
-    const changingView = !id || view !== 'panel'
-    navigating.current = changingView
-    setMoving(changingView && !reduced)
-    clearTimeout(unlockTimer.current)
-    unlockTimer.current = setTimeout(() => { navigating.current = false; setMoving(false) }, reduced ? 0 : 700)
+    const destination = () => {
+      if (id) setActiveId(id)
+      setView(id ? 'panel' : 'menu')
+    }
+    // Tabs within a section do not trigger a menu flight.
+    if (reduced || (view === 'panel' && id) || view === 'intro') {
+      destination()
+      return
+    }
+    navigating.current = true
+    flushSync(() => setMoving(true))
+    const returning = !id
+    const card = menuLayer.current?.querySelector(`[data-menu-id="${id || activeId}"]`)
+    const menu = menuLayer.current?.querySelector('.main-menu')
+    try {
+      if (returning && card && menu) {
+        const rect = card.getBoundingClientRect()
+        const bounds = shell.current.getBoundingClientRect()
+        if (rect.top < bounds.top + 72 || rect.bottom > bounds.bottom - 24) {
+          menu.scrollTop += rect.top + rect.height / 2 - bounds.top - bounds.height / 2
+        }
+      }
+      if (!card) { destination(); return }
+      flight.current = createMenuFlight(shell.current, card, returning)
+      // Give the browser two frames to paint/promote this small isolated layer.
+      await afterPaint()
+      if (!mounted.current) return
+      if (returning) {
+        await flight.current.reveal()
+        if (!mounted.current) return
+        flushSync(destination)
+        await afterPaint()
+        if (!mounted.current) return
+        await flight.current.zoom()
+      } else {
+        await flight.current.zoom()
+        if (!mounted.current) return
+        // Expensive page mounting happens behind the fully zoomed card, never
+        // during the flight. Keep that cover until the page has painted.
+        flushSync(destination)
+        await afterPaint()
+        if (!mounted.current) return
+        await flight.current.dissolve()
+      }
+    } catch (error) {
+      if (mounted.current) {
+        console.error('Menu transition failed', error)
+        flushSync(destination)
+      }
+    } finally {
+      flight.current?.remove()
+      flight.current = null
+      navigating.current = false
+      if (mounted.current) setMoving(false)
+    }
   }
 
-  // Native transform/opacity animations run on the compositor while sections render.
-  useLayoutEffect(() => {
-    const layer = menuLayer.current
-    if (!layer) return
-    const wasPanel = previousView.current === 'panel'
-    previousView.current = view
-    const identity = 'translate3d(0px, 0px, 0px) scale(1)'
-    const card = layer.querySelector(`[data-menu-id="${activeId || 'profile'}"]`)
-    const menu = layer.querySelector('.main-menu')
-    const bounds = shell.current.getBoundingClientRect()
-    const layerRect = layer.getBoundingClientRect()
-    const matrix = new DOMMatrixReadOnly(getComputedStyle(layer).transform)
-    const rect = card.getBoundingClientRect()
-    const width = rect.width / matrix.a
-    const height = rect.height / matrix.d
-    const x = (rect.left - layerRect.left) / matrix.a + width / 2
-    let y = (rect.top - layerRect.top) / matrix.d + height / 2
-    // Bring a newly selected section's card into the menu viewport before returning.
-    if (wasPanel) {
-      const oldScroll = menu.scrollTop
-      if (y - height / 2 < 72 || y + height / 2 > bounds.height - 24) {
-        menu.scrollTop += y - bounds.height / 2
-        y -= menu.scrollTop - oldScroll
-      }
-    }
-    const scale = Math.max(bounds.width / width, bounds.height / height) * 1.15
-    const closeup = `translate3d(${(bounds.width / 2 - x) * scale}px, ${(bounds.height / 2 - y) * scale}px, 0px) scale(${scale})`
-    cameraAnimation.current?.cancel()
-    const entering = view === 'panel'
-    const destination = entering ? closeup : identity
-    layer.style.transform = destination
-    layer.style.opacity = entering ? '0' : '1'
-    if (!reduced && (entering !== wasPanel)) {
-      cameraAnimation.current = layer.animate([
-        { transform: entering ? identity : closeup, opacity: entering ? 1 : 0 },
-        { transform: destination, opacity: entering ? 0 : 1 },
-      ], { duration: 680, easing: 'cubic-bezier(.4, 0, .2, 1)' })
-    }
-    return () => cameraAnimation.current?.cancel()
-  }, [view, activeId, reduced])
-
   useEffect(() => {
-    if (view === 'intro') return undefined
-    const timer = setTimeout(() => {
+    if (view === 'intro' || moving) return undefined
+    const frame = requestAnimationFrame(() => {
       const target = view === 'panel'
         ? (shell.current?.querySelector('.panel-title') || shell.current?.querySelector('.top-bar-back'))
         : menuLayer.current?.querySelector(`[data-menu-id="${activeId || 'profile'}"]`)
       target?.focus({ preventScroll: true })
-    }, reduced ? 0 : 700)
-    return () => clearTimeout(timer)
-  }, [view, activeId, reduced])
+    })
+    return () => cancelAnimationFrame(frame)
+  }, [view, activeId, moving])
 
   const active = TABS.find((t) => t.id === activeId)
   const ActivePanel = active?.Component
@@ -120,29 +131,22 @@ function AppInner() {
 
       {view !== 'intro' && (
         <div ref={menuLayer} className="menu-camera"
-          inert={view === 'panel' ? '' : undefined}
+          inert={view === 'panel' || moving ? '' : undefined}
           aria-hidden={view === 'panel'}
-          style={{ pointerEvents: view === 'panel' ? 'none' : 'auto' }}>
+          style={{ visibility: view === 'panel' ? 'hidden' : 'visible' }}>
           <MainMenu tabs={TABS} onSelect={navigate} selectedId={activeId} />
         </div>
       )}
 
-      <AnimatePresence>
-        {view === 'panel' && ActivePanel && (
-          <motion.div className="panel-shell" key="section"
-            initial={{ opacity: reduced ? 1 : 0, transform: reduced ? 'none' : 'scale(.94)' }}
-            animate={{ opacity: 1, transform: 'scale(1)' }}
-            exit={{ opacity: 0, transform: reduced ? 'none' : 'scale(.94)', pointerEvents: 'none',
-              transition: { duration: reduced ? 0 : .24 } }}
-            transition={{ duration: reduced ? 0 : .34, delay: reduced ? 0 : .28, ease: [.2, .7, .2, 1] }}>
-            <TopBar tabs={TABS} activeId={activeId} onSelect={navigate}
-              onBack={(event) => navigate(null, event)} />
-            <div className="panel-stage" key={activeId}>
-              <ActivePanel onNavigate={navigate} />
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {view === 'panel' && ActivePanel && (
+        <div className="panel-shell" inert={moving ? '' : undefined}>
+          <TopBar tabs={TABS} activeId={activeId} onSelect={navigate}
+            onBack={() => navigate(null)} />
+          <div className="panel-stage" key={activeId}>
+            <ActivePanel onNavigate={navigate} />
+          </div>
+        </div>
+      )}
     </div>
   )
 }
