@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useLanguage } from '../context/LanguageContext'
 import LanguageToggle from './LanguageToggle'
 import MenuArtwork from './MenuArtwork'
@@ -7,6 +7,7 @@ import './MainMenu.css'
 
 export default function MainMenu({ tabs, onSelect, selectedId }) {
   const [previewId, setPreviewId] = useState(selectedId || tabs[0].id)
+  useEffect(() => { if (selectedId) setPreviewId(selectedId) }, [selectedId])
   const { t } = useLanguage()
   return (
     <div className="main-menu">
