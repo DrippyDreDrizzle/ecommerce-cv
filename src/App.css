@@ -26,3 +26,7 @@
 .panel-shell { position: absolute; inset: 0; z-index: 1; background: var(--black); min-height: 0; }
 .panel-stage { min-height: 0; }
 .menu-camera[aria-hidden="true"] * { animation-play-state: paused !important; }
+
+.menu-camera { will-change: transform, opacity; backface-visibility: hidden; contain: paint; }
+.is-navigating .menu-camera * { animation-play-state: paused !important; }
+.is-navigating .contact-intro { backdrop-filter: none; }

@@ -7,7 +7,7 @@
 .main-menu-list li { min-width: 0; }
 .menu-card-wide { grid-column: 1 / -1; }
 .main-menu-item { width: 100%; display: block; padding: 3px; text-align: left; touch-action: manipulation; }
-.menu-item-visual { position: relative; display: block; height: clamp(100px, 15vh, 142px); overflow: hidden; isolation: isolate; background: #151b28; color: var(--item-color); clip-path: polygon(0 0, 94% 0, 100% 18%, 100% 100%, 6% 100%, 0 82%); animation: menu-drift var(--float-duration) ease-in-out var(--float-delay) infinite; transition: background .16s; }
+.menu-item-visual { position: relative; display: block; height: clamp(100px, 15vh, 142px); overflow: hidden; isolation: isolate; background: #151b28; color: var(--item-color); clip-path: polygon(0 0, 94% 0, 100% 18%, 100% 100%, 0 100%); animation: menu-drift var(--float-duration) ease-in-out var(--float-delay) infinite; transition: background .16s; }
 .menu-item-visual::before { content: ''; position: absolute; inset: 0; background: linear-gradient(115deg, #ffffff04, transparent 45%), repeating-linear-gradient(135deg, transparent 0 7px, #ffffff04 7px 8px); pointer-events: none; }
 .menu-item-visual::after { content: ''; position: absolute; inset: 0; border-top: 2px solid currentColor; border-bottom: 2px solid currentColor; opacity: .45; pointer-events: none; transition: opacity .16s; }
 .menu-card-stripe { position: absolute; width: 42%; height: 160%; right: -7%; top: -30%; background: currentColor; opacity: .16; transform: skewX(-22deg); transition: opacity .16s; }
