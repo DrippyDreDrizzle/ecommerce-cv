@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { motion, useReducedMotion } from 'framer-motion'
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { menuTheme } from './components/menuTheme'
 import { LanguageProvider } from './context/LanguageContext'
 import Intro from './components/Intro'
@@ -15,8 +15,6 @@ import Awards from './components/panels/Awards'
 import Education from './components/panels/Education'
 import Contact from './components/panels/Contact'
 import './App.css'
-import ElementCursor from './components/elements/ElementCursor'
-import { readElement, ELEMENT_STORAGE_KEY } from './components/elements/elements'
 
 const TABS = [
   { id: 'profile', number: '01', label: 'Profile', labelKey: 'profile', Component: Profile },
@@ -32,40 +30,49 @@ const TABS = [
 
 function AppInner() {
   const [view, setView] = useState('intro')
-  const [element, setElement] = useState(readElement)
-  useEffect(() => {
-    try { localStorage.setItem(ELEMENT_STORAGE_KEY, element) } catch { /* Optional preference storage. */ }
-  }, [element])
   const [activeId, setActiveId] = useState(null)
-
+  const [originId, setOriginId] = useState(null)
+  const [zoom, setZoom] = useState({ x: 0, y: 0, scale: 1 })
   const shell = useRef(null)
-  const rippleId = useRef(0)
-  const [ripple, setRipple] = useState(null)
+  const menuLayer = useRef(null)
+  const navigating = useRef(false)
+  const unlockTimer = useRef(null)
   const reduced = useReducedMotion()
 
+  useEffect(() => () => clearTimeout(unlockTimer.current), [])
+
   const navigate = (id, event) => {
-    if (view === 'panel' && id === activeId) return
-    if (!reduced) {
+    if (navigating.current || (view === 'panel' && id === activeId)) return
+    if (view === 'menu' && id) {
       const bounds = shell.current.getBoundingClientRect()
-      const button = event?.currentTarget?.getBoundingClientRect()
-      const x = event?.detail > 0 ? event.clientX - bounds.left : button ? button.left + button.width / 2 - bounds.left : bounds.width / 2
-      const y = event?.detail > 0 ? event.clientY - bounds.top : button ? button.top + button.height / 2 - bounds.top : bounds.height / 2
-      const radius = Math.hypot(Math.max(x, bounds.width - x), Math.max(y, bounds.height - y))
-      setRipple({ id: ++rippleId.current, x, y, radius, color: menuTheme(id || activeId).color })
-    } else setRipple(null)
+      const card = event?.currentTarget || menuLayer.current?.querySelector(`[data-menu-id="${id}"]`)
+      const rect = card?.getBoundingClientRect()
+      if (rect) {
+        const scale = Math.max(bounds.width / rect.width, bounds.height / rect.height) * 1.35
+        setZoom({
+          scale,
+          x: (bounds.width / 2 - (rect.left - bounds.left + rect.width / 2)) * scale,
+          y: (bounds.height / 2 - (rect.top - bounds.top + rect.height / 2)) * scale,
+        })
+      }
+      setOriginId(id)
+    }
     if (id) setActiveId(id)
     setView(id ? 'panel' : 'menu')
+    navigating.current = true
+    unlockTimer.current = setTimeout(() => { navigating.current = false }, reduced ? 0 : 760)
   }
 
   useEffect(() => {
     if (view === 'intro') return undefined
-    const frame = requestAnimationFrame(() => {
-      const target = view === 'panel' ? shell.current?.querySelector('.panel-title') : shell.current?.querySelector(`[data-menu-id="${activeId || 'profile'}"]`)
+    const timer = setTimeout(() => {
+      const target = view === 'panel'
+        ? (shell.current?.querySelector('.panel-title') || shell.current?.querySelector('.top-bar-back'))
+        : menuLayer.current?.querySelector(`[data-menu-id="${originId || 'profile'}"]`)
       target?.focus({ preventScroll: true })
-    })
-    return () => cancelAnimationFrame(frame)
-    // Section changes preserve focus on the navigation; only changing views moves it.
-  }, [view])
+    }, reduced ? 0 : 760)
+    return () => clearTimeout(timer)
+  }, [view, activeId, originId, reduced])
 
   const active = TABS.find((t) => t.id === activeId)
   const ActivePanel = active?.Component
@@ -80,40 +87,35 @@ function AppInner() {
         />
       )}
 
-      {view === 'menu' && (
-        <MainMenu
-          tabs={TABS}
-          onSelect={navigate}
-          selectedId={activeId}
-          element={element}
-          onElementChange={setElement}
-        />
+      {view !== 'intro' && (
+        <motion.div ref={menuLayer} className="menu-camera"
+          inert={view === 'panel' ? '' : undefined}
+          aria-hidden={view === 'panel'}
+          initial={false}
+          animate={view === 'panel' ? { ...zoom, opacity: 0 } : { x: 0, y: 0, scale: 1, opacity: 1 }}
+          transition={{ duration: reduced ? 0 : .72, ease: [.65, 0, .2, 1],
+            opacity: { duration: reduced ? 0 : .24, delay: reduced ? 0 : view === 'panel' ? .38 : .12 } }}
+          style={{ pointerEvents: view === 'panel' ? 'none' : 'auto' }}>
+          <MainMenu tabs={TABS} onSelect={navigate} selectedId={originId} />
+        </motion.div>
       )}
 
-      {view === 'panel' && ActivePanel && (
-        <div className="panel-shell">
-          <TopBar
-            tabs={TABS}
-            activeId={activeId}
-            onSelect={navigate}
-            onBack={(event) => navigate(null, event)}
-          />
-          <div className="panel-stage" key={activeId}>
-            <ActivePanel onNavigate={(id, event) => {
-              navigate(id, event)
-              requestAnimationFrame(() => shell.current?.querySelector('.panel-title')?.focus({ preventScroll: true }))
-            }} />
-          </div>
-        </div>
-      )}
-      <ElementCursor element={element} enabled={view !== 'intro'} />
-      {ripple && !reduced && <div className="navigation-ripple" aria-hidden="true">
-        <motion.div key={ripple.id} className="navigation-ripple-disc"
-          style={{ left: ripple.x - ripple.radius, top: ripple.y - ripple.radius, width: ripple.radius * 2, height: ripple.radius * 2, '--ripple-color': ripple.color }}
-          initial={{ scale: .02, opacity: .95 }} animate={{ scale: [ .02, .72, 1.08 ], opacity: [ .95, .85, 0 ] }}
-          transition={{ duration: .42, times: [0, .72, 1], ease: [.3, .1, .35, 1] }}
-          onAnimationComplete={() => setRipple(current => current?.id === ripple.id ? null : current)} />
-      </div>}
+      <AnimatePresence>
+        {view === 'panel' && ActivePanel && (
+          <motion.div className="panel-shell" key="section"
+            initial={{ opacity: reduced ? 1 : 0, scale: reduced ? 1 : .88 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: reduced ? 1 : .88, pointerEvents: 'none',
+              transition: { duration: reduced ? 0 : .24 } }}
+            transition={{ duration: reduced ? 0 : .34, delay: reduced ? 0 : .4, ease: [.2, .7, .2, 1] }}>
+            <TopBar tabs={TABS} activeId={activeId} onSelect={navigate}
+              onBack={(event) => navigate(null, event)} />
+            <div className="panel-stage" key={activeId}>
+              <ActivePanel onNavigate={navigate} />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
