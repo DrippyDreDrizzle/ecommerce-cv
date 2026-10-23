@@ -4,9 +4,8 @@ import LanguageToggle from './LanguageToggle'
 import MenuArtwork from './MenuArtwork'
 import { menuTheme } from './menuTheme'
 import './MainMenu.css'
-import ElementPicker from './elements/ElementPicker'
 
-export default function MainMenu({ tabs, onSelect, selectedId, element, onElementChange }) {
+export default function MainMenu({ tabs, onSelect, selectedId }) {
   const [previewId, setPreviewId] = useState(selectedId || tabs[0].id)
   const { t } = useLanguage()
   return (
@@ -14,7 +13,6 @@ export default function MainMenu({ tabs, onSelect, selectedId, element, onElemen
       <div className="main-menu-mark">André Marjolin</div>
       <div className="main-menu-lang"><LanguageToggle /></div>
       <div className="main-menu-composition">
-        <ElementPicker value={element} onChange={onElementChange} />
         <nav className="main-menu-navigation" aria-label="Main menu">
           <ul className="main-menu-list">
             {tabs.map((tab, index) => <li key={tab.id} className={index === tabs.length - 1 && tabs.length % 2 ? 'menu-card-wide' : undefined}>
