@@ -27,6 +27,13 @@
 .panel-stage { min-height: 0; }
 .menu-camera[aria-hidden="true"] * { animation-play-state: paused !important; }
 
-.menu-camera { will-change: transform, opacity; backface-visibility: hidden; contain: paint; }
+.menu-camera { contain: paint; }
 .is-navigating .menu-camera * { animation-play-state: paused !important; }
 .is-navigating .contact-intro { backdrop-filter: none; }
+
+/* A single card flies above stable pages; no full-viewport scaled texture. */
+.menu-flight { position: absolute; inset: 0; z-index: 100; overflow: hidden; pointer-events: none; contain: strict; }
+.menu-flight-card { position: absolute; margin: 0; transform-origin: center; will-change: transform; backface-visibility: hidden; pointer-events: none; }
+.menu-flight-card *, .menu-flight-card *::before, .menu-flight-card *::after { animation: none !important; transition: none !important; }
+.menu-flight-card .menu-item-visual { height: 100%; transform: none; }
+.is-navigating .panel-shell *, .is-navigating .panel-shell *::before, .is-navigating .panel-shell *::after { animation-play-state: paused !important; }
