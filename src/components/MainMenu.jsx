@@ -20,8 +20,7 @@ export default function MainMenu({ tabs, onSelect, selectedId }) {
               <button className={`main-menu-item ${previewId === tab.id ? 'is-previewed' : ''}`}
                 data-menu-id={tab.id}
                 style={{ '--item-color': menuTheme(tab.id).color, '--float-delay': `${-index * .63}s`, '--float-duration': `${4.5 + (index % 3) * .6}s` }}
-                onMouseEnter={() => setPreviewId(tab.id)} onFocus={() => setPreviewId(tab.id)}
-                onPointerDown={() => setPreviewId(tab.id)} onClick={(event) => onSelect(tab.id, event)}>
+                onPointerDown={(event) => { if (event.pointerType === 'touch') setPreviewId(tab.id) }} onClick={(event) => onSelect(tab.id, event)}>
                 <span className="menu-item-visual">
                   <span className="menu-card-stripe" aria-hidden="true" />
                   <MenuArtwork tab={tab} />

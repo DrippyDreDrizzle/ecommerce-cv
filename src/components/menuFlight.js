@@ -15,7 +15,7 @@ export function createMenuFlight(shell, card, returning) {
   copy.removeAttribute('data-menu-id')
   copy.removeAttribute('id')
   copy.tabIndex = -1
-  copy.classList.add('menu-flight-card')
+  copy.classList.add('menu-flight-card', 'is-previewed')
   const left = rect.left - bounds.left
   const top = rect.top - bounds.top
   const scale = Math.max(bounds.width / rect.width, bounds.height / rect.height) * 1.2
@@ -45,9 +45,9 @@ export function createMenuFlight(shell, card, returning) {
     zoom: () => play(copy, [
       { transform: returning ? near : far },
       { transform: returning ? far : near },
-    ], { duration: 820, easing: 'cubic-bezier(.45, 0, .2, 1)' }),
-    reveal: () => play(overlay, [{ opacity: '0' }, { opacity: '1' }], { duration: 120, easing: 'ease-out' }),
-    dissolve: () => play(overlay, [{ opacity: '1' }, { opacity: '0' }], { duration: 180, easing: 'ease-out' }),
+    ], { duration: 620, easing: 'cubic-bezier(.32, 0, .2, 1)' }),
+    reveal: () => play(overlay, [{ opacity: '0' }, { opacity: '1' }], { duration: 70, easing: 'ease-out' }),
+    dissolve: () => play(overlay, [{ opacity: '1' }, { opacity: '0' }], { duration: 90, easing: 'ease-out' }),
     remove: () => {
       animations.forEach(animation => animation.cancel())
       animations.clear()

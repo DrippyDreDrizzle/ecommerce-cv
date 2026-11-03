@@ -16,11 +16,11 @@
 .menu-card-shade { position: absolute; inset: 0; background: linear-gradient(0deg, #080c16 0%, #080c16eb 23%, #080c1633 75%), linear-gradient(90deg, #080c1688, transparent 65%); }
 .menu-label { position: absolute; left: 1.1rem; right: 2.4rem; bottom: .8rem; color: #faf8ff; font-family: var(--font-display); font-size: clamp(1.3rem, 2.6vw, 2rem); line-height: 1.2; text-transform: uppercase; transform: skewX(-7deg); text-shadow: 0 2px 8px #000; overflow-wrap: anywhere; }
 .menu-arrow { position: absolute; right: 1rem; bottom: .9rem; font-family: var(--font-mono); font-size: 1.1rem; transition: transform .16s; }
-.main-menu-item.is-previewed .menu-item-visual { background: #242b3c; }
-.main-menu-item.is-previewed .menu-item-visual::after { opacity: 1; }
-.main-menu-item.is-previewed .menu-card-stripe { opacity: .38; }
-.main-menu-item.is-previewed .menu-card-art { transform: rotate(-5deg) scale(1.05); opacity: .95; }
-.main-menu-item.is-previewed .menu-arrow { transform: translate(2px, -2px); }
+.main-menu-item:is(:hover, :focus-visible, .is-previewed) .menu-item-visual { background: #242b3c; }
+.main-menu-item:is(:hover, :focus-visible, .is-previewed) .menu-item-visual::after { opacity: 1; }
+.main-menu-item:is(:hover, :focus-visible, .is-previewed) .menu-card-stripe { opacity: .38; }
+.main-menu-item:is(:hover, :focus-visible, .is-previewed) .menu-card-art { transform: rotate(-5deg) scale(1.05); opacity: .95; }
+.main-menu-item:is(:hover, :focus-visible, .is-previewed) .menu-arrow { transform: translate(2px, -2px); }
 .main-menu-item:hover .menu-item-visual, .main-menu-item:focus-visible .menu-item-visual { animation-play-state: paused; }
 .main-menu-item:focus-visible { outline: 2px solid var(--item-color); outline-offset: 1px; }
 .menu-card-wide .menu-card-art { width: 40%; right: 10%; }
@@ -76,11 +76,11 @@
 
 /* Touch previews follow the existing pointer-down highlight while scrolling. */
 @media (hover: none) and (prefers-reduced-motion: no-preference) {
-  .main-menu-item.is-previewed .menu-card-art--animated .menu-static-scene { display: none; }
-  .main-menu-item.is-previewed .menu-hover-scene { display: inline; }
-  .main-menu-item.is-previewed .menu-plane { animation: menu-plane-float 2.4s ease-in-out infinite; }
-  .main-menu-item.is-previewed .menu-cloud { animation: menu-cloud-pass 3.2s linear infinite; }
-  .main-menu-item.is-previewed .menu-growing-bar { animation: menu-bar-grow 2.4s ease-in-out infinite; }
-  .main-menu-item.is-previewed .menu-rising-arrow { animation: menu-arrow-rise 2.4s ease-in-out infinite; }
-  .main-menu-item.is-previewed .menu-turning-page { animation: menu-page-turn 2.4s ease-in-out infinite; }
+  .main-menu-item:is(:hover, :focus-visible, .is-previewed) .menu-card-art--animated .menu-static-scene { display: none; }
+  .main-menu-item:is(:hover, :focus-visible, .is-previewed) .menu-hover-scene { display: inline; }
+  .main-menu-item:is(:hover, :focus-visible, .is-previewed) .menu-plane { animation: menu-plane-float 2.4s ease-in-out infinite; }
+  .main-menu-item:is(:hover, :focus-visible, .is-previewed) .menu-cloud { animation: menu-cloud-pass 3.2s linear infinite; }
+  .main-menu-item:is(:hover, :focus-visible, .is-previewed) .menu-growing-bar { animation: menu-bar-grow 2.4s ease-in-out infinite; }
+  .main-menu-item:is(:hover, :focus-visible, .is-previewed) .menu-rising-arrow { animation: menu-arrow-rise 2.4s ease-in-out infinite; }
+  .main-menu-item:is(:hover, :focus-visible, .is-previewed) .menu-turning-page { animation: menu-page-turn 2.4s ease-in-out infinite; }
 }

@@ -58,7 +58,11 @@ function AppInner() {
       return
     }
     navigating.current = true
-    flushSync(() => setMoving(true))
+    flushSync(() => {
+      setMoving(true)
+      // Prepare the destination before flight, so full zoom never waits on a mount.
+      if (id) setActiveId(id)
+    })
     const returning = !id
     const card = menuLayer.current?.querySelector(`[data-menu-id="${id || activeId}"]`)
     const menu = menuLayer.current?.querySelector('.main-menu')
@@ -85,11 +89,8 @@ function AppInner() {
       } else {
         await flight.current.zoom()
         if (!mounted.current) return
-        // Expensive page mounting happens behind the fully zoomed card, never
-        // during the flight. Keep that cover until the page has painted.
+        // The destination is already mounted: reveal it without a paint wait.
         flushSync(destination)
-        await afterPaint()
-        if (!mounted.current) return
         await flight.current.dissolve()
       }
     } catch (error) {
@@ -138,8 +139,9 @@ function AppInner() {
         </div>
       )}
 
-      {view === 'panel' && ActivePanel && (
-        <div className="panel-shell" inert={moving ? '' : undefined}>
+      {(view === 'panel' || moving) && ActivePanel && (
+        <div className="panel-shell" inert={moving ? '' : undefined}
+          aria-hidden={view !== 'panel'} style={{ opacity: view === 'panel' ? 1 : 0, pointerEvents: view === 'panel' && !moving ? 'auto' : 'none' }}>
           <TopBar tabs={TABS} activeId={activeId} onSelect={navigate}
             onBack={() => navigate(null)} />
           <div className="panel-stage" key={activeId}>
