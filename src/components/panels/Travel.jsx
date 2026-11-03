@@ -55,6 +55,8 @@ export default function Travel() {
   const [activeId, setActiveId] = useState('london')
   const [openId, setOpenId] = useState(null)
   const [photoIndex, setPhotoIndex] = useState(0)
+  const rotationRef = useRef(rotation)
+  rotationRef.current = rotation
   const animation = useRef(null)
   const modalTimer = useRef(null)
   const drag = useRef(null)
@@ -95,8 +97,9 @@ export default function Travel() {
   const focusDestination = (destination, showModal = true) => {
     cancelAnimationFrame(animation.current)
     clearTimeout(modalTimer.current)
+    drag.current = null
     setActiveId(destination.id)
-    const start = rotation
+    const start = rotationRef.current
     const target = [shortestTurn(start[0], -destination.coordinates[0]), -destination.coordinates[1]]
     const began = performance.now()
     const duration = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 850
@@ -116,23 +119,28 @@ export default function Travel() {
 
   const onPointerDown = (event) => {
     if (event.button !== 0) return
+    if (drag.current) return
     cancelAnimationFrame(animation.current)
+    clearTimeout(modalTimer.current)
     ignoreClick.current = false
-    drag.current = { pointerId: event.pointerId, x: event.clientX, y: event.clientY, rotation, moved: false }
-    event.currentTarget.setPointerCapture(event.pointerId)
+    drag.current = { pointerId: event.pointerId, x: event.clientX, y: event.clientY, rotation: rotationRef.current, moved: false }
+    // Capture only after movement: immediate capture retargets desktop country
+    // clicks to the SVG rather than the country/marker that was pressed.
+    event.preventDefault()
   }
   const onPointerMove = (event) => {
     if (!drag.current || drag.current.pointerId !== event.pointerId) return
     const dx = event.clientX - drag.current.x
     const dy = event.clientY - drag.current.y
-    if (Math.abs(dx) + Math.abs(dy) > 5) drag.current.moved = true
+    if (!drag.current.moved && Math.abs(dx) + Math.abs(dy) > 5) {
+      drag.current.moved = true
+      event.currentTarget.setPointerCapture(event.pointerId)
+    }
     if (drag.current.moved) setRotation([drag.current.rotation[0] + dx * .42, clamp(drag.current.rotation[1] - dy * .42, -85, 85)])
   }
   const onPointerUp = (event) => {
     if (!drag.current || drag.current.pointerId !== event.pointerId) return
-    if (drag.current?.moved) {
-      ignoreClick.current = true
-    }
+    ignoreClick.current = drag.current.moved || event.type === 'pointercancel'
     drag.current = null
     if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId)
   }
@@ -145,7 +153,7 @@ export default function Travel() {
         <div className="travel-globe-column">
           <div className="globe-frame">
             <div className="globe-orbit" aria-hidden="true" />
-            <svg className="travel-globe" viewBox={`0 0 ${SIZE} ${SIZE}`} role="group" aria-label={t.travelGlobeLabel} onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} onPointerCancel={onPointerUp} onLostPointerCapture={() => { drag.current = null }} onClickCapture={(event) => { if (ignoreClick.current) { event.preventDefault(); event.stopPropagation(); ignoreClick.current = false } }}>
+            <svg className="travel-globe" viewBox={`0 0 ${SIZE} ${SIZE}`} role="group" aria-label={t.travelGlobeLabel} onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} onPointerCancel={onPointerUp} onPointerLeave={() => { if (drag.current && !drag.current.moved) drag.current = null }} onLostPointerCapture={() => { if (drag.current?.moved) ignoreClick.current = true; drag.current = null }} onClickCapture={(event) => { if (ignoreClick.current) { event.preventDefault(); event.stopPropagation(); ignoreClick.current = false } }}>
               <defs>
                 <radialGradient id="travel-ocean" cx="34%" cy="26%" r="77%"><stop stopColor="#456e9a"/><stop offset=".5" stopColor="#173957"/><stop offset="1" stopColor="#07182b"/></radialGradient>
                 <radialGradient id="travel-shade" cx="28%" cy="24%" r="78%"><stop offset=".32" stopColor="#fff" stopOpacity=".09"/><stop offset=".68" stopColor="#081527" stopOpacity=".03"/><stop offset="1" stopColor="#020812" stopOpacity=".75"/></radialGradient>
