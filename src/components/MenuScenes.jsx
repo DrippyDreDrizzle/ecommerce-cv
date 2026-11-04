@@ -1,3 +1,5 @@
+import fighterFrames from '../assets/menu/goku-power.webp'
+
 // Each scene is also its resting artwork. CSS moves only the active main-menu card.
 export function Radar() {
   const shape = '210,91 340,186 287,339 133,339 80,186'
@@ -48,18 +50,15 @@ export function Sports() {
 }
 
 export function Goku() {
-  return <g transform="translate(47 205) scale(.88)" stroke="#372b39" strokeWidth="2.6" strokeLinejoin="round">
-    <path className="goku-gold" d="M14 118Q-2 95 6 61l9 12Q9 41 29 19l-1 18L53 0l1 26 15-15 4 29 12-11q17 32 7 52l8-8q4 34-13 47Z" fill="#ffcf48" fillOpacity=".42" stroke="#ffe483"/>
-    <path d="m31 88-12 23 3 10 22-2 9-17 9 17 21 1 1-10-13-23Z" fill="#fa8636"/>
-    <path d="m25 113-7 11 1 5 23-2 3-13Zm38 0 3 14 23 2-2-7-8-9Z" fill="#244d85"/>
-    <path d="m30 61-12 8-9 22 9 6 17-21 1 16h34l1-16 13 19 10-6-11-22-15-7Z" fill="#ff943d"/>
-    <path d="m36 62 17 20 14-20-11-5Z" fill="#214f89"/><path d="m34 90 37-2 1 8-38 2Z" fill="#28558c"/>
-    <path d="m14 82-5 9 10 7 6-11Zm64 3 8 12 10-6-7-12Z" fill="#274f85"/>
-    <path d="m9 91-5 7 5 7 9-2 3-6Zm77 6 4 7 9-1 2-8-6-5Z" fill="#f0b78f"/>
-    <path d="M30 39q0-22 24-22 26 1 24 26l-6 13-18 12-17-10Z" fill="#ffca9f"/>
-    <path d="m35 44 14 5-9 3Zm22 5 14-7-4 9Z" fill="#fff" strokeWidth="1.6"/><path d="m46 48 0 3m16-5 0 4m-11 8 8-1" strokeWidth="2.4"/>
-    <path className="goku-base" d="m29 52-13-8 10-1L7 32l21 1L14 16l22 7L32 5q13 6 18 17L60 3l1 18 20-12-7 17 21-4-15 14 13 1-18 12-2-14-10 7 1-11-14 17 1-15-16 11Z" fill="#171924" stroke="#9290a6"/>
-    <g className="goku-gold"><path d="m30 50-10-16 9 3-8-22 15 11L33 5l13 14L52-5l8 23L72 1l-1 21 15-14-6 23 12-8-9 18-10 9-2-17-11 13 1-14-11 13 1-14-14 9Z" fill="#ffdc46" stroke="#ae6a22"/><path d="m38 16 7 13m8-20 2 18m15-13-5 15" stroke="#fff6b2" strokeWidth="3"/></g>
+  return <g transform="translate(45 191) scale(.70)" stroke="none">
+    <g className="fighter-energy">
+      <path className="fighter-flame" d="M20 177Q1 154 10 118l9 14Q6 91 21 67l3 16Q17 44 42 24l-1 20L64 4l7 32 14-20 1 31 14-13q13 20 5 54l9-13q10 36-1 69l8-7q0 30-18 43Z" fill="#ffad28" fillOpacity=".48" stroke="#ffc64d" strokeWidth="2"/>
+      <path d="M27 174Q13 143 23 109l5 13q-5-32 7-58l5 12 19-45 7 21 11-16 3 27 12-9q9 24 4 46l8-12q9 49-7 85Z" fill="#ffe38a" fillOpacity=".72"/>
+      {[21,43,80,106].map((x,i)=><path key={x} className="fighter-ember" style={{animationDelay:(-i*.19)+'s'}} d={`M${x} 156l3 -10 2 6Z`} fill="#fff1a9"/>)}
+    </g>
+    <svg width="128" height="192" viewBox="0 0 128 192" overflow="hidden">
+      <g className="fighter-row"><image className="fighter-frame" href={fighterFrames} width="1024" height="2304"/></g>
+    </svg>
   </g>
 }
 
