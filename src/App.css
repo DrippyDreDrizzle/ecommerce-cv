@@ -37,3 +37,16 @@
 .menu-flight-card *, .menu-flight-card *::before, .menu-flight-card *::after { animation: none !important; transition: none !important; }
 .menu-flight-card .menu-item-visual { height: 100%; transform: none; }
 .is-navigating .panel-shell *, .is-navigating .panel-shell *::before, .is-navigating .panel-shell *::after { animation-play-state: paused !important; }
+
+@media (min-width: 1024px) {
+  .panel-stage > .panel:is(.record-page, :has(.profile-dossier, .skills-dossier, .travel-layout)) {
+    padding-inline: clamp(1.5rem, 2.5vw, 3.5rem);
+  }
+  .panel-stage > .panel:is(.record-page, :has(.profile-dossier, .skills-dossier, .travel-layout)) > .panel-body {
+    max-width: none;
+  }
+  .panel-stage .travel-layout {
+    grid-template-columns: minmax(320px, min(36%, 64vh)) minmax(0, 1fr);
+  }
+  .panel-stage .globe-frame { max-width: none; }
+}
