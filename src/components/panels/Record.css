@@ -1,0 +1,41 @@
+.record-page{--ink:#f9f7f0;--blue:#6089ff;--lilac:#deb3ff;background:#090a10;color:var(--ink);padding:clamp(1rem,3vw,3rem);font:1rem/1.45 Arial,sans-serif}
+.record-page .panel-body{max-width:1240px;margin:auto}
+.rec-hero{position:relative;isolation:isolate;overflow:hidden;border-top:2px solid var(--blue);padding:1rem 0 1.25rem}
+.rec-hero:after{content:"";position:absolute;z-index:-1;inset:0 0 0 auto;width:34%;background:linear-gradient(90deg,#090a10,transparent),var(--building) right center/cover;clip-path:polygon(65% 0,100% 0,100% 100%,0 100%);opacity:.8}
+.rec-hero small,.rec-cases small{color:#aabfff;font-weight:800;text-transform:uppercase}
+.rec-hero .panel-title,.rec-inside,.rec-chart h3,.rec-cases h4{font-family:Arial,sans-serif;font-weight:950;font-style:italic;text-transform:none;letter-spacing:-.055em;line-height:1.03}
+.rec-hero .panel-title{display:block;margin:.35em 0 .15em;padding-left:.43em;font-size:clamp(2.6rem,6vw,6rem)}
+.rec-hero .panel-title:before,.rec-inside:before{content:"";position:absolute;left:.12em;top:.08em;bottom:.12em;width:.13em;transform:skew(-13deg);background:var(--blue)}
+.rec-hero p{font-weight:bold;font-style:italic;font-size:clamp(1rem,2vw,1.55rem);margin:.5rem 0 0}
+.rec-chart{background:linear-gradient(145deg,#12141e,#0e0f15);border:1px solid #565d70;margin-top:.7rem;padding:0 clamp(.8rem,2vw,1.8rem) 1rem}
+.rec-chart h3{display:table;margin:-.55rem 0 0 -.5rem;background:#466ae3;padding:.32em 1em .32em .55em;clip-path:polygon(0 0,100% 0,95% 100%,0 100%);font-size:clamp(1.25rem,2.2vw,1.8rem)}
+.rec-grid{position:relative;height:clamp(165px,21vw,265px);margin:2.4rem 1.8rem 2.2rem 2.6rem}
+.rec-grid svg{position:absolute;width:100%;height:100%;overflow:visible;pointer-events:none}
+.rec-grid svg *{fill:none;stroke:var(--blue);stroke-width:4;vector-effect:non-scaling-stroke}
+.rec-rule{position:absolute;left:0;right:0;border-top:1px dashed #444654}
+.rec-rule span{position:absolute;right:calc(100% + .4em);transform:translateY(-50%);font-size:.75rem}
+.rec-column{position:absolute;top:0;height:100%;width:0}
+.rec-column>span{position:absolute;top:100%;transform:translateX(-50%);font-size:.8rem}
+.rec-column button{position:absolute;transform:translate(-50%,-50%);padding:0;width:32px;height:36px;display:grid;place-items:center;z-index:1}
+.rec-column i{width:12px;height:12px;border-radius:100%;background:var(--blue)}
+.rec-column b{position:absolute;bottom:calc(50% + 9px);color:white;line-height:1.05;font:bold italic clamp(.8rem,1.5vw,1.15rem)/1 Arial,sans-serif}
+.rec-column em{display:block;font-size:.75em}
+.rec-column.chosen i,.rec-column.chosen b{background:var(--lilac);color:#151020}
+.rec-column.chosen b{padding:.15em .35em}
+.rec-readout{margin:.5em 0;color:#d2d8ea;font-size:.9rem}
+.rec-note{display:flex;align-items:center;gap:1em;border:1px solid #77758c;margin:.6em 0 0;background:#191924;font-style:italic}
+.rec-note b,.rec-cases strong{background:var(--lilac);color:#140e1d;font-weight:900;padding:.35em .65em}
+.rec-note b{align-self:stretch;display:grid;align-items:center;white-space:nowrap}
+.rec-note span{padding:.45em .65em .45em 0}
+.rec-inside{position:relative;display:flex;align-items:center;gap:.5em;padding-left:.5em;margin:.65em 0 .38em;font-size:clamp(1.8rem,3.5vw,3.2rem)}
+.rec-inside:after{content:"";height:2px;background:#a8b8ec;flex:1}
+.rec-cases{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.rec-cases article{min-width:0;display:grid;grid-template-columns:35% 1fr;background:#12141e;border:1px solid #859be1}
+.rec-cases img{width:100%;height:100%;object-fit:cover;clip-path:polygon(0 0,100% 0,88% 100%,0 100%)}
+.rec-cases article>div{padding:1rem .75rem}
+.rec-cases small{font-size:.72rem}
+.rec-cases h4{font-size:clamp(1.25rem,2.1vw,2rem);margin:.15em 0 .35em}
+.rec-cases strong{display:inline-block;font-style:italic}
+.rec-cases p{font-size:.95rem;margin:.55em 0 0}
+@media(max-width:740px){.rec-cases{grid-template-columns:1fr}.rec-grid{margin-left:1.9rem;margin-right:.85rem}.rec-column:not(.chosen):not(:last-child) b{display:none}.rec-column>span{font-size:.68rem}.rec-note{display:block}.rec-note b{display:inline-block}.rec-note span{display:block;padding:.6rem}.rec-hero:after{opacity:.4}.rec-hero p{max-width:86%}}
+@media(max-width:440px){.rec-cases article{display:block}.rec-cases img{display:block;height:100px;clip-path:none}.rec-column:nth-of-type(2n)>span{visibility:hidden}.rec-column:last-child>span{visibility:visible}}
