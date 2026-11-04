@@ -59,13 +59,16 @@ export default function Travel() {
   rotationRef.current = rotation
   const animation = useRef(null)
   const modalTimer = useRef(null)
+  const [zoom, setZoom] = useState(1)
+  const pinch = useRef(null)
   const drag = useRef(null)
   const ignoreClick = useRef(false)
   const modalClose = useRef(null)
   const opener = useRef(null)
 
   const projection = useMemo(() => geoOrthographic().translate([SIZE / 2, SIZE / 2]).scale(205).rotate(rotation).clipAngle(90).precision(.7), [rotation])
-  const path = geoPath(projection)
+  const path = useMemo(() => geoPath(projection), [projection])
+  const outlines = useMemo(() => countries.map(country => path(country)), [path])
   const active = destinationById.get(activeId)
   const openDest = destinationById.get(openId)
   const getInfo = (destination) => t.content.travel[destination.id] || { name: destination.name, blurb: t.travelUnlisted }
@@ -119,33 +122,62 @@ export default function Travel() {
 
   const onPointerDown = (event) => {
     if (event.button !== 0) return
-    if (drag.current) return
+    if (drag.current) {
+      const first = drag.current
+      if (event.pointerType !== 'touch' || first.type !== 'touch' || pinch.current || first.pointerId === event.pointerId) return
+      const points = new Map([[first.pointerId, first.point], [event.pointerId, [event.clientX, event.clientY]]])
+      pinch.current = { points, zoom, distance: Math.max(1, Math.hypot(first.point[0] - event.clientX, first.point[1] - event.clientY)) }
+      first.moved = true
+      ignoreClick.current = true
+      for (const id of points.keys()) event.currentTarget.setPointerCapture(id)
+      event.preventDefault()
+      return
+    }
     cancelAnimationFrame(animation.current)
     clearTimeout(modalTimer.current)
     ignoreClick.current = false
-    drag.current = { pointerId: event.pointerId, x: event.clientX, y: event.clientY, rotation: rotationRef.current, moved: false }
+    drag.current = { type: event.pointerType, point: [event.clientX, event.clientY], pointerId: event.pointerId, x: event.clientX, y: event.clientY, rotation: rotationRef.current, moved: false }
     // Capture only after movement: immediate capture retargets desktop country
     // clicks to the SVG rather than the country/marker that was pressed.
     event.preventDefault()
   }
   const onPointerMove = (event) => {
+    const gesture = pinch.current
+    if (gesture) {
+      if (!gesture.points.has(event.pointerId)) return
+      gesture.points.set(event.pointerId, [event.clientX, event.clientY])
+      const [a, b] = gesture.points.values()
+      setZoom(clamp(gesture.zoom * Math.hypot(a[0] - b[0], a[1] - b[1]) / gesture.distance, 1, 3))
+      return
+    }
     if (!drag.current || drag.current.pointerId !== event.pointerId) return
+    drag.current.point = [event.clientX, event.clientY]
     const dx = event.clientX - drag.current.x
     const dy = event.clientY - drag.current.y
     if (!drag.current.moved && Math.abs(dx) + Math.abs(dy) > 5) {
       drag.current.moved = true
       event.currentTarget.setPointerCapture(event.pointerId)
     }
-    if (drag.current.moved) setRotation([drag.current.rotation[0] + dx * .42, clamp(drag.current.rotation[1] - dy * .42, -85, 85)])
+    if (drag.current.moved) setRotation([drag.current.rotation[0] + dx * .42 / zoom, clamp(drag.current.rotation[1] - dy * .42 / zoom, -85, 85)])
+  }
+  const finishPinch = (event) => {
+    const gesture = pinch.current
+    if (!gesture?.points.delete(event.pointerId)) return false
+    const [[pointerId, point]] = gesture.points
+    pinch.current = null
+    drag.current = { type: 'touch', point, pointerId, x: point[0], y: point[1], moved: true, rotation: rotationRef.current }
+    ignoreClick.current = true
+    return true
   }
   const onLostPointerCapture = (event) => {
     // Touch capture transfers from the touched country or marker to the globe.
     // Ignore the child's bubbled capture loss so the swipe continues.
-    if (event.target !== event.currentTarget || drag.current?.pointerId !== event.pointerId) return
+    if (event.target !== event.currentTarget || finishPinch(event) || drag.current?.pointerId !== event.pointerId) return
     if (drag.current.moved) ignoreClick.current = true
     drag.current = null
   }
   const onPointerUp = (event) => {
+    if (finishPinch(event)) return
     if (!drag.current || drag.current.pointerId !== event.pointerId) return
     ignoreClick.current = drag.current.moved || event.type === 'pointercancel'
     drag.current = null
@@ -160,7 +192,7 @@ export default function Travel() {
         <div className="travel-globe-column">
           <div className="globe-frame">
             <div className="globe-orbit" aria-hidden="true" />
-            <svg className="travel-globe" viewBox={`0 0 ${SIZE} ${SIZE}`} role="group" aria-label={t.travelGlobeLabel} onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} onPointerCancel={onPointerUp} onPointerLeave={() => { if (drag.current && !drag.current.moved) drag.current = null }} onLostPointerCapture={onLostPointerCapture} onClickCapture={(event) => { if (ignoreClick.current) { event.preventDefault(); event.stopPropagation(); ignoreClick.current = false } }}>
+            <svg className="travel-globe" viewBox={`${SIZE*(1-1/zoom)/2} ${SIZE*(1-1/zoom)/2} ${SIZE/zoom} ${SIZE/zoom}`} role="group" aria-label={t.travelGlobeLabel} onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} onPointerCancel={onPointerUp} onPointerLeave={() => { if (drag.current && !drag.current.moved) drag.current = null }} onLostPointerCapture={onLostPointerCapture} onClickCapture={(event) => { if (ignoreClick.current) { event.preventDefault(); event.stopPropagation(); ignoreClick.current = false } }}>
               <defs>
                 <radialGradient id="travel-ocean" cx="34%" cy="26%" r="77%"><stop stopColor="#456e9a"/><stop offset=".5" stopColor="#173957"/><stop offset="1" stopColor="#07182b"/></radialGradient>
                 <radialGradient id="travel-shade" cx="28%" cy="24%" r="78%"><stop offset=".32" stopColor="#fff" stopOpacity=".09"/><stop offset=".68" stopColor="#081527" stopOpacity=".03"/><stop offset="1" stopColor="#020812" stopOpacity=".75"/></radialGradient>
@@ -169,10 +201,10 @@ export default function Travel() {
               <path d={path({ type: 'Sphere' })} fill="url(#travel-ocean)" stroke="#91b9d1" strokeWidth="1.5" />
               <g clipPath="url(#travel-sphere-clip)">
                 <path d={path(graticule)} fill="none" stroke="#c4e9ff" strokeOpacity=".15" strokeWidth=".7" />
-                {countries.map((country) => {
+                {countries.map((country, index) => {
                   const destination = destinationByCountry.get(country.id)
                   const listed = DESTINATIONS.some((d) => d.country === country.id)
-                  return <path key={country.id} d={path(country) || ''} className={`travel-country ${listed ? 'is-destination' : ''} ${activeId === destination.id ? 'is-selected' : ''}`} onClick={() => focusDestination(destination)} role="button" tabIndex={listed ? 0 : undefined} aria-label={getInfo(destination).name} onKeyDown={listed ? (event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); focusDestination(destination) } } : undefined} />
+                  return <path key={country.id} d={outlines[index] || ''} className={`travel-country ${listed ? 'is-destination' : ''} ${activeId === destination.id ? 'is-selected' : ''}`} onClick={() => focusDestination(destination)} role="button" tabIndex={listed ? 0 : undefined} aria-label={getInfo(destination).name} onKeyDown={listed ? (event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); focusDestination(destination) } } : undefined} />
                 })}
                 <circle cx="220" cy="220" r="205" fill="url(#travel-shade)" pointerEvents="none" />
               </g>
@@ -180,9 +212,14 @@ export default function Travel() {
                 if (geoDistance(destination.coordinates, [-rotation[0], -rotation[1]]) > Math.PI / 2 - .06) return null
                 const point = projection(destination.coordinates)
                 if (!point) return null
-                return <g key={destination.id} className="travel-map-marker" transform={`translate(${point[0]} ${point[1]})`} onClick={() => { if (!ignoreClick.current) focusDestination(destination) }} role="button" tabIndex="0" aria-label={t.content.travel[destination.id].name} onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); focusDestination(destination) } }}><circle r="13" fill="transparent"/><circle r={destination.id === activeId ? 6 : 4} fill={destination.status === 'want' ? '#f5ba8a' : '#dcb8ff'} stroke="#fff" strokeWidth="1.5"/></g>
+                return <g key={destination.id} className="travel-map-marker" transform={`translate(${point[0]} ${point[1]})`} onClick={() => { if (!ignoreClick.current) focusDestination(destination) }} role="button" tabIndex="0" aria-label={t.content.travel[destination.id].name} onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); focusDestination(destination) } }}><circle r={13/zoom} fill="transparent"/><circle r={(destination.id === activeId ? 6 : 4)/zoom} fill={destination.status === 'want' ? '#f5ba8a' : '#dcb8ff'} stroke="#fff" strokeWidth="1.5"/></g>
               })}
             </svg>
+          </div>
+          <div className="travel-zoom">
+            <button type="button" aria-label={t.globeZoomOut} disabled={zoom <= 1} onClick={() => setZoom(z => Math.max(1, z - .5))}>−</button>
+            <span>{Number(zoom.toFixed(1))}×</span>
+            <button type="button" aria-label={t.globeZoomIn} disabled={zoom >= 3} onClick={() => setZoom(z => Math.min(3, z + .5))}>+</button>
           </div>
           <p className="travel-globe-hint">↔ {t.travelDragHint}</p>
           <div className="travel-current"><span className="travel-current-kicker">{t.travelSelected}</span><strong>{getInfo(active).name}</strong><span>{statusLabel(active.status)}</span></div>
