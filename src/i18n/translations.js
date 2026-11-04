@@ -74,9 +74,9 @@ export const translations = {
         { title: 'Top CRO Case Study', org: 'Industry Conference', year: '2022' },
       ],
       education: [
-        { title: 'BA Marketing & Business', org: 'University College London', year: '2016 – 2019' },
-        { title: 'Shopify Partner Certification', org: 'Shopify Academy', year: '2020' },
-        { title: 'Growth Marketing Certificate', org: 'CXL Institute', year: '2021' },
+        { title: 'GCSEs', org: 'Aylesford School, Kent', year: '2010–2015', detail: 'Six GCSEs at grades A–C, including English, Maths, Media, IT and PE.' },
+        { title: 'A levels', org: 'Wrotham School, Kent', year: '2015–2017', detail: 'Media, Science and Travel & Tourism, with grades ranging from A* to C.' },
+        { title: 'ICT Level 2 apprenticeship', org: 'IT application', year: 'Joined July 2017', detail: 'I joined Roof-Bars / Trident Towing in Maidstone as an apprentice. I stayed with the business and progressed to Senior Ecommerce Manager.' },
       ],
       travel: {
         london: { name: 'United Kingdom', blurb: 'Sevenoaks is home. My own photos and notes will be added here soon.' },
@@ -172,9 +172,9 @@ export const translations = {
         { title: 'ベストCRO事例賞', org: '業界カンファレンス', year: '2022' },
       ],
       education: [
-        { title: 'マーケティング・経営学 学士', org: 'ユニバーシティ・カレッジ・ロンドン', year: '2016 – 2019' },
-        { title: 'Shopifyパートナー認定', org: 'Shopifyアカデミー', year: '2020' },
-        { title: 'グロースマーケティング認定', org: 'CXLインスティテュート', year: '2021' },
+        { title: 'GCSE', org: 'Aylesford School（ケント）', year: '2010–2015', detail: '英語、数学、メディア、IT、体育を含む6科目でA〜Cを取得。' },
+        { title: 'Aレベル', org: 'Wrotham School（ケント）', year: '2015–2017', detail: 'メディア、科学、旅行・観光を履修。成績はA*〜C。' },
+        { title: 'ICTレベル2の見習い訓練', org: 'ITアプリケーション', year: '2017年7月入社', detail: 'メイドストーンのRoof-Bars / Trident Towingに見習いとして入社し、同社でシニアECマネージャーに昇進しました。' },
       ],
       travel: {
         london: { name: 'イギリス', blurb: 'セブノークスが私の拠点です。写真と思い出は後日追加します。' },

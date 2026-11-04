@@ -1,0 +1,15 @@
+.education-page{--gold:#e9d58b;padding-inline:clamp(1rem,3vw,3rem);background:linear-gradient(145deg,#171613,#0a0d14 60%)}
+.education-page .panel-body{max-width:none}
+.education-page .panel-header{margin-bottom:1.5rem}
+.education-page .panel-title{color:var(--gold)}
+.edu-heading{font-size:clamp(1.65rem,3.4vw,3.4rem);max-width:32ch}
+.edu-path{display:grid;grid-template-columns:1fr 1fr 1.2fr;gap:1rem;padding:0;margin:2rem 0;list-style:none}
+.edu-path li{padding:clamp(1.1rem,2.5vw,2.5rem);background:#17191d;border-top:3px solid #8a805e}
+.edu-path li:last-child{border-color:var(--gold);background:linear-gradient(130deg,#2d291e,#19191c)}
+.edu-date{color:var(--gold);font: .8rem var(--font-mono);display:flex;align-items:center;gap:.7rem}
+.edu-date span{border:1px solid #8a805e;padding:.3em}
+.edu-path h4{font-size:clamp(1.6rem,2.35vw,2.5rem);margin:1.4rem 0 .3rem;line-height:1.1}
+.edu-path strong{color:#ecdfb3}.edu-path p,.edu-footer p{font-size:1.15rem;line-height:1.5;color:#d7d5d0}
+.edu-footer{border-top:1px solid #514c3d;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.edu-footer strong{display:block;color:#fff}.edu-footer button{color:#16140d;background:var(--gold);padding:.8rem 1.2rem;font-size:1.1rem;font-weight:700}
+@media(max-width:760px){.edu-path{grid-template-columns:1fr;gap:.75rem}.edu-path li{border-top:0;border-left:3px solid #8a805e}.edu-path h4{margin-top:.8rem}.edu-footer{display:block}}
