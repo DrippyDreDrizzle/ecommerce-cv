@@ -1,4 +1,4 @@
-import { Jet, Radar, Sports, Mail } from './MenuScenes'
+import { Jet, Radar, Sports, Mail, AnimeCel } from './MenuScenes'
 import { menuTheme } from './menuTheme'
 
 export function Reflection({ motif }) {
@@ -42,6 +42,7 @@ export default function MenuArtwork({ tab }) {
     <svg viewBox="0 0 420 460" fill="none" focusable="false">
       <g stroke="currentColor" strokeWidth="2" strokeLinejoin="round">
         <g className="menu-static-scene"><Reflection motif={menuTheme(tab.id).motif} /></g>
+        {tab.id === 'hobbies' && <AnimeCel />}
         <HoverScene id={tab.id} />
       </g>
     </svg>

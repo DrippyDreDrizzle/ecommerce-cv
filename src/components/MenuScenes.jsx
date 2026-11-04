@@ -46,6 +46,25 @@ export function Sports() {
   </g>
 }
 
+// A separate animation cel keeps the ink reveal clear of both ball trajectories.
+export function AnimeCel() {
+  const lid = 'M10 35Q34 5 72 15L83 10 78 17 88 14 80 22Q44 9 12 37Z'
+  return <g transform="translate(56 244) rotate(-4) scale(1.27)">
+    <path d="M4 5 100 0 94 56 0 60Z" fill="#292034" stroke="#d99cbd" strokeWidth="2"/>
+    <path d="m5 19 20-10M4 26l14-6m60 25 16-6m-18 13 13-4" stroke="#b997af" strokeWidth="1.5"/>
+    <path d="M11 35Q38 7 80 19Q61 54 29 43Z" fill="#ecdde5" stroke="#a58fa6"/>
+    <ellipse cx="49" cy="30" rx="11" ry="13" fill="#716174" stroke="#322739"/>
+    <g className="hobby-cel-colour">
+      <ellipse cx="49" cy="30" rx="10" ry="12" fill="#ba8cf5"/>
+      <path d="M41 34q9 9 16-1-3 13-12 9Z" fill="#8ae4ed" stroke="none"/>
+    </g>
+    <ellipse cx="49" cy="29" rx="4.6" ry="7.5" fill="#261d32" stroke="none"/>
+    <circle cx="45" cy="24" r="3.4" fill="white" stroke="none"/>
+    <path d={lid} fill="#332536" stroke="none"/>
+    <path className="hobby-cel-ink" d="M9 36Q36 3 75 17L85 12" pathLength="100" strokeDasharray="100" stroke="#f6b7ea" strokeWidth="3.2" strokeLinecap="round"/>
+  </g>
+}
+
 export function Mail() {
   return <g>
     <rect x="136" y="136" width="190" height="83" rx="8" fill="#665148" stroke="#d5b68c" strokeWidth="4"/>
