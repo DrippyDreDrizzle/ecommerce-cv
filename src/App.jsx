@@ -107,7 +107,7 @@ function AppInner() {
     const frame = requestAnimationFrame(() => {
       const target = view === 'panel'
         ? (shell.current?.querySelector('.panel-title') || shell.current?.querySelector('.top-bar-back'))
-        : menuLayer.current?.querySelector(`[data-menu-id="${activeId || 'profile'}"]`)
+        : menuLayer.current?.querySelector(activeId ? `[data-menu-id="${activeId}"]` : '.main-menu-navigation')
       target?.focus({ preventScroll: true })
     })
     return () => cancelAnimationFrame(frame)

@@ -6,15 +6,15 @@ import { menuTheme } from './menuTheme'
 import './MainMenu.css'
 
 export default function MainMenu({ tabs, onSelect, selectedId }) {
-  const [previewId, setPreviewId] = useState(selectedId || tabs[0].id)
-  useEffect(() => { if (selectedId) setPreviewId(selectedId) }, [selectedId])
+  const [previewId, setPreviewId] = useState(selectedId ?? null)
+  useEffect(() => { setPreviewId(selectedId ?? null) }, [selectedId])
   const { t } = useLanguage()
   return (
     <div className="main-menu">
       <div className="main-menu-mark">André Marjolin</div>
       <div className="main-menu-lang"><LanguageToggle /></div>
       <div className="main-menu-composition">
-        <nav className="main-menu-navigation" aria-label="Main menu">
+        <nav tabIndex={-1} className="main-menu-navigation" aria-label="Main menu">
           <ul className="main-menu-list">
             {tabs.map((tab, index) => <li key={tab.id} className={index === tabs.length - 1 && tabs.length % 2 ? 'menu-card-wide' : undefined}>
               <button className={`main-menu-item ${previewId === tab.id ? 'is-previewed' : ''}`}

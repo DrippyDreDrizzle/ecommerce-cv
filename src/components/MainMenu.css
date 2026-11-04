@@ -84,3 +84,9 @@
   .main-menu-item:is(:hover, :focus-visible, .is-previewed) .menu-rising-arrow { animation: menu-arrow-rise 2.4s ease-in-out infinite; }
   .main-menu-item:is(:hover, :focus-visible, .is-previewed) .menu-turning-page { animation: menu-page-turn 2.4s ease-in-out infinite; }
 }
+
+.main-menu-navigation:focus { outline: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .main-menu-item:is(:hover, :focus-visible, .is-previewed) .menu-monogram-trace { animation: menu-monogram-trace 1.85s linear infinite; }
+}
+@keyframes menu-monogram-trace { to { stroke-dashoffset: -100; } }

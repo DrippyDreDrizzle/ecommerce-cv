@@ -27,6 +27,10 @@ export function Reflection({ motif }) {
 }
 
 function HoverScene({ id }) {
+  if (id === 'profile') return <g className="menu-hover-scene">
+    <Reflection motif="identity" />
+    <path className="menu-monogram-trace" d="M210 72 346 150V307L210 385 74 307V150Z" pathLength="100" stroke="#eadbff" strokeWidth="6" strokeLinecap="round" strokeDasharray="18 82" />
+  </g>
   if (id === 'travel') return <g className="menu-hover-scene menu-flight-scene">
     <g className="menu-cloud menu-cloud-one"><path d="M60 155 Q40 155 40 138 Q40 120 62 120 Q66 94 91 98 Q116 99 119 121 Q147 117 151 138 Q154 155 132 155Z" fill="currentColor" fillOpacity=".3" /></g>
     <g className="menu-cloud menu-cloud-two"><path d="M235 300 Q215 300 215 283 Q215 265 237 265 Q241 239 266 243 Q291 244 294 266 Q322 262 326 283 Q329 300 307 300Z" fill="currentColor" fillOpacity=".23" /></g>
@@ -46,7 +50,7 @@ function HoverScene({ id }) {
 }
 
 export default function MenuArtwork({ tab }) {
-  return <span className={`menu-card-art ${['travel', 'record', 'education'].includes(tab.id) ? 'menu-card-art--animated' : ''}`} aria-hidden="true">
+  return <span className={`menu-card-art ${['profile', 'travel', 'record', 'education'].includes(tab.id) ? 'menu-card-art--animated' : ''}`} aria-hidden="true">
     <svg viewBox="0 0 420 460" fill="none" focusable="false">
       <g stroke="currentColor" strokeWidth="2" strokeLinejoin="round">
         <g className="menu-static-scene"><Reflection motif={menuTheme(tab.id).motif} /></g>
