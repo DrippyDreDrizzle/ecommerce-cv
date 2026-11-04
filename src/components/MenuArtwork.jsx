@@ -1,6 +1,6 @@
 import { menuTheme } from './menuTheme'
 
-function Reflection({ motif }) {
+export function Reflection({ motif }) {
   if (motif === 'mountain') return <><circle cx="299" cy="111" r="40" fill="currentColor" opacity=".5" /><path d="M-30 330 L125 108 L211 236 L270 156 L445 354Z" fill="currentColor" opacity=".28" /><path d="M55 306 L125 108 L159 213 L132 190 L113 225Z" fill="#faf5ff" /><path d="M0 353 Q180 327 430 357 M10 375 Q240 344 400 380 M75 402 H335" /></>
   if (motif === 'radar') return <><path d="M210 79 L347 178 L295 338 H125 L73 178Z M210 133 L295 194 L263 289 H157 L125 194Z M210 79 V222 M347 178 L210 222 L295 338 M125 338 L210 222 L73 178" opacity=".6" /><path d="M210 109 L328 185 L262 293 L142 314 L109 189Z" fill="currentColor" fillOpacity=".35" strokeWidth="4" /><circle cx="210" cy="222" r="8" fill="#fff" /></>
   if (motif === 'chart') return <><path d="M74 105 V353 H361" opacity=".5" /><path d="M104 313 V251 H143 V313 M177 313 V201 H216 V313 M250 313 V136 H289 V313" fill="currentColor" fillOpacity=".28" /><path d="M83 260 L166 222 L223 236 L330 106 M289 111 L330 106 L325 149" strokeWidth="7" /></>
