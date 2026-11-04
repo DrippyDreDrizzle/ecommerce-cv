@@ -15,8 +15,12 @@ const DESTINATIONS = [
   { id: 'japan', country: '392', status: 'visited', coordinates: [139.69, 35.68], palette: ['#da9aab', '#594064'], images: [] },
   { id: 'usa', country: '840', status: 'visited', coordinates: [-98.58, 39.83], palette: ['#c19b82', '#3c4164'], images: [] },
   { id: 'france', country: '250', status: 'visited', coordinates: [2.35, 48.86], palette: ['#bea6ce', '#43506e'], images: [] },
+  { id: 'canada', country: '124', status: 'visited', coordinates: [-114.07, 51.05], palette: ['#d59891', '#494463'], images: [] },
+  { id: 'spain', country: '724', status: 'visited', coordinates: [-3.7, 40.42], palette: ['#dfb186', '#704b52'], images: [] },
+  { id: 'hungary', country: '348', status: 'visited', coordinates: [19.04, 47.5], palette: ['#91b8ad', '#394a63'], images: [] },
   { id: 'brazil', country: '076', status: 'want', coordinates: [-47.88, -15.79], palette: ['#92b89a', '#22575d'], images: [] },
-  { id: 'australia', country: '036', status: 'want', coordinates: [133.77, -25.27], palette: ['#dfad8b', '#685368'], images: [] },
+  { id: 'new-zealand', country: '554', status: 'want', coordinates: [174.78, -41.29], palette: ['#dfad8b', '#685368'], images: [] },
+  { id: 'south-korea', country: '410', status: 'want', coordinates: [126.98, 37.57], palette: ['#aaa3d8', '#414366'], images: [] },
   { id: 'south-africa', country: '710', status: 'want', coordinates: [24.0, -29.0], palette: ['#c5a98c', '#555070'], images: [] },
 ]
 
@@ -230,13 +234,19 @@ export default function Travel() {
             const info = t.content.travel[destination.id]
             return <button key={destination.id} className={`travel-destination ${activeId === destination.id ? 'is-active' : ''}`} onClick={() => focusDestination(destination)}>
               <span className="travel-polaroid"><DestinationVisual destination={destination} name={info.name} image={destination.images[0]} /><span className="travel-polaroid-caption">{info.name}</span></span>
-              <span className="travel-destination-copy"><span className="travel-destination-number">{String(index + 1).padStart(2, '0')} / 07</span><strong>{info.name}</strong><span className={`travel-status ${destination.status}`}>{statusLabel(destination.status)}</span><span className="travel-destination-arrow" aria-hidden="true">↗</span></span>
+              <span className="travel-destination-copy"><span className="travel-destination-number">{String(index + 1).padStart(2, '0')} / {String(DESTINATIONS.length).padStart(2, '0')}</span><strong>{info.name}</strong><span className={`travel-status ${destination.status}`}>{statusLabel(destination.status)}</span><span className="travel-destination-arrow" aria-hidden="true">↗</span></span>
             </button>
           })}
         </div>
       </div>
 
-      {createPortal(<AnimatePresence>{openDest && <motion.div className="travel-modal-backdrop" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onMouseDown={(event) => { if (event.target === event.currentTarget) setOpenId(null) }}><motion.section className="travel-modal" role="dialog" aria-modal="true" aria-labelledby="travel-modal-title" initial={{ opacity: 0, y: 22, scale: .96 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 14, scale: .97 }}><button ref={modalClose} className="travel-modal-close" onClick={() => setOpenId(null)} aria-label={t.travelClose}>×</button><div className="travel-modal-visual"><DestinationVisual destination={openDest} name={openInfo.name} image={gallery[photoIndex]} large index={photoIndex} /><div className="travel-gallery-controls"><button onClick={() => setPhotoIndex((photoIndex - 1 + gallery.length) % gallery.length)} aria-label={t.travelPrevious}>‹</button><span>{String(photoIndex + 1).padStart(2, '0')} / {String(gallery.length).padStart(2, '0')}</span><button onClick={() => setPhotoIndex((photoIndex + 1) % gallery.length)} aria-label={t.travelNext}>›</button></div></div><div className="travel-modal-copy"><span className={`travel-status ${openDest.status}`}>{statusLabel(openDest.status)}</span><h3 id="travel-modal-title">{openInfo.name}</h3><p>{openInfo.blurb}</p>{!openDest.images.length && <p className="travel-photo-note">{t.travelPhotoNote}</p>}<span className="travel-modal-coordinates">{Math.abs(openDest.coordinates[1]).toFixed(1)}°{openDest.coordinates[1] >= 0 ? 'N' : 'S'} / {Math.abs(openDest.coordinates[0]).toFixed(1)}°{openDest.coordinates[0] >= 0 ? 'E' : 'W'}</span></div></motion.section></motion.div>}</AnimatePresence>, document.body)}
+      {createPortal(<AnimatePresence>{openDest && <motion.div className="travel-modal-backdrop" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onMouseDown={(event) => { if (event.target === event.currentTarget) setOpenId(null) }}><motion.section className="travel-modal" role="dialog" aria-modal="true" aria-labelledby="travel-modal-title" initial={{ opacity: 0, y: 22, scale: .96 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 14, scale: .97 }}><button ref={modalClose} className="travel-modal-close" onClick={() => setOpenId(null)} aria-label={t.travelClose}>×</button><div className="travel-modal-visual"><DestinationVisual destination={openDest} name={openInfo.name} image={gallery[photoIndex]} large index={photoIndex} /><div className="travel-gallery-controls"><button onClick={() => setPhotoIndex((photoIndex - 1 + gallery.length) % gallery.length)} aria-label={t.travelPrevious}>‹</button><span>{String(photoIndex + 1).padStart(2, '0')} / {String(gallery.length).padStart(2, '0')}</span><button onClick={() => setPhotoIndex((photoIndex + 1) % gallery.length)} aria-label={t.travelNext}>›</button></div></div><div className="travel-modal-copy"><span className={`travel-status ${openDest.status}`}>{statusLabel(openDest.status)}</span><h3 id="travel-modal-title">{openInfo.name}</h3>{openInfo.blurb && <p>{openInfo.blurb}</p>}
+        {openDest.status === 'visited' && openInfo.places?.length > 0 && <section className="travel-places">
+          <h4>{t.travelPlaces}</h4>
+          {openInfo.places.map(([name, area]) => <details key={name}>
+            <summary>{name}</summary><p>{area} · {openInfo.name}</p>
+          </details>)}
+        </section>}{!openDest.images.length && <p className="travel-photo-note">{t.travelPhotoNote}</p>}<span className="travel-modal-coordinates">{Math.abs(openDest.coordinates[1]).toFixed(1)}°{openDest.coordinates[1] >= 0 ? 'N' : 'S'} / {Math.abs(openDest.coordinates[0]).toFixed(1)}°{openDest.coordinates[0] >= 0 ? 'E' : 'W'}</span></div></motion.section></motion.div>}</AnimatePresence>, document.body)}
     </Panel>
   )
 }

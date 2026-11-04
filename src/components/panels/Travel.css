@@ -64,3 +64,8 @@
 .travel-zoom span { min-width: 4ch; text-align: center; }
 .travel-zoom button { width: 44px; height: 44px; border-radius: 50%; border: 1px solid #72618c; background: #191728; color: #eee5ff; font-size: 1.3rem; cursor: pointer; }
 .travel-zoom button:disabled { opacity: .45; cursor: default; }
+.travel-places { margin: 1rem 0; }
+.travel-places h4 { margin: 0 0 .5rem; color: #dac5ed; }
+.travel-places details { border-bottom: 1px solid #51485e; }
+.travel-places summary { padding: .65rem .3rem; cursor: pointer; font-weight: 600; }
+.travel-places details p { margin: 0 0 .65rem 1.2rem; color: #cbc5d6; }
