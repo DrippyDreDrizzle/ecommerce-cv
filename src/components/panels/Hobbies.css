@@ -53,3 +53,8 @@
  .hobbies-gallery h4 { font-size: 1.1rem; }
  .hobbies-watching { flex-direction: column; align-items: flex-start; }
 }
+
+@media(min-width:761px){
+  .hobbies-sport-art {grid-template: minmax(0,1fr) / minmax(0,1fr)}
+  .hobbies-sport-art img {width:min(68%,200px);height:168px;max-height:100%;object-position:center}
+}

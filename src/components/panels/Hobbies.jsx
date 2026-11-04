@@ -42,9 +42,9 @@ const COPY = {
   en: {
     title: 'Off the clock.', intro: 'Sport, stories and the art that stays with me.', tabs: ['Sports', 'Anime & Manga', 'TV & Film'],
     sports: 'Two sports. A lot of memories.', sportsIntro: 'I no longer play, but football and basketball have been a big part of my life.',
-    football: 'Football', keeper: 'Goalkeeper', footballText: 'Arsenal supporter. Former goalkeeper, county-level competition winner and always drawn to the energy of match day.', footballMore: 'My football story',
+    football: 'Football', footballText: 'I’m an Arsenal supporter. Nothing beats being there on match day.', footballMore: 'My football story',
     footballDetails: ['I played to a high level as a goalkeeper, winning county-level competitions and attending trials with Chelsea FC and Leyton Orient at 15.', 'I also helped coach Maidstone United’s first-team goalkeepers on match days in the National League and FA Cup.', 'One recent highlight: being in North London for Arsenal’s parade on 31 May 2026. The atmosphere was incredible.'],
-    basketball: 'Basketball', positions: 'Shooting guard · Small forward · Power forward', basketballText: 'Miami Heat supporter. I played for many years across three positions, and Dwyane Wade is my favourite player.', basketballMore: 'Following the game', basketballDetail: 'NBA tip-off times can make following games from the UK tricky, but I watch whenever I can. Even though I no longer play, I still love the game.',
+    basketball: 'Basketball', basketballText: 'Miami Heat supporter. Dwyane Wade is my favourite player.', basketballMore: 'Following the game', basketballDetail: 'I played basketball for years, switching between shooting guard, small forward and power forward. NBA tip-off times can make following games from the UK tricky, but I watch whenever I can. Even though I no longer play, I still love the game.',
     anime: 'Stories that hit different.', animeIntro: 'Beautiful art, unforgettable fights and emotional moments that bring goosebumps—or tears. Naruto is probably my favourite, but there are so many I love.', favourites: 'Personal favourites', watching: 'Currently watching', first: 'New to anime?', recommendation: 'Demon Slayer and Jujutsu Kaisen are my go-to recommendations: exciting action, strong pacing and emotional stories, with less of the fan service that can put newcomers off.',
     shelf: 'Collected for the art.', shelfIntro: 'I collect Japanese editions for the artwork rather than to read. The illustrations, covers and artbooks are what draw me in.',
     screen: 'Usually, something funny.', screenIntro: 'Comedy is my favourite—live action, animation and films I can come back to. Satoshi Kon’s work has a place here too.', television: 'On television', films: 'Movie favourites', director: 'The worlds of Satoshi Kon',
@@ -52,9 +52,9 @@ const COPY = {
   ja: {
     title: 'オフの時間。', intro: 'スポーツ、物語、心に残るアート。', tabs: ['スポーツ', 'アニメ・漫画', 'テレビ・映画'],
     sports: '二つのスポーツ、たくさんの思い出。', sportsIntro: '今はプレーしていませんが、サッカーとバスケットボールは人生の大きな一部です。',
-    football: 'サッカー', keeper: 'ゴールキーパー', footballText: 'アーセナルを応援しています。ゴールキーパーとして州レベルの大会で優勝した経験があり、試合の日の熱気が大好きです。', footballMore: 'サッカーの思い出',
+    football: 'サッカー', footballText: 'アーセナルを応援しています。試合の日の熱気が大好きです。', footballMore: 'サッカーの思い出',
     footballDetails: ['ゴールキーパーとして高いレベルでプレーし、州レベルの大会で優勝。15歳でチェルシーFCとレイトン・オリエントのトライアルに参加しました。', 'メイドストーン・ユナイテッドでは、ナショナルリーグとFAカップの試合日にトップチームのGK指導を手伝いました。', '最近の思い出は2026年5月31日、北ロンドンで見たアーセナルのパレード。素晴らしい雰囲気でした。'],
-    basketball: 'バスケットボール', positions: 'SG・SF・PF', basketballText: 'マイアミ・ヒートのファンです。長年、三つのポジションでプレーしました。好きな選手はドウェイン・ウェイドです。', basketballMore: '今も観戦を楽しむ', basketballDetail: 'NBAの試合時間は英国から見るには難しいこともありますが、できる限り観戦しています。今はプレーしていなくても、バスケが大好きです。',
+    basketball: 'バスケットボール', basketballText: 'マイアミ・ヒートのファンです。好きな選手はドウェイン・ウェイドです。', basketballMore: '今も観戦を楽しむ', basketballDetail: '長年、シューティングガード、スモールフォワード、パワーフォワードの3つのポジションでプレーしました。NBAの試合時間は英国から見るには難しいこともありますが、できる限り観戦しています。今はプレーしていなくても、バスケが大好きです。',
     anime: '心に響く物語。', animeIntro: '美しい絵、忘れられない戦い、鳥肌が立つ瞬間や涙する物語。特に好きなのはナルトですが、大好きな作品はたくさんあります。', favourites: 'お気に入り', watching: '視聴中', first: 'アニメを初めて見るなら', recommendation: 'おすすめは鬼滅の刃と呪術廻戦。迫力あるアクション、テンポの良さ、心に響く物語があり、初めての人が戸惑うようなファンサービスも比較的少ない作品です。',
     shelf: 'アートを集める。', shelfIntro: '読むためというより、絵を楽しむために日本語版を集めています。イラスト、表紙、画集に惹かれます。',
     screen: 'やっぱりコメディ。', screenIntro: '実写もアニメも、何度でも見たい映画も。コメディが一番好きです。今敏監督の作品も大切なお気に入りです。', television: 'テレビのお気に入り', films: '映画のお気に入り', director: '今敏の世界',
@@ -93,11 +93,11 @@ export default function Hobbies() {
           <div className="hobbies-sport-grid">
             <article className="hobbies-sport-card hobbies-sport-card--football">
               <div className="hobbies-sport-art"><img src={arsenalBadge} alt="" /><span>{c.football}</span></div>
-              <div className="hobbies-sport-copy"><span className="hobbies-team-label">North London / Arsenal</span><h4>Arsenal<span>FC</span></h4><p className="hobbies-position">{c.keeper}</p><p>{c.footballText}</p><details><summary>{c.footballMore}</summary>{c.footballDetails.map(text => <p key={text}>{text}</p>)}</details></div>
+              <div className="hobbies-sport-copy"><span className="hobbies-team-label">North London / Arsenal</span><h4>Arsenal<span>FC</span></h4><p>{c.footballText}</p><details><summary>{c.footballMore}</summary>{c.footballDetails.map(text => <p key={text}>{text}</p>)}</details></div>
             </article>
             <article className="hobbies-sport-card hobbies-sport-card--basketball">
               <div className="hobbies-sport-art"><img src={heatBadge} alt="" /><span>{c.basketball}</span></div>
-              <div className="hobbies-sport-copy"><span className="hobbies-team-label">Miami / Heat</span><h4>Miami<span>Heat</span></h4><p className="hobbies-position">{c.positions}</p><p>{c.basketballText}</p><details><summary>{c.basketballMore}</summary><p>{c.basketballDetail}</p></details></div>
+              <div className="hobbies-sport-copy"><span className="hobbies-team-label">Miami / Heat</span><h4>Miami<span>Heat</span></h4><p>{c.basketballText}</p><details><summary>{c.basketballMore}</summary><p>{c.basketballDetail}</p></details></div>
             </article>
           </div>
         </>}
