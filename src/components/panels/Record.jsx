@@ -25,7 +25,6 @@ export default function Record() {
   ]
   return <Panel className="record-page">
     <div className="rec-hero" style={{'--building': 'url('+building+')'}}>
-      <small>03 / {ja ? '実績' : 'Record'}</small>
       <h2 className="panel-title" tabIndex={-1}>{ja ? '自分で築いたストア。' : 'I built the store.'}<br/>{ja ? '自分で伸ばした売上。' : 'I grew the sales.'}</h2>
       <p>{ja ? '最初の通年売上42.5万ポンドから、2025年には240万ポンドへ。' : 'From £425k in my first full year to £2.4m in 2025.'}</p>
     </div>
