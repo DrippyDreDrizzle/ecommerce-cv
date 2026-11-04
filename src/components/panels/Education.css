@@ -13,3 +13,6 @@
 .edu-footer{border-top:1px solid #514c3d;display:flex;align-items:center;justify-content:space-between;gap:1rem}
 .edu-footer strong{display:block;color:#fff}.edu-footer button{color:#16140d;background:var(--gold);padding:.8rem 1.2rem;font-size:1.1rem;font-weight:700}
 @media(max-width:760px){.edu-path{grid-template-columns:1fr;gap:.75rem}.edu-path li{border-top:0;border-left:3px solid #8a805e}.edu-path h4{margin-top:.8rem}.edu-footer{display:block}}
+@media (min-width: 1024px) {
+  .edu-heading { max-width: none; font-size: clamp(1.65rem, 3vw, 3.4rem); }
+}
