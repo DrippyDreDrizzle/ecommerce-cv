@@ -90,6 +90,7 @@ export const translations = {
         brazil: { name: 'Brazil', blurb: 'On my list of places to explore. I’ll add more about why when this journal is ready.' },
         'new-zealand': { name: 'New Zealand', blurb: 'On my list of places to explore.' },
         'south-korea': { name: 'South Korea', blurb: 'On my list of places to explore.' },
+        mauritius: { name: 'Mauritius', blurb: 'On my list of places to explore.' },
         'south-africa': { name: 'South Africa', blurb: 'On my list of places to explore. I’ll add more about why when this journal is ready.' },
       },
       hobbies: {
@@ -193,6 +194,7 @@ export const translations = {
         brazil: { name: 'ブラジル', blurb: 'いつか訪れてみたい国です。詳しい理由も後日追加します。' },
         'new-zealand': { name: 'ニュージーランド', blurb: 'いつか訪れてみたい国です。' },
         'south-korea': { name: '韓国', blurb: 'いつか訪れてみたい国です。' },
+        mauritius: { name: 'モーリシャス', blurb: 'いつか訪れてみたい国です。' },
         'south-africa': { name: '南アフリカ', blurb: 'いつか訪れてみたい国です。詳しい理由も後日追加します。' },
       },
       hobbies: {

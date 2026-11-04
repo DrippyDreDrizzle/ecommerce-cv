@@ -21,6 +21,7 @@ const DESTINATIONS = [
   { id: 'brazil', country: '076', status: 'want', coordinates: [-47.88, -15.79], palette: ['#92b89a', '#22575d'], images: [] },
   { id: 'new-zealand', country: '554', status: 'want', coordinates: [174.78, -41.29], palette: ['#dfad8b', '#685368'], images: [] },
   { id: 'south-korea', country: '410', status: 'want', coordinates: [126.98, 37.57], palette: ['#aaa3d8', '#414366'], images: [] },
+  { id: 'mauritius', country: '480', status: 'want', coordinates: [57.55, -20.28], palette: ['#84cdc9', '#294e69'], images: [] },
   { id: 'south-africa', country: '710', status: 'want', coordinates: [24.0, -29.0], palette: ['#c5a98c', '#555070'], images: [] },
 ]
 
@@ -35,7 +36,7 @@ const countryDestinations = countries.map((country) => DESTINATIONS.find((d) => 
   name: country.properties.name,
 })
 const destinationByCountry = new Map(countryDestinations.map((d) => [d.country, d]))
-const destinationById = new Map(countryDestinations.map((d) => [d.id, d]))
+const destinationById = new Map([...countryDestinations, ...DESTINATIONS].map((d) => [d.id, d]))
 const graticule = geoGraticule10()
 const SIZE = 440
 const clamp = (value, min, max) => Math.max(min, Math.min(max, value))
