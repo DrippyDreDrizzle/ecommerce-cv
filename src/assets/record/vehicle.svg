@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 260" fill="none">
+<defs><linearGradient id="sky" x2=".85" y2="1"><stop stop-color="#283f77"/><stop offset="1" stop-color="#131724"/></linearGradient></defs>
+<rect width="480" height="260" fill="url(#sky)"/>
+<g stroke="#718cce" opacity=".4"><path d="M0 163 80 79l39 32 75-86 100 108 64-67 122 93M0 183l117-72 67 37 110-15 70 26 116-10"/></g>
+<path d="M0 207q33-12 83-24l65-50q17-14 58-17h79q26 0 55 21l67 46q37 6 73 21v56H0Z" fill="#283750" stroke="#b5cbfa" stroke-width="4"/>
+<path d="m102 180 58-44q16-10 50-11h70q24 0 49 20l47 33Z" fill="#121d30" stroke="#8ea9d6" stroke-width="3"/>
+<path d="m237 125 6 54m-105-62 9-14m153 10 6-14m-174 4 183-5" stroke="#101622" stroke-width="12" stroke-linecap="round"/><path d="m130 100 184-5" stroke="#e4edff" stroke-width="4" stroke-linecap="round"/>
+<rect x="136" y="185" width="205" height="53" rx="6" fill="#ffd65e" stroke="#171c2a" stroke-width="5"/><text x="239" y="223" font-family="Arial,sans-serif" font-weight="bold" font-size="35" fill="#161824" text-anchor="middle">YOUR REG</text></svg>

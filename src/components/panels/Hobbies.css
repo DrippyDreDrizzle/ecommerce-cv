@@ -13,9 +13,8 @@
 .hobbies-sport-card { --team: #f16b81; overflow: hidden; border: 1px solid #f58bc740; background: linear-gradient(145deg, #291923, #11131f); border-radius: 4px 22px 4px 4px; }
 .hobbies-sport-card--basketball { --team: #f7b073; background: linear-gradient(145deg, #2a171f, #11131f); }
 .hobbies-sport-art { position: relative; height: 240px; overflow: hidden; }
-.hobbies-sport-art img { width: 200%; max-width: none; height: 100%; object-fit: cover; object-position: center 25%; display: block; }
-.hobbies-sport-card--basketball .hobbies-sport-art img { transform: translateX(-50%); }
-.hobbies-sport-art::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, #211622, transparent 55%); }
+.hobbies-sport-art {display:grid;place-items:center;background:radial-gradient(ellipse at center,color-mix(in srgb,var(--team) 17%,#1b1720),#16131c 78%)}
+.hobbies-sport-art img {width:68%;height:70%;object-fit:contain}
 .hobbies-sport-art > span { position: absolute; top: 1rem; left: 1rem; z-index: 1; padding: .4rem .7rem; color: #16101b; background: var(--team); font: .65rem var(--font-mono); text-transform: uppercase; }
 .hobbies-sport-copy { padding: 0 1.5rem 1.5rem; position: relative; }
 .hobbies-team-label { font: .6rem var(--font-mono); color: var(--team); letter-spacing: .12em; text-transform: uppercase; }

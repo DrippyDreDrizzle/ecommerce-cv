@@ -8,9 +8,14 @@
 .travel-globe:active { cursor: grabbing; }
 .travel-country { fill: #516d77; stroke: #b6d1cc; stroke-opacity: .28; stroke-width: .65; cursor: pointer; transition: fill .25s; }
 .travel-country:hover { fill: #7899a5; }
-.travel-country.is-destination { fill: #a48dba; cursor: pointer; }
-.travel-country.is-destination:hover, .travel-country.is-destination:focus-visible { fill: #dfbaff; outline: none; stroke: #fff; stroke-opacity: .9; stroke-width: 1.5; }
-.travel-country.is-selected { fill: #d1aaf2; }
+.travel-country[data-status=home], .travel-pin.home, .travel-key .home { --land:#629df2 }
+.travel-country[data-status=visited], .travel-pin.visited, .travel-key .visited { --land:#b08bd7 }
+.travel-country[data-status=want], .travel-pin.want, .travel-key .want { --land:#eea167 }
+.travel-country.is-destination,.travel-pin {fill:var(--land)}
+.travel-country:is(:hover,:focus-visible,.is-selected) {fill:color-mix(in srgb,var(--land,#516d77) 82%,white);stroke:#fff;stroke-opacity:.9;stroke-width:1.5}
+.travel-key {display:flex;flex-wrap:wrap;justify-content:center;gap:.75rem;margin:.6rem 0;color:#ded8ed;font-size:.9rem}
+.travel-key span {display:inline-flex;align-items:center;gap:.3rem}
+.travel-key i {width:.68rem;height:.68rem;border-radius:50%;background:var(--land)}
 .travel-map-marker { cursor: pointer; }
 .travel-map-marker:focus-visible { outline: 2px solid #fff; }
 .travel-globe-hint { font-family: var(--font-mono); text-transform: uppercase; letter-spacing: .14em; color: #a6afc9; font-size: .64rem; text-align: center; margin: -.6rem 0 1.5rem; }

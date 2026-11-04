@@ -64,3 +64,7 @@
 /* Art-directed source selection keeps the desktop artwork unchanged. */
 .profile-destination picture img { display: block; width: 100%; height: 100%; object-fit: cover; }
 @media (max-width: 640px) { .profile-destination picture img { object-position: center top; } }
+
+.profile-team-badges {position:absolute;inset:0;z-index:-2;display:flex;justify-content:center;align-items:flex-start;gap:6%;padding:1rem 5% 0;background:linear-gradient(115deg,#421c2d,#221727 50%,#381b24)}
+.profile-team-badges img {width:36%;height:58%;object-fit:contain}
+@media(max-width:640px){.profile-team-badges{gap:1%;padding-inline:3%}.profile-team-badges img{width:47%}}

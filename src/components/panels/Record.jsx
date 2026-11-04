@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Panel from '../Panel'
 import { useLanguage } from '../../context/LanguageContext'
-import { plate, catalogue, building } from './recordArt'
+import { plate, catalogue } from './recordArt'
 import './Record.css'
 
 const sales = [17, 425, 1200, 1100, 1800, 2000, 2400, 3000]
@@ -24,7 +24,7 @@ export default function Record() {
     [catalogue,'Catalogue onboarding','1 week → 1 day','I cut the time to list a typical batch of 200–300 products from about a week to a day.']
   ]
   return <Panel className="record-page">
-    <div className="rec-hero" style={{'--building': 'url('+building+')'}}>
+    <div className="rec-hero">
       <h2 className="panel-title" tabIndex={-1}>{ja ? '自分で築いたストア。' : 'I built the store.'}<br/>{ja ? '自分で伸ばした売上。' : 'I grew the sales.'}</h2>
       <p>{ja ? '最初の通年売上42.5万ポンドから、2025年には240万ポンドへ。' : 'From £425k in my first full year to £2.4m in 2025.'}</p>
     </div>

@@ -209,7 +209,7 @@ export default function Travel() {
                 {countries.map((country, index) => {
                   const destination = destinationByCountry.get(country.id)
                   const listed = DESTINATIONS.some((d) => d.country === country.id)
-                  return <path key={country.id} d={outlines[index] || ''} className={`travel-country ${listed ? 'is-destination' : ''} ${activeId === destination.id ? 'is-selected' : ''}`} onClick={() => focusDestination(destination)} role="button" tabIndex={listed ? 0 : undefined} aria-label={getInfo(destination).name} onKeyDown={listed ? (event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); focusDestination(destination) } } : undefined} />
+                  return <path key={country.id} d={outlines[index] || ''} data-status={destination.status} className={`travel-country ${listed ? 'is-destination' : ''} ${activeId === destination.id ? 'is-selected' : ''}`} onClick={() => focusDestination(destination)} role="button" tabIndex={listed ? 0 : undefined} aria-label={getInfo(destination).name} onKeyDown={listed ? (event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); focusDestination(destination) } } : undefined} />
                 })}
                 <circle cx="220" cy="220" r="205" fill="url(#travel-shade)" pointerEvents="none" />
               </g>
@@ -217,10 +217,11 @@ export default function Travel() {
                 if (geoDistance(destination.coordinates, [-rotation[0], -rotation[1]]) > Math.PI / 2 - .06) return null
                 const point = projection(destination.coordinates)
                 if (!point) return null
-                return <g key={destination.id} className="travel-map-marker" transform={`translate(${point[0]} ${point[1]})`} onClick={() => { if (!ignoreClick.current) focusDestination(destination) }} role="button" tabIndex="0" aria-label={t.content.travel[destination.id].name} onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); focusDestination(destination) } }}><circle r={13/zoom} fill="transparent"/><circle r={(destination.id === activeId ? 6 : 4)/zoom} fill={destination.status === 'want' ? '#f5ba8a' : '#dcb8ff'} stroke="#fff" strokeWidth="1.5"/></g>
+                return <g key={destination.id} className="travel-map-marker" transform={`translate(${point[0]} ${point[1]})`} onClick={() => { if (!ignoreClick.current) focusDestination(destination) }} role="button" tabIndex="0" aria-label={t.content.travel[destination.id].name} onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); focusDestination(destination) } }}><circle r={13/zoom} fill="transparent"/><circle r={(destination.id === activeId ? 6 : 4)/zoom} className={'travel-pin '+destination.status} stroke="#fff" strokeWidth="1.5"/></g>
               })}
             </svg>
           </div>
+          <div className="travel-key">{['home','visited','want'].map(status => <span key={status}><i className={status}/>{statusLabel(status)}</span>)}</div>
           <div className="travel-zoom">
             <button type="button" aria-label={t.globeZoomOut} disabled={zoom <= 1} onClick={() => setZoom(z => Math.max(1, z - .5))}>−</button>
             <span>{Number(zoom.toFixed(1))}×</span>

@@ -4,7 +4,8 @@ import MangaShelf from './hobbies/MangaShelf'
 import AnimeFavourites from './hobbies/AnimeFavourites'
 import { BOOK_NOTES } from './hobbies/bookNotes'
 import { useLanguage } from '../../context/LanguageContext'
-import sportsArt from '../../assets/profile/hobbies-anime.webp'
+import arsenalBadge from '../../assets/clubs/arsenal.svg'
+import heatBadge from '../../assets/clubs/heat.svg'
 import './Hobbies.css'
 import dragonBallCollection from '../../assets/books/dragon-ball-boxed-collection.webp'
 import demonSlayer08 from '../../assets/books/demon-slayer-08.webp'
@@ -91,11 +92,11 @@ export default function Hobbies() {
           <header className="hobbies-section-intro"><h3>{c.sports}</h3><p>{c.sportsIntro}</p></header>
           <div className="hobbies-sport-grid">
             <article className="hobbies-sport-card hobbies-sport-card--football">
-              <div className="hobbies-sport-art"><img src={sportsArt} alt="" /><span>{c.football}</span></div>
+              <div className="hobbies-sport-art"><img src={arsenalBadge} alt="" /><span>{c.football}</span></div>
               <div className="hobbies-sport-copy"><span className="hobbies-team-label">North London / Arsenal</span><h4>Arsenal<span>FC</span></h4><p className="hobbies-position">{c.keeper}</p><p>{c.footballText}</p><details><summary>{c.footballMore}</summary>{c.footballDetails.map(text => <p key={text}>{text}</p>)}</details></div>
             </article>
             <article className="hobbies-sport-card hobbies-sport-card--basketball">
-              <div className="hobbies-sport-art"><img src={sportsArt} alt="" /><span>{c.basketball}</span></div>
+              <div className="hobbies-sport-art"><img src={heatBadge} alt="" /><span>{c.basketball}</span></div>
               <div className="hobbies-sport-copy"><span className="hobbies-team-label">Miami / Heat</span><h4>Miami<span>Heat</span></h4><p className="hobbies-position">{c.positions}</p><p>{c.basketballText}</p><details><summary>{c.basketballMore}</summary><p>{c.basketballDetail}</p></details></div>
             </article>
           </div>

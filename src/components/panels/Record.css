@@ -1,7 +1,7 @@
 .record-page{--ink:#f9f7f0;--blue:#6089ff;--lilac:#deb3ff;background:#090a10;color:var(--ink);padding:clamp(1rem,3vw,3rem);font:1rem/1.45 Arial,sans-serif}
 .record-page .panel-body{max-width:1240px;margin:auto}
 .rec-hero{position:relative;isolation:isolate;overflow:hidden;border-top:2px solid var(--blue);padding:1rem 0 1.25rem}
-.rec-hero:after{content:"";position:absolute;z-index:-1;inset:0 0 0 auto;width:34%;background:linear-gradient(90deg,#090a10,transparent),var(--building) right center/cover;clip-path:polygon(65% 0,100% 0,100% 100%,0 100%);opacity:.8}
+.rec-hero:after{content:"";position:absolute;z-index:-1;inset:0 0 0 auto;width:34%;background:linear-gradient(90deg,#090a10,transparent),url('../../assets/record/building.svg') right center/cover;clip-path:polygon(65% 0,100% 0,100% 100%,0 100%);opacity:.8}
 .rec-hero small,.rec-cases small{color:#aabfff;font-weight:800;text-transform:uppercase}
 .rec-hero .panel-title,.rec-inside,.rec-chart h3,.rec-cases h4{font-family:Arial,sans-serif;font-weight:950;font-style:italic;text-transform:none;letter-spacing:-.055em;line-height:1.03}
 .rec-hero .panel-title{display:block;margin:.35em 0 .15em;padding-left:.43em;font-size:clamp(2.6rem,6vw,6rem)}
