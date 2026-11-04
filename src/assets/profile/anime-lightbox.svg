@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <defs>
+    <path id="eye" d="M9 37Q36-1 80 21Q69 53 31 49Q16 46 9 37Z"/>
+    <path id="lash" d="M5 39Q30 0 71 14L84 10L78 16L88 13L81 23Q43 5 10 41Z"/>
+    <linearGradient id="iris" x2="0" y2="1"><stop stop-color="#513c82"/><stop offset="1" stop-color="#97f2ff"/></linearGradient>
+    <linearGradient id="lamp" x2="1" y2="1"><stop stop-color="#fff2dc"/><stop offset="1" stop-color="#e3cef4"/></linearGradient>
+  </defs>
+  <rect x="8" y="10" width="184" height="180" rx="13" fill="#282239" stroke="#b395c7" stroke-width="3"/>
+  <rect x="15" y="17" width="170" height="143" rx="8" fill="url(#lamp)"/>
+  <g transform="translate(24 40) rotate(-9)"><rect width="91" height="64" rx="2" fill="#f7eeeb" stroke="#a797b4"/><path d="m4 36 82-9M47 6l-4 51" stroke="#afc2d7" stroke-dasharray="3 2"/><use href="#eye" stroke="#a18b99" stroke-width="2"/><circle cx="46" cy="32" r="14" stroke="#a18b99"/><path d="M8 35Q40-1 82 20" stroke="#bac8cf"/></g>
+  <g transform="translate(63 58) rotate(-3)"><rect width="91" height="64" rx="2" fill="#fff9ef" stroke="#b1a2bc"/><use href="#eye" stroke="#302538" stroke-width="2"/><use href="#lash" fill="#302538"/><ellipse cx="47" cy="32" rx="13" ry="16" stroke="#302538" stroke-width="2"/><ellipse cx="47" cy="32" rx="6" ry="9" fill="#302538"/></g>
+  <g transform="translate(81 88) rotate(4)"><rect width="94" height="63" rx="2" fill="#f3ccb9" stroke="#9c81ae"/><use href="#eye" fill="#fffafa" stroke="#452d4a" stroke-width="2"/><ellipse cx="47" cy="31" rx="14" ry="16" fill="url(#iris)" stroke="#413352" stroke-width="2"/><ellipse cx="47" cy="30" rx="6" ry="10" fill="#272237"/><circle cx="42" cy="25" r="5" fill="white"/><circle cx="53" cy="37" r="2.5" fill="white"/><use href="#lash" fill="#302538"/></g>
+  <text x="100" y="180" text-anchor="middle" font-size="15" font-family="system-ui,sans-serif" font-weight="bold" fill="#f5e5ff">アニメ / ANIME</text>
+</svg>

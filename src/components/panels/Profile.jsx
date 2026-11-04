@@ -3,6 +3,7 @@ import MBTIBadge from '../MBTIBadge'
 import { useLanguage } from '../../context/LanguageContext'
 import travelArtwork from '../../assets/profile/travel-lake.webp'
 import travelMobileArtwork from '../../assets/profile/travel-lake-mobile.webp'
+import animeLightbox from '../../assets/profile/anime-lightbox.svg'
 import arsenalBadge from '../../assets/clubs/arsenal.svg'
 import heatBadge from '../../assets/clubs/heat.svg'
 import './Profile.css'
@@ -60,7 +61,7 @@ export default function Profile({ onNavigate }) {
       <section aria-labelledby="profile-beyond-title">
         <div className="profile-section-heading"><h3 id="profile-beyond-title">{c.beyond}</h3><span aria-hidden="true">03 / EXPLORE</span></div>
         <div className="profile-destinations">{['hobbies', 'travel'].map(id => <button type="button" className={`profile-destination profile-destination--${id}`} key={id} onClick={event => onNavigate(id, event)}>
-          {id === 'hobbies' ? <span className="profile-team-badges" aria-hidden="true"><img src={arsenalBadge} alt="" /><img src={heatBadge} alt="" /><img className="profile-anime-portrait" src={import.meta.env.BASE_URL + 'images/anime/naruto.webp'} alt="" /></span> : <picture className="profile-travel-art"><source media="(max-width: 640px)" srcSet={travelMobileArtwork} width="1024" height="1536" /><img src={travelArtwork} alt="" width="1536" height="1024" loading="lazy" decoding="async" /></picture>}
+          {id === 'hobbies' ? <span className="profile-team-badges" aria-hidden="true"><img src={arsenalBadge} alt="" /><img src={heatBadge} alt="" /><img src={animeLightbox} alt="" /></span> : <picture className="profile-travel-art"><source media="(max-width: 640px)" srcSet={travelMobileArtwork} width="1024" height="1536" /><img src={travelArtwork} alt="" width="1536" height="1024" loading="lazy" decoding="async" /></picture>}
           <span className="profile-destination-content"><span className="profile-destination-title">{c[id]}</span><span className="profile-destination-cta">{c.explore}<span aria-hidden="true">↗</span></span></span>
         </button>)}</div>
       </section>

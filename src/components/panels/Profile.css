@@ -69,4 +69,3 @@
 .profile-team-badges img {width:30%;height:58%;object-fit:contain}
 @media(max-width:640px){.profile-team-badges{gap:1%;padding-inline:3%}.profile-team-badges img{width:32%}}
 
-.profile-team-badges .profile-anime-portrait {object-fit:cover;object-position:center 15%;clip-path:polygon(9% 0,100% 0,91% 100%,0 100%);border-block:2px solid #c298db}
