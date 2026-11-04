@@ -50,7 +50,7 @@ export function Sports() {
 }
 
 export function Television() {
-  return <g transform="translate(32 221) rotate(-4 55 45)" strokeLinejoin="round">
+  return <g transform="translate(5 195) rotate(-4 55 45)" strokeLinejoin="round">
     <path d="m30 2 20 20L78 0" fill="none" stroke="#d1becd" strokeWidth="3"/>
     <rect x="1" y="19" width="112" height="79" rx="9" fill="#473848" stroke="#d9a8bf" strokeWidth="3"/>
     <rect x="8" y="27" width="80" height="60" rx="9" fill="#17151f" stroke="#876d83" strokeWidth="3"/>
