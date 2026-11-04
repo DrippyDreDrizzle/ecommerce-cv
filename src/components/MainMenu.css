@@ -93,7 +93,7 @@
 
 /* One resting illustration per card; only the interacted card runs its scene. */
 @media (prefers-reduced-motion: no-preference) {
-  .main-menu-item:is(:hover,:focus-visible,.is-previewed) :is(.radar-growth,.sky-back,.sky-front,.jet-cruise,.hoop-shot,.hoop-mesh,.football-shot,.football-mesh,.hobby-cel-ink,.hobby-cel-colour,.mail-delivery,.brass-flap) {
+  .main-menu-item:is(:hover,:focus-visible,.is-previewed) :is(.radar-growth,.sky-back,.sky-front,.jet-cruise,.hoop-shot,.hoop-mesh,.football-shot,.football-mesh,.goku-base,.goku-gold,.mail-delivery,.brass-flap) {
     animation:var(--scene-motion) var(--scene-duration,3s) var(--scene-easing,ease-in-out) infinite;
   }
 }
@@ -101,7 +101,7 @@
 .sky-back { --scene-motion:cloud-drift;--scene-duration:5s;--drift:100px }
 .sky-front { --scene-motion:cloud-drift;--scene-duration:3.7s;--drift:180px }
 .jet-cruise { --scene-motion:jet-bank;--scene-duration:3.7s;transform-origin:210px 215px }
-.hoop-shot,.hoop-mesh,.football-shot,.football-mesh,.hobby-cel-ink,.hobby-cel-colour { --scene-duration:4s }
+.hoop-shot,.hoop-mesh,.football-shot,.football-mesh,.goku-base,.goku-gold { --scene-duration:4s }
 .hoop-shot { --scene-motion:basket-arc; --scene-easing:linear }
 .hoop-mesh { --scene-motion:net-swish;transform-origin:180px 174px }
 .football-shot { --scene-motion:goal-strike }
@@ -133,7 +133,11 @@
 @keyframes post-letter {0%,12%,100%{transform:none;opacity:1} 42%{transform:translate(63px,-35px) rotate(12deg) scale(.92)} 68%,82%{transform:translate(68px,-133px) rotate(12deg) scale(.85);opacity:1} 84%,90%{opacity:0} 90%{transform:none}}
 @keyframes lift-flap {0%,24%,84%,100%{transform:none} 43%,69%{transform:scaleY(.22)}}
 
-.hobby-cel-ink { --scene-motion:ink-hobbies-cel }
-.hobby-cel-colour { --scene-motion:colour-hobbies-cel }
-@keyframes ink-hobbies-cel { 0%,71%{stroke-dashoffset:100} 86%,96%{stroke-dashoffset:0;opacity:1} 100%{stroke-dashoffset:0;opacity:0} }
-@keyframes colour-hobbies-cel { 0%,80%{opacity:0} 89%,96%{opacity:1} 100%{opacity:0} }
+.goku-base { --scene-motion:goku-normal }
+.goku-gold { opacity:0; --scene-motion:goku-power }
+@keyframes goku-normal { 0%,69%,100%{opacity:1} 76%,90%{opacity:0} }
+@keyframes goku-power { 0%,69%,100%{opacity:0} 76%,90%{opacity:1} }
+.main-menu-item[data-menu-id="hobbies"] .menu-card-shade {
+  background:linear-gradient(0deg,#080c1699,transparent 39%),linear-gradient(90deg,#080c1699,transparent 58%);
+}
+@media(max-width:640px){.main-menu-item[data-menu-id="hobbies"] .menu-card-art{right:-4%}}

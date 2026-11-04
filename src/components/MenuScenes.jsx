@@ -37,31 +37,29 @@ export function Sports() {
       <path d="m154 178 38 46m-24-48 33 36m-16-36 18 19m4-18-38 47m23-48-32 36m14-36-17 21"/></g>
     <g transform="translate(82 147)"><g className="hoop-shot"><circle r="19" fill="#e29870" stroke="#442d37" strokeWidth="3"/><path d="M-18-5 18 5M-4-18 4 18M-15 11Q2 0 12-14M-15-11Q-3 8 12 14" stroke="#583a3b" strokeWidth="2.6"/></g></g>
     <path d="M150 173q29 8 60 0" fill="none" stroke="#ffa378" strokeWidth="7" strokeLinecap="round"/>
+    <g transform="translate(-24 -28)">
     <path d="m260 248 96-14 22 18-95 18Z" fill="#d199bb" fillOpacity=".14"/>
     <g className="football-mesh"><path d="m260 248 96-14 22 77-101 17Z" fill="#312937" stroke="#b184a3"/>
     {[0,1,2,3,4,5].map(i=><path key={i} d={`M${265+17*i} ${248-2.4*i}l17 76`} opacity=".52"/>)}
     {[1,2,3,4].map(i=><path key={i} d={`M${260+4*i} ${248+15*i}l97 -14`} opacity=".52"/>)}</g>
-    <path d="M261 326v-78l95-14v78" fill="none" stroke="#f0dce9" strokeWidth="6"/>
-    <g transform="translate(182 339)"><g className="football-shot"><circle r="18" fill="#eee4ea" stroke="#57465b"/><path d="m0-8 8 5-3 9h-10l-4-9Zm-15 1 4-6 4-2-2 7Zm22-8 7 4 3 7-7-4ZM-13 7l5 5-1 4-6-5Zm19 5 7-5 1 5-6 5Z" fill="#423446" stroke="none"/></g></g>
-  </g>
+    <path d="M261 326v-78l95-14v78" fill="none" stroke="#fff6fc" strokeWidth="6"/>
+    <g transform="translate(182 339)"><g className="football-shot"><circle r="18" fill="#fffaf5" stroke="#57465b"/><path d="m0-8 8 5-3 9h-10l-4-9Zm-15 1 4-6 4-2-2 7Zm22-8 7 4 3 7-7-4ZM-13 7l5 5-1 4-6-5Zm19 5 7-5 1 5-6 5Z" fill="#423446" stroke="none"/></g></g>
+  </g></g>
 }
 
-// A separate animation cel keeps the ink reveal clear of both ball trajectories.
-export function AnimeCel() {
-  const lid = 'M10 35Q34 5 72 15L83 10 78 17 88 14 80 22Q44 9 12 37Z'
-  return <g transform="translate(56 244) rotate(-4) scale(1.27)">
-    <path d="M4 5 100 0 94 56 0 60Z" fill="#292034" stroke="#d99cbd" strokeWidth="2"/>
-    <path d="m5 19 20-10M4 26l14-6m60 25 16-6m-18 13 13-4" stroke="#b997af" strokeWidth="1.5"/>
-    <path d="M11 35Q38 7 80 19Q61 54 29 43Z" fill="#ecdde5" stroke="#a58fa6"/>
-    <ellipse cx="49" cy="30" rx="11" ry="13" fill="#716174" stroke="#322739"/>
-    <g className="hobby-cel-colour">
-      <ellipse cx="49" cy="30" rx="10" ry="12" fill="#ba8cf5"/>
-      <path d="M41 34q9 9 16-1-3 13-12 9Z" fill="#8ae4ed" stroke="none"/>
-    </g>
-    <ellipse cx="49" cy="29" rx="4.6" ry="7.5" fill="#261d32" stroke="none"/>
-    <circle cx="45" cy="24" r="3.4" fill="white" stroke="none"/>
-    <path d={lid} fill="#332536" stroke="none"/>
-    <path className="hobby-cel-ink" d="M9 36Q36 3 75 17L85 12" pathLength="100" strokeDasharray="100" stroke="#f6b7ea" strokeWidth="3.2" strokeLinecap="round"/>
+export function Goku() {
+  return <g transform="translate(47 205) scale(.88)" stroke="#372b39" strokeWidth="2.6" strokeLinejoin="round">
+    <path className="goku-gold" d="M14 118Q-2 95 6 61l9 12Q9 41 29 19l-1 18L53 0l1 26 15-15 4 29 12-11q17 32 7 52l8-8q4 34-13 47Z" fill="#ffcf48" fillOpacity=".42" stroke="#ffe483"/>
+    <path d="m31 88-12 23 3 10 22-2 9-17 9 17 21 1 1-10-13-23Z" fill="#fa8636"/>
+    <path d="m25 113-7 11 1 5 23-2 3-13Zm38 0 3 14 23 2-2-7-8-9Z" fill="#244d85"/>
+    <path d="m30 61-12 8-9 22 9 6 17-21 1 16h34l1-16 13 19 10-6-11-22-15-7Z" fill="#ff943d"/>
+    <path d="m36 62 17 20 14-20-11-5Z" fill="#214f89"/><path d="m34 90 37-2 1 8-38 2Z" fill="#28558c"/>
+    <path d="m14 82-5 9 10 7 6-11Zm64 3 8 12 10-6-7-12Z" fill="#274f85"/>
+    <path d="m9 91-5 7 5 7 9-2 3-6Zm77 6 4 7 9-1 2-8-6-5Z" fill="#f0b78f"/>
+    <path d="M30 39q0-22 24-22 26 1 24 26l-6 13-18 12-17-10Z" fill="#ffca9f"/>
+    <path d="m35 44 14 5-9 3Zm22 5 14-7-4 9Z" fill="#fff" strokeWidth="1.6"/><path d="m46 48 0 3m16-5 0 4m-11 8 8-1" strokeWidth="2.4"/>
+    <path className="goku-base" d="m29 52-13-8 10-1L7 32l21 1L14 16l22 7L32 5q13 6 18 17L60 3l1 18 20-12-7 17 21-4-15 14 13 1-18 12-2-14-10 7 1-11-14 17 1-15-16 11Z" fill="#171924" stroke="#9290a6"/>
+    <g className="goku-gold"><path d="m30 50-10-16 9 3-8-22 15 11L33 5l13 14L52-5l8 23L72 1l-1 21 15-14-6 23 12-8-9 18-10 9-2-17-11 13 1-14-11 13 1-14-14 9Z" fill="#ffdc46" stroke="#ae6a22"/><path d="m38 16 7 13m8-20 2 18m15-13-5 15" stroke="#fff6b2" strokeWidth="3"/></g>
   </g>
 }
 
