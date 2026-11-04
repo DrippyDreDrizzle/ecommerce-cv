@@ -1,4 +1,4 @@
-import fighterFrames from '../assets/menu/goku-power.webp'
+import tvGrain from '../assets/menu/tv-grain.png'
 
 // Each scene is also its resting artwork. CSS moves only the active main-menu card.
 export function Radar() {
@@ -49,16 +49,18 @@ export function Sports() {
   </g></g>
 }
 
-export function Goku() {
-  return <g transform="translate(45 191) scale(.70)" stroke="none">
-    <g className="fighter-energy">
-      <path className="fighter-flame" d="M20 177Q1 154 10 118l9 14Q6 91 21 67l3 16Q17 44 42 24l-1 20L64 4l7 32 14-20 1 31 14-13q13 20 5 54l9-13q10 36-1 69l8-7q0 30-18 43Z" fill="#ffad28" fillOpacity=".48" stroke="#ffc64d" strokeWidth="2"/>
-      <path d="M27 174Q13 143 23 109l5 13q-5-32 7-58l5 12 19-45 7 21 11-16 3 27 12-9q9 24 4 46l8-12q9 49-7 85Z" fill="#ffe38a" fillOpacity=".72"/>
-      {[21,43,80,106].map((x,i)=><path key={x} className="fighter-ember" style={{animationDelay:(-i*.19)+'s'}} d={`M${x} 156l3 -10 2 6Z`} fill="#fff1a9"/>)}
-    </g>
-    <svg width="128" height="192" viewBox="0 0 128 192" overflow="hidden">
-      <g className="fighter-row"><image className="fighter-frame" href={fighterFrames} width="1024" height="2304"/></g>
+export function Television() {
+  return <g transform="translate(32 221) rotate(-4 55 45)" strokeLinejoin="round">
+    <path d="m30 2 20 20L78 0" fill="none" stroke="#d1becd" strokeWidth="3"/>
+    <rect x="1" y="19" width="112" height="79" rx="9" fill="#473848" stroke="#d9a8bf" strokeWidth="3"/>
+    <rect x="8" y="27" width="80" height="60" rx="9" fill="#17151f" stroke="#876d83" strokeWidth="3"/>
+    <svg x="13" y="33" width="70" height="48" viewBox="0 0 70 48" overflow="hidden">
+      <image className="crt-grain" href={tvGrain} x="-18" y="-16" width="110" height="84" preserveAspectRatio="none"/>
+      <path d="M0 5Q27 0 60 4" fill="none" stroke="white" opacity=".18"/>
     </svg>
+    <g stroke="#d6a9bd" fill="#2a202c"><circle cx="100" cy="38" r="6"/><circle cx="100" cy="54" r="6"/></g>
+    <path d="m97 40 6-4m-6 20 6-4m-9 18h12m-12 5h12m-12 5h12" stroke="#ceabbc"/>
+    <path d="m19 99-3 5h13l3-5m50 0 3 5h13l-4-5" fill="#866d81" stroke="none"/>
   </g>
 }
 
