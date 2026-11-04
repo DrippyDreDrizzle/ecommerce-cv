@@ -138,6 +138,13 @@ export default function Travel() {
     }
     if (drag.current.moved) setRotation([drag.current.rotation[0] + dx * .42, clamp(drag.current.rotation[1] - dy * .42, -85, 85)])
   }
+  const onLostPointerCapture = (event) => {
+    // Touch capture transfers from the touched country or marker to the globe.
+    // Ignore the child's bubbled capture loss so the swipe continues.
+    if (event.target !== event.currentTarget || drag.current?.pointerId !== event.pointerId) return
+    if (drag.current.moved) ignoreClick.current = true
+    drag.current = null
+  }
   const onPointerUp = (event) => {
     if (!drag.current || drag.current.pointerId !== event.pointerId) return
     ignoreClick.current = drag.current.moved || event.type === 'pointercancel'
@@ -153,7 +160,7 @@ export default function Travel() {
         <div className="travel-globe-column">
           <div className="globe-frame">
             <div className="globe-orbit" aria-hidden="true" />
-            <svg className="travel-globe" viewBox={`0 0 ${SIZE} ${SIZE}`} role="group" aria-label={t.travelGlobeLabel} onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} onPointerCancel={onPointerUp} onPointerLeave={() => { if (drag.current && !drag.current.moved) drag.current = null }} onLostPointerCapture={() => { if (drag.current?.moved) ignoreClick.current = true; drag.current = null }} onClickCapture={(event) => { if (ignoreClick.current) { event.preventDefault(); event.stopPropagation(); ignoreClick.current = false } }}>
+            <svg className="travel-globe" viewBox={`0 0 ${SIZE} ${SIZE}`} role="group" aria-label={t.travelGlobeLabel} onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} onPointerCancel={onPointerUp} onPointerLeave={() => { if (drag.current && !drag.current.moved) drag.current = null }} onLostPointerCapture={onLostPointerCapture} onClickCapture={(event) => { if (ignoreClick.current) { event.preventDefault(); event.stopPropagation(); ignoreClick.current = false } }}>
               <defs>
                 <radialGradient id="travel-ocean" cx="34%" cy="26%" r="77%"><stop stopColor="#456e9a"/><stop offset=".5" stopColor="#173957"/><stop offset="1" stopColor="#07182b"/></radialGradient>
                 <radialGradient id="travel-shade" cx="28%" cy="24%" r="78%"><stop offset=".32" stopColor="#fff" stopOpacity=".09"/><stop offset=".68" stopColor="#081527" stopOpacity=".03"/><stop offset="1" stopColor="#020812" stopOpacity=".75"/></radialGradient>
