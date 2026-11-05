@@ -44,7 +44,7 @@ export default function AnimeFavourites({ lang }) {
     <ul className="anime-favourites-grid">{ANIME_DETAILS.map((show, index) => <li key={show.id} style={{ '--anime-tone': show.tone }}>
       <button className="anime-favourite-card" aria-haspopup="dialog" onClick={event => { opener.current = event.currentTarget; setSelected(show) }}>
         <span className="anime-card-index">{String(index + 1).padStart(2, '0')} / アニメ</span>
-        <div className="anime-card-art"><Artwork character={show.characters[0]} decorative /></div>
+        <div className="anime-card-art"><Artwork character={{ name: show.title, image: show.poster }} decorative /></div>
         <span className="anime-card-copy"><span>{show.subtitle}</span><strong>{show.title}</strong><span className="anime-card-open">{japanese ? '作品を見る' : 'Explore the story'} ↗</span></span>
       </button>
     </li>)}</ul>
@@ -56,7 +56,7 @@ export default function AnimeFavourites({ lang }) {
       {selected && <div style={{ '--anime-tone': selected.tone }}>
         <button className="anime-dialog-close" autoFocus aria-label={japanese ? '閉じる' : 'Close anime details'} onClick={close}>×</button>
         <header><span className="anime-eyebrow">{japanese ? 'お気に入り' : 'Personal favourites'}</span><h3 id="anime-dialog-title">{selected.title}</h3><p>{japanese ? selected.jaDescription : selected.description}</p></header>
-        <div className="anime-dialog-columns"><section><h4>{japanese ? '登場人物' : 'Meet the characters'}</h4><div className="anime-character-grid">{selected.characters.map(character => <figure key={character.name}><Artwork character={character} /><figcaption>{character.name}</figcaption></figure>)}</div><a className="anime-source" href={selected.source} target="_blank" rel="noreferrer">{japanese ? '公式アート・作品情報' : 'Official artwork & series details'} ↗</a></section>
+        <div className="anime-dialog-columns"><section><h4>{japanese ? 'お気に入りのキャラクター' : 'My favourite characters'}</h4><div className="anime-character-grid">{selected.characters.map(character => <figure key={character.name}><Artwork character={character} /><figcaption>{character.name}</figcaption></figure>)}</div><a className="anime-source" href={selected.source} target="_blank" rel="noreferrer">{japanese ? '公式アート・作品情報' : 'Official artwork & series details'} ↗</a></section>
           <Moments key={selected.id} show={selected} japanese={japanese} /></div>
       </div>}
     </dialog>, document.body)}
