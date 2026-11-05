@@ -2,6 +2,7 @@ import { useRef, useState } from 'react'
 import Panel from '../Panel'
 import MangaShelf from './hobbies/MangaShelf'
 import AnimeFavourites from './hobbies/AnimeFavourites'
+import { SCREEN_POSTERS } from './hobbies/screenPosters'
 import { BOOK_NOTES } from './hobbies/bookNotes'
 import { useLanguage } from '../../context/LanguageContext'
 import arsenalBadge from '../../assets/clubs/arsenal.svg'
@@ -62,9 +63,8 @@ const COPY = {
 }
 
 function TitleGallery({ titles, kind }) {
-  return <ul className={`hobbies-gallery hobbies-gallery--${kind}`}>{titles.map((title, index) => <li key={title} style={{ '--poster-tone': ['#ee8ba7', '#bd9bed', '#f5ba75', '#83c6cc'][index % 4] }}>
-    <span className="hobbies-poster-orbit" aria-hidden="true" />
-    <span className="hobbies-poster-mark" aria-hidden="true">{kind === 'anime' ? 'アニメ' : kind === 'kon' ? '今 敏' : '★'}</span>
+  return <ul className={`hobbies-gallery hobbies-gallery--${kind}`}>{titles.map((title, index) => <li key={title} className="hobbies-screen-card" style={{ '--poster-tone': ['#ee8ba7', '#bd9bed', '#f5ba75', '#83c6cc'][index % 4] }}>
+    <img src={SCREEN_POSTERS[title]} alt="" loading="lazy" decoding="async" width="480" height="720" />
     <h4>{title}</h4>
   </li>)}</ul>
 }

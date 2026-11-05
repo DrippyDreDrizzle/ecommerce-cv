@@ -58,3 +58,7 @@
   .hobbies-sport-art {grid-template: minmax(0,1fr) / minmax(0,1fr)}
   .hobbies-sport-art img {width:min(68%,200px);height:168px;max-height:100%;object-position:center}
 }
+
+.hobbies-gallery li.hobbies-screen-card {padding:0;justify-content:flex-start;background:#12131e}
+.hobbies-screen-card img {display:block;width:100%;height:auto;aspect-ratio:2/3;object-fit:contain;background:#090b12}
+.hobbies-screen-card h4 {padding:.8rem .9rem;flex:1;display:flex;align-items:center;border-top:1px solid #ffffff12}
