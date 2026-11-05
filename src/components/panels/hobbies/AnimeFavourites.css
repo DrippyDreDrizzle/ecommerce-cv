@@ -55,3 +55,22 @@
 .anime-favourite-card:focus-visible { outline:2px solid var(--anime-tone); outline-offset:4px; }
 .anime-character-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
 @media(min-width:600px) { .anime-character-grid { grid-template-columns:repeat(3,minmax(0,1fr)); } }
+
+/* Full-width character gallery followed by the moments collection. */
+.anime-dialog-columns { display:flex; flex-direction:column; gap:1.5rem; }
+.anime-dialog-columns > section { width:100%; min-width:0; }
+.anime-dialog header p { max-width:none; }
+.anime-character-grid { grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1rem; }
+.anime-character-grid figure { display:flex; flex-direction:column; padding:.75rem; background:linear-gradient(145deg,#ffffff09,#ffffff03); border-radius:4px; }
+.anime-character-grid img { height:240px; }
+.anime-character-grid figcaption { margin-top:auto; padding:.8rem .2rem .2rem; font-size:.95rem; }
+.anime-moments { padding-top:1rem; border-top:1px solid #ffffff20; }
+.anime-moments-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.5rem 1rem; }
+.anime-moments-grid article { min-width:0; }
+.anime-moments-grid a { display:block; line-height:1.5; }
+@media(max-width:480px) {
+  .anime-character-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:.65rem; }
+  .anime-character-grid img { height:190px; }
+  .anime-moments-grid { gap:1rem .65rem; }
+  .anime-moments-grid a { font-size:.8rem; }
+}
